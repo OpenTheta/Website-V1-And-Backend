@@ -35,7 +35,7 @@ Vue.component('my-nft-card', {
             // };
             let name = "ERROR";
             for (let i = 0; i < NFTProjects.length; i++){
-                if (NFTProjects[i].address === nft.contract) {
+                if (NFTProjects[i].contract === nft.contract) {
                     name = NFTProjects[i].name;
                 }
             }
@@ -212,7 +212,7 @@ Vue.component('nft-sell', {
             // let priceWei = ethers.BigNumber.from(this.price).mul(ethers.BigNumber.from("1000000000000000000"));
             let priceWei = ethers.BigNumber.from(this.price*100).mul(ethers.BigNumber.from("10000000000000000"));
             for (let i = 0; i < NFTProjects.length; i++){
-                if (NFTProjects[i].address === nft.contract) {
+                if (NFTProjects[i].contract === nft.contract) {
                     name = NFTProjects[i].name;
                 }
             }
@@ -237,45 +237,45 @@ Vue.component('nft-sell', {
 });
 
 
-// let NFTProjects = [];
-const NFTProjects = [
-    {
-        name: 'Semtex Samurai',
-        address: '0x9b68d13cc9dbd72dcae02b201420262e617ddb58',
-    },
-    {
-        name: 'Mitch Alien',
-        address: '0x7cd383e28540c8e6439dc4cd46e70fbddeb7dc0e',
-    },
-    {
-        name: 'Wes Zombie',
-        address: '0xcfe69d80cc163ad1a786a75418d495cd26b0cc81',
-    },
-    {
-        name: 'Jieyi Ape',
-        address: '0x050ce846802aab7b5f34d4efb1eeb72a83ef248c',
-    },
-    {
-        name: 'Kyle Human',
-        address: '0xb700ca3044fef95e17e217fe3a4a53139895d790',
-    },
-    {
-        name: 'ThetaPunks',
-        address: '0x1f3de9cdb1d4ed10e8b7b3f21f282d84f7f54473',
-    },
-    {
-        name: 'ThetaMan',
-        address: '0xff290451c54a6ebd390287b4db18058a0e892cde',
-    },
-    {
-        name: 'ThetaBoard',
-        address: '0x34f573de2416c8c4e968ca16a18b46c2a7d833c2'
-    },
-    {
-        name: 'ThetaBoard 2021',
-        address: '0x7500cbde64b1bf956351aa4ea2fa4ee1467a3428'
-    },
-];
+let NFTProjects = [];
+// const NFTProjects = [
+//     {
+//         name: 'Semtex Samurai',
+//         address: '0x9b68d13cc9dbd72dcae02b201420262e617ddb58',
+//     },
+//     {
+//         name: 'Mitch Alien',
+//         address: '0x7cd383e28540c8e6439dc4cd46e70fbddeb7dc0e',
+//     },
+//     {
+//         name: 'Wes Zombie',
+//         address: '0xcfe69d80cc163ad1a786a75418d495cd26b0cc81',
+//     },
+//     {
+//         name: 'Jieyi Ape',
+//         address: '0x050ce846802aab7b5f34d4efb1eeb72a83ef248c',
+//     },
+//     {
+//         name: 'Kyle Human',
+//         address: '0xb700ca3044fef95e17e217fe3a4a53139895d790',
+//     },
+//     {
+//         name: 'ThetaPunks',
+//         address: '0x1f3de9cdb1d4ed10e8b7b3f21f282d84f7f54473',
+//     },
+//     {
+//         name: 'ThetaMan',
+//         address: '0xff290451c54a6ebd390287b4db18058a0e892cde',
+//     },
+//     {
+//         name: 'ThetaBoard',
+//         address: '0x34f573de2416c8c4e968ca16a18b46c2a7d833c2'
+//     },
+//     {
+//         name: 'ThetaBoard 2021',
+//         address: '0x7500cbde64b1bf956351aa4ea2fa4ee1467a3428'
+//     },
+// ];
 
 // Test chain
 // const NFTProjects = [
@@ -505,7 +505,7 @@ let app = new Vue({
 
                 for(let j=0; j<NFTProjects.length; j++ ) {
                     const contractObject = new ethers.Contract(
-                        NFTProjects[j].address,
+                        NFTProjects[j].contract,
                         contractThetaPunksABI,
                         provider
                     );
@@ -532,7 +532,7 @@ let app = new Vue({
                                     imageUrl: response.data.image,
                                     description: response.data.description,
                                     tokenId: tokenID,
-                                    contract: NFTProjects[j].address,
+                                    contract: NFTProjects[j].contract,
                                     owner: this.userAddress,
                                         };
                                 this.myNFTs.push(myNFT);
@@ -572,9 +572,9 @@ let app = new Vue({
         },
     },
     created() {
-        // axios.get('https://opentheta.de/api/projects').then(response => {
-        //     NFTProjects = response.data;
-        // });
+        axios.get('https://opentheta.de/api/projects').then(response => {
+            NFTProjects = response.data;
+        });
         this.onMarket();
         try{
             if(provider){

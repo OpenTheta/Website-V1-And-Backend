@@ -9,14 +9,14 @@ const projects = require("./models/dbHelpers");
 //     });
 // }
 //
-function addProject (project) {
-    projects.addProject((project)).then(res => {
-        console.log(res);
-    }).catch(error => {
-        console.log('failed to add project');
-        console.log(error);
-    })
-}
+// function addProject (project) {
+//     projects.addProject((project)).then(res => {
+//         console.log(res);
+//     }).catch(error => {
+//         console.log('failed to add project');
+//         console.log(error);
+//     })
+// }
 //
 // const thetaBoard = {
 //     contract: '0x983bc6758b206a30dc521520e4b202bb37ce3bb9',
@@ -77,15 +77,15 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
-const JieyiApe = {
-    contract: '0x050ce846802aab7b5f34d4efb1eeb72a83ef248c',
-    name: 'JieyiApe',
-    creator: 'ThetaPunks',
-    tokenNumber: 25,
-    description: 'Special drop for holding ThetaPunks',
-    imgUrl:'https://ipfs.io/ipfs/QmQNLQUao7wUFaQ8FgFjRw7xMfrQngZ5m7Y9zKmjyjcRhb',
-    hasMetadata: true,
-}
+// const JieyiApe = {
+//     contract: '0x050ce846802aab7b5f34d4efb1eeb72a83ef248c',
+//     name: 'JieyiApe',
+//     creator: 'ThetaPunks',
+//     tokenNumber: 25,
+//     description: 'Special drop for holding ThetaPunks',
+//     imgUrl:'https://ipfs.io/ipfs/QmQNLQUao7wUFaQ8FgFjRw7xMfrQngZ5m7Y9zKmjyjcRhb',
+//     hasMetadata: true,
+// }
 
 // const KyleHuman = {
 //     contract: '0xb700ca3044fef95e17e217fe3a4a53139895d790',
@@ -99,7 +99,7 @@ const JieyiApe = {
 
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
-addProject(JieyiApe)
+// addProject(JieyiApe)
 // addProject(KyleHuman)
 
 // const p2 = {
@@ -258,13 +258,39 @@ addProject(JieyiApe)
 //     console.log('failed to delete project');
 // });
 //
-//
-// projects.updateProject('2222', updateP).then(res => {
-//     console.log("updateProject");
-//     console.log(res);
-// }).catch(error => {
-//     console.log('failed to update project');
-// });
+const updateThetaBoard = {
+    name: "ThetaBoard",
+}
+
+const updateThetaMan = {
+    name: "ThetaMan",
+}
+
+const updateThetaBoard2021 = {
+    name: "ThetaBoard 2021",
+}
+
+
+projects.updateProject('0x34f573de2416c8c4e968ca16a18b46c2a7d833c2', updateThetaBoard).then(res => {
+    console.log("updateProject");
+    console.log(res);
+}).catch(error => {
+    console.log('failed to update project');
+});
+
+projects.updateProject('0x7500cbde64b1bf956351aa4ea2fa4ee1467a3428', updateThetaBoard2021).then(res => {
+    console.log("updateProject");
+    console.log(res);
+}).catch(error => {
+    console.log('failed to update project');
+});
+
+projects.updateProject('0xff290451c54a6ebd390287b4db18058a0e892cde', updateThetaMan).then(res => {
+    console.log("updateProject");
+    console.log(res);
+}).catch(error => {
+    console.log('failed to update project');
+});
 //
 //
 // projects.getAllProjects().then(res => {
