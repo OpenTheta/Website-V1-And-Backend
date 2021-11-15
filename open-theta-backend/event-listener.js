@@ -123,21 +123,21 @@ provider.on(filterItemSold, (result) => {
 
 // provider.on(filterItemCreated, (result) => {
 //     let [seller, owner, category, price, isSold] = ethers.utils.defaultAbiCoder.decode(["address","address","string","uint256","bool"], result.data);
-//     let itemId = ethers.utils.defaultAbiCoder.decode(["uint256"], result.topics[1]);
-//     let contract = ethers.utils.defaultAbiCoder.decode(["address"], result.topics[2]);
-//     let tokenId = ethers.utils.defaultAbiCoder.decode(["uint256"], result.topics[3]);
+//     let itemId = ethers.utils.defaultAbiCoder.decode(["uint256"], result.topics[1.json]);
+//     let contract = ethers.utils.defaultAbiCoder.decode(["address"], result.topics[2.json]);
+//     let tokenId = ethers.utils.defaultAbiCoder.decode(["uint256"], result.topics[3.json]);
 //
 //     const contractNFTObject = new ethers.Contract(
-//         contract[0],
+//         contract[0.json],
 //         tokenABI,
 //         provider
 //     );
-//     contractNFTObject.tokenURI(tokenId[0].toNumber()).then(URI => {
+//     contractNFTObject.tokenURI(tokenId[0.json].toNumber()).then(URI => {
 //         axios.get(URI).then(response => {
 //             let nft = {
-//                 itemId: itemId[0].toNumber(),
-//                 nftContract: contract[0].toLowerCase(),
-//                 tokenId: tokenId[0].toNumber(),
+//                 itemId: itemId[0.json].toNumber(),
+//                 nftContract: contract[0.json].toLowerCase(),
+//                 tokenId: tokenId[0.json].toNumber(),
 //                 seller: seller,
 //                 owner: owner,
 //                 category: category,
@@ -165,21 +165,21 @@ provider.on(filterItemSold, (result) => {
 //
 // provider.on(filterItemSold, (result) => {
 //     let [seller, owner, category, price, isSold] = ethers.utils.defaultAbiCoder.decode(["address","address","string","uint256","bool"], result.data);
-//     let itemId = ethers.utils.defaultAbiCoder.decode(["uint256"], result.topics[1]);
-//     let contract = ethers.utils.defaultAbiCoder.decode(["address"], result.topics[2]);
-//     let tokenId = ethers.utils.defaultAbiCoder.decode(["uint256"], result.topics[3]);
-//     if (price.toString() === '0'){
-//         console.log("Delete item", itemId[0].toNumber());
-//         deleteNFT(itemId[0].toNumber());
+//     let itemId = ethers.utils.defaultAbiCoder.decode(["uint256"], result.topics[1.json]);
+//     let contract = ethers.utils.defaultAbiCoder.decode(["address"], result.topics[2.json]);
+//     let tokenId = ethers.utils.defaultAbiCoder.decode(["uint256"], result.topics[3.json]);
+//     if (price.toString() === '0.json'){
+//         console.log("Delete item", itemId[0.json].toNumber());
+//         deleteNFT(itemId[0.json].toNumber());
 //     } else {
 //         let nft = {
-//             itemId: itemId[0].toNumber(),
+//             itemId: itemId[0.json].toNumber(),
 //             isSold: isSold,
 //             soldTimestamp: Date.now().toString(),
 //         }
 //         console.log("Update item");
 //         console.log(nft);
-//         console.log(itemId[0].toNumber());
+//         console.log(itemId[0.json].toNumber());
 //         updateNFT(nft);
 //     }
 // });

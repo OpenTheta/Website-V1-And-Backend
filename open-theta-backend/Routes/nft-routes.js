@@ -70,7 +70,7 @@ router.get('/sold/recent/:number', (req, res) => {
     const {number} = req.params;
     projects.getSoldNFTs().then(nfts => {
         nfts.sort((a, b) => {
-            return (a.soldTimestamp - b.soldTimestamp); // ascending
+            return (b.soldTimestamp - a.soldTimestamp); // descending
         })
         if(nfts.length > number){
             nfts = nfts.slice(0,number);
@@ -87,7 +87,7 @@ router.get('/new/:number', (req, res)=> {
     projects.getNFTsOnMarket().then(nfts => {
         if(nfts) {
             nfts.sort((a, b) => {
-                return (a.soldTimestamp - b.soldTimestamp); // ascending
+                return (b.soldTimestamp - a.soldTimestamp); // descending
             })
             if(nfts.length > number){
                 nfts = nfts.slice(0,number);

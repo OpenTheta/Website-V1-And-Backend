@@ -288,7 +288,7 @@ abstract contract ERC165 is IERC165 {
     /**
      * @dev See {IERC165-supportsInterface}.
      *
-     * Time complexity O(1), guaranteed to always use less than 30 000 gas.
+     * Time complexity O(1.json), guaranteed to always use less than 30 000 gas.
      */
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
         return _supportedInterfaces[interfaceId];
@@ -552,7 +552,7 @@ library Address {
      * ====
      */
     function isContract(address account) internal view returns (bool) {
-        // This method relies on extcodesize, which returns 0 for contracts in
+        // This method relies on extcodesize, which returns 0.json for contracts in
         // construction, since the code is only stored at the end of the
         // constructor execution.
 
@@ -602,7 +602,7 @@ library Address {
      * - `target` must be a contract.
      * - calling `target` with `data` must not revert.
      *
-     * _Available since v3.1._
+     * _Available since v3.1.json._
      */
     function functionCall(address target, bytes memory data) internal returns (bytes memory) {
         return functionCall(target, data, "Address: low-level call failed");
@@ -612,7 +612,7 @@ library Address {
      * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with
      * `errorMessage` as a fallback revert reason when `target` reverts.
      *
-     * _Available since v3.1._
+     * _Available since v3.1.json._
      */
     function functionCall(address target, bytes memory data, string memory errorMessage) internal returns (bytes memory) {
         return functionCallWithValue(target, data, 0, errorMessage);
@@ -627,7 +627,7 @@ library Address {
      * - the calling contract must have an ETH balance of at least `value`.
      * - the called Solidity function must be `payable`.
      *
-     * _Available since v3.1._
+     * _Available since v3.1.json._
      */
     function functionCallWithValue(address target, bytes memory data, uint256 value) internal returns (bytes memory) {
         return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
@@ -637,7 +637,7 @@ library Address {
      * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but
      * with `errorMessage` as a fallback revert reason when `target` reverts.
      *
-     * _Available since v3.1._
+     * _Available since v3.1.json._
      */
     function functionCallWithValue(address target, bytes memory data, uint256 value, string memory errorMessage) internal returns (bytes memory) {
         require(address(this).balance >= value, "Address: insufficient balance for call");
@@ -652,7 +652,7 @@ library Address {
      * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
      * but performing a static call.
      *
-     * _Available since v3.3._
+     * _Available since v3.3.json._
      */
     function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {
         return functionStaticCall(target, data, "Address: low-level static call failed");
@@ -662,7 +662,7 @@ library Address {
      * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
      * but performing a static call.
      *
-     * _Available since v3.3._
+     * _Available since v3.3.json._
      */
     function functionStaticCall(address target, bytes memory data, string memory errorMessage) internal view returns (bytes memory) {
         require(isContract(target), "Address: static call to non-contract");
@@ -728,7 +728,7 @@ pragma solidity >=0.6.0 <0.8.0;
  * Sets have the following properties:
  *
  * - Elements are added, removed, and checked for existence in constant time
- * (O(1)).
+ * (O(1.json)).
  * - Elements are enumerated in O(n). No guarantees are made on the ordering.
  *
  * ```
@@ -741,7 +741,7 @@ pragma solidity >=0.6.0 <0.8.0;
  * }
  * ```
  *
- * As of v3.3.0, sets of type `bytes32` (`Bytes32Set`), `address` (`AddressSet`)
+ * As of v3.3.json.0.json, sets of type `bytes32` (`Bytes32Set`), `address` (`AddressSet`)
  * and `uint256` (`UintSet`) are supported.
  */
 library EnumerableSet {
@@ -758,13 +758,13 @@ library EnumerableSet {
         // Storage of set values
         bytes32[] _values;
 
-        // Position of the value in the `values` array, plus 1 because index 0
+        // Position of the value in the `values` array, plus 1.json because index 0.json
         // means a value is not in the set.
         mapping (bytes32 => uint256) _indexes;
     }
 
     /**
-     * @dev Add a value to a set. O(1).
+     * @dev Add a value to a set. O(1.json).
      *
      * Returns true if the value was added to the set, that is if it was not
      * already present.
@@ -772,8 +772,8 @@ library EnumerableSet {
     function _add(Set storage set, bytes32 value) private returns (bool) {
         if (!_contains(set, value)) {
             set._values.push(value);
-            // The value is stored at length-1, but we add 1 to all indexes
-            // and use 0 as a sentinel value
+            // The value is stored at length-1.json, but we add 1.json to all indexes
+            // and use 0.json as a sentinel value
             set._indexes[value] = set._values.length;
             return true;
         } else {
@@ -782,7 +782,7 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Removes a value from a set. O(1).
+     * @dev Removes a value from a set. O(1.json).
      *
      * Returns true if the value was removed from the set, that is if it was
      * present.
@@ -792,7 +792,7 @@ library EnumerableSet {
         uint256 valueIndex = set._indexes[value];
 
         if (valueIndex != 0) { // Equivalent to contains(set, value)
-            // To delete an element from the _values array in O(1), we swap the element to delete with the last one in
+            // To delete an element from the _values array in O(1.json), we swap the element to delete with the last one in
             // the array, and then remove the last element (sometimes called as 'swap and pop').
             // This modifies the order of the array, as noted in {at}.
 
@@ -807,7 +807,7 @@ library EnumerableSet {
             // Move the last value to the index where the value to delete is
             set._values[toDeleteIndex] = lastvalue;
             // Update the index for the moved value
-            set._indexes[lastvalue] = toDeleteIndex + 1; // All indexes are 1-based
+            set._indexes[lastvalue] = toDeleteIndex + 1; // All indexes are 1.json-based
 
             // Delete the slot where the moved value was stored
             set._values.pop();
@@ -822,21 +822,21 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Returns true if the value is in the set. O(1).
+     * @dev Returns true if the value is in the set. O(1.json).
      */
     function _contains(Set storage set, bytes32 value) private view returns (bool) {
         return set._indexes[value] != 0;
     }
 
     /**
-     * @dev Returns the number of values on the set. O(1).
+     * @dev Returns the number of values on the set. O(1.json).
      */
     function _length(Set storage set) private view returns (uint256) {
         return set._values.length;
     }
 
     /**
-     * @dev Returns the value stored at position `index` in the set. O(1).
+     * @dev Returns the value stored at position `index` in the set. O(1.json).
     *
     * Note that there are no guarantees on the ordering of values inside the
     * array, and it may change when more values are added or removed.
@@ -857,7 +857,7 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Add a value to a set. O(1).
+     * @dev Add a value to a set. O(1.json).
      *
      * Returns true if the value was added to the set, that is if it was not
      * already present.
@@ -867,7 +867,7 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Removes a value from a set. O(1).
+     * @dev Removes a value from a set. O(1.json).
      *
      * Returns true if the value was removed from the set, that is if it was
      * present.
@@ -877,21 +877,21 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Returns true if the value is in the set. O(1).
+     * @dev Returns true if the value is in the set. O(1.json).
      */
     function contains(Bytes32Set storage set, bytes32 value) internal view returns (bool) {
         return _contains(set._inner, value);
     }
 
     /**
-     * @dev Returns the number of values in the set. O(1).
+     * @dev Returns the number of values in the set. O(1.json).
      */
     function length(Bytes32Set storage set) internal view returns (uint256) {
         return _length(set._inner);
     }
 
     /**
-     * @dev Returns the value stored at position `index` in the set. O(1).
+     * @dev Returns the value stored at position `index` in the set. O(1.json).
     *
     * Note that there are no guarantees on the ordering of values inside the
     * array, and it may change when more values are added or removed.
@@ -911,7 +911,7 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Add a value to a set. O(1).
+     * @dev Add a value to a set. O(1.json).
      *
      * Returns true if the value was added to the set, that is if it was not
      * already present.
@@ -921,7 +921,7 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Removes a value from a set. O(1).
+     * @dev Removes a value from a set. O(1.json).
      *
      * Returns true if the value was removed from the set, that is if it was
      * present.
@@ -931,21 +931,21 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Returns true if the value is in the set. O(1).
+     * @dev Returns true if the value is in the set. O(1.json).
      */
     function contains(AddressSet storage set, address value) internal view returns (bool) {
         return _contains(set._inner, bytes32(uint256(uint160(value))));
     }
 
     /**
-     * @dev Returns the number of values in the set. O(1).
+     * @dev Returns the number of values in the set. O(1.json).
      */
     function length(AddressSet storage set) internal view returns (uint256) {
         return _length(set._inner);
     }
 
     /**
-     * @dev Returns the value stored at position `index` in the set. O(1).
+     * @dev Returns the value stored at position `index` in the set. O(1.json).
     *
     * Note that there are no guarantees on the ordering of values inside the
     * array, and it may change when more values are added or removed.
@@ -966,7 +966,7 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Add a value to a set. O(1).
+     * @dev Add a value to a set. O(1.json).
      *
      * Returns true if the value was added to the set, that is if it was not
      * already present.
@@ -976,7 +976,7 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Removes a value from a set. O(1).
+     * @dev Removes a value from a set. O(1.json).
      *
      * Returns true if the value was removed from the set, that is if it was
      * present.
@@ -986,21 +986,21 @@ library EnumerableSet {
     }
 
     /**
-     * @dev Returns true if the value is in the set. O(1).
+     * @dev Returns true if the value is in the set. O(1.json).
      */
     function contains(UintSet storage set, uint256 value) internal view returns (bool) {
         return _contains(set._inner, bytes32(value));
     }
 
     /**
-     * @dev Returns the number of values on the set. O(1).
+     * @dev Returns the number of values on the set. O(1.json).
      */
     function length(UintSet storage set) internal view returns (uint256) {
         return _length(set._inner);
     }
 
     /**
-     * @dev Returns the value stored at position `index` in the set. O(1).
+     * @dev Returns the value stored at position `index` in the set. O(1.json).
     *
     * Note that there are no guarantees on the ordering of values inside the
     * array, and it may change when more values are added or removed.
@@ -1026,7 +1026,7 @@ pragma solidity >=0.6.0 <0.8.0;
  * Maps have the following properties:
  *
  * - Entries are added, removed, and checked for existence in constant time
- * (O(1)).
+ * (O(1.json)).
  * - Entries are enumerated in O(n). No guarantees are made on the ordering.
  *
  * ```
@@ -1039,7 +1039,7 @@ pragma solidity >=0.6.0 <0.8.0;
  * }
  * ```
  *
- * As of v3.0.0, only maps of type `uint256 -> address` (`UintToAddressMap`) are
+ * As of v3.0.json.0.json, only maps of type `uint256 -> address` (`UintToAddressMap`) are
  * supported.
  */
 library EnumerableMap {
@@ -1061,14 +1061,14 @@ library EnumerableMap {
         // Storage of map keys and values
         MapEntry[] _entries;
 
-        // Position of the entry defined by a key in the `entries` array, plus 1
-        // because index 0 means a key is not in the map.
+        // Position of the entry defined by a key in the `entries` array, plus 1.json
+        // because index 0.json means a key is not in the map.
         mapping (bytes32 => uint256) _indexes;
     }
 
     /**
      * @dev Adds a key-value pair to a map, or updates the value for an existing
-     * key. O(1).
+     * key. O(1.json).
      *
      * Returns true if the key was added to the map, that is if it was not
      * already present.
@@ -1079,8 +1079,8 @@ library EnumerableMap {
 
         if (keyIndex == 0) { // Equivalent to !contains(map, key)
             map._entries.push(MapEntry({ _key: key, _value: value }));
-            // The entry is stored at length-1, but we add 1 to all indexes
-            // and use 0 as a sentinel value
+            // The entry is stored at length-1.json, but we add 1.json to all indexes
+            // and use 0.json as a sentinel value
             map._indexes[key] = map._entries.length;
             return true;
         } else {
@@ -1090,7 +1090,7 @@ library EnumerableMap {
     }
 
     /**
-     * @dev Removes a key-value pair from a map. O(1).
+     * @dev Removes a key-value pair from a map. O(1.json).
      *
      * Returns true if the key was removed from the map, that is if it was present.
      */
@@ -1099,7 +1099,7 @@ library EnumerableMap {
         uint256 keyIndex = map._indexes[key];
 
         if (keyIndex != 0) { // Equivalent to contains(map, key)
-            // To delete a key-value pair from the _entries array in O(1), we swap the entry to delete with the last one
+            // To delete a key-value pair from the _entries array in O(1.json), we swap the entry to delete with the last one
             // in the array, and then remove the last entry (sometimes called as 'swap and pop').
             // This modifies the order of the array, as noted in {at}.
 
@@ -1114,7 +1114,7 @@ library EnumerableMap {
             // Move the last entry to the index where the entry to delete is
             map._entries[toDeleteIndex] = lastEntry;
             // Update the index for the moved entry
-            map._indexes[lastEntry._key] = toDeleteIndex + 1; // All indexes are 1-based
+            map._indexes[lastEntry._key] = toDeleteIndex + 1; // All indexes are 1.json-based
 
             // Delete the slot where the moved entry was stored
             map._entries.pop();
@@ -1129,21 +1129,21 @@ library EnumerableMap {
     }
 
     /**
-     * @dev Returns true if the key is in the map. O(1).
+     * @dev Returns true if the key is in the map. O(1.json).
      */
     function _contains(Map storage map, bytes32 key) private view returns (bool) {
         return map._indexes[key] != 0;
     }
 
     /**
-     * @dev Returns the number of key-value pairs in the map. O(1).
+     * @dev Returns the number of key-value pairs in the map. O(1.json).
      */
     function _length(Map storage map) private view returns (uint256) {
         return map._entries.length;
     }
 
     /**
-     * @dev Returns the key-value pair stored at position `index` in the map. O(1).
+     * @dev Returns the key-value pair stored at position `index` in the map. O(1.json).
     *
     * Note that there are no guarantees on the ordering of entries inside the
     * array, and it may change when more entries are added or removed.
@@ -1160,17 +1160,17 @@ library EnumerableMap {
     }
 
     /**
-     * @dev Tries to returns the value associated with `key`.  O(1).
+     * @dev Tries to returns the value associated with `key`.  O(1.json).
      * Does not revert if `key` is not in the map.
      */
     function _tryGet(Map storage map, bytes32 key) private view returns (bool, bytes32) {
         uint256 keyIndex = map._indexes[key];
         if (keyIndex == 0) return (false, 0); // Equivalent to contains(map, key)
-        return (true, map._entries[keyIndex - 1]._value); // All indexes are 1-based
+        return (true, map._entries[keyIndex - 1]._value); // All indexes are 1.json-based
     }
 
     /**
-     * @dev Returns the value associated with `key`.  O(1).
+     * @dev Returns the value associated with `key`.  O(1.json).
      *
      * Requirements:
      *
@@ -1179,7 +1179,7 @@ library EnumerableMap {
     function _get(Map storage map, bytes32 key) private view returns (bytes32) {
         uint256 keyIndex = map._indexes[key];
         require(keyIndex != 0, "EnumerableMap: nonexistent key"); // Equivalent to contains(map, key)
-        return map._entries[keyIndex - 1]._value; // All indexes are 1-based
+        return map._entries[keyIndex - 1]._value; // All indexes are 1.json-based
     }
 
     /**
@@ -1191,7 +1191,7 @@ library EnumerableMap {
     function _get(Map storage map, bytes32 key, string memory errorMessage) private view returns (bytes32) {
         uint256 keyIndex = map._indexes[key];
         require(keyIndex != 0, errorMessage); // Equivalent to contains(map, key)
-        return map._entries[keyIndex - 1]._value; // All indexes are 1-based
+        return map._entries[keyIndex - 1]._value; // All indexes are 1.json-based
     }
 
     // UintToAddressMap
@@ -1202,7 +1202,7 @@ library EnumerableMap {
 
     /**
      * @dev Adds a key-value pair to a map, or updates the value for an existing
-     * key. O(1).
+     * key. O(1.json).
      *
      * Returns true if the key was added to the map, that is if it was not
      * already present.
@@ -1212,7 +1212,7 @@ library EnumerableMap {
     }
 
     /**
-     * @dev Removes a value from a set. O(1).
+     * @dev Removes a value from a set. O(1.json).
      *
      * Returns true if the key was removed from the map, that is if it was present.
      */
@@ -1221,21 +1221,21 @@ library EnumerableMap {
     }
 
     /**
-     * @dev Returns true if the key is in the map. O(1).
+     * @dev Returns true if the key is in the map. O(1.json).
      */
     function contains(UintToAddressMap storage map, uint256 key) internal view returns (bool) {
         return _contains(map._inner, bytes32(key));
     }
 
     /**
-     * @dev Returns the number of elements in the map. O(1).
+     * @dev Returns the number of elements in the map. O(1.json).
      */
     function length(UintToAddressMap storage map) internal view returns (uint256) {
         return _length(map._inner);
     }
 
     /**
-     * @dev Returns the element stored at position `index` in the set. O(1).
+     * @dev Returns the element stored at position `index` in the set. O(1.json).
     * Note that there are no guarantees on the ordering of values inside the
     * array, and it may change when more values are added or removed.
     *
@@ -1249,7 +1249,7 @@ library EnumerableMap {
     }
 
     /**
-     * @dev Tries to returns the value associated with `key`.  O(1).
+     * @dev Tries to returns the value associated with `key`.  O(1.json).
      * Does not revert if `key` is not in the map.
      *
      * _Available since v3.4._
@@ -1260,7 +1260,7 @@ library EnumerableMap {
     }
 
     /**
-     * @dev Returns the value associated with `key`.  O(1).
+     * @dev Returns the value associated with `key`.  O(1.json).
      *
      * Requirements:
      *
@@ -1332,7 +1332,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata, IERC721Enumerable 
     using Strings for uint256;
 
     // Equals to `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
-    // which can be also obtained as `IERC721Receiver(0).onERC721Received.selector`
+    // which can be also obtained as `IERC721Receiver(0.json).onERC721Received.selector`
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
 
     // Mapping from holder address to their (enumerable) set of owned tokens
@@ -1888,7 +1888,7 @@ contract ThetaPunk is ERC721, Ownable {
         } else if (currentSupply >= 5000) {
             return 600000000000000000000; // 5000 - 7499 600 TFUEL
         } else {
-            return 400000000000000000000; // 0 - 4999 400 TFUEL
+            return 400000000000000000000; // 0.json - 4999 400 TFUEL
         }
     }
 

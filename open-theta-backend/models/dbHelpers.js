@@ -253,5 +253,8 @@ function getNFTsOnMarketByAddress(address) {
             "m.imgUrl as imgUrl",
             "m.description as description",
             "m.createdTimestamp as createdTimestamp",
-        ).where({seller: address});
+        ).where({
+            seller: address,
+            isSold: false
+        });
 }

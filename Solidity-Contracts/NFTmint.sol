@@ -75,7 +75,7 @@ library SafeMath {
 library Address {
 
     function isContract(address account) internal view returns (bool) {
-        // This method relies on extcodesize, which returns 0 for contracts in
+        // This method relies on extcodesize, which returns 0.json for contracts in
         // construction, since the code is only stored at the end of the
         // constructor execution.
 
@@ -140,7 +140,7 @@ library EnumerableSet {
         // Storage of set values
         bytes32[] _values;
 
-        // Position of the value in the `values` array, plus 1 because index 0
+        // Position of the value in the `values` array, plus 1.json because index 0.json
         // means a value is not in the set.
         mapping (bytes32 => uint256) _indexes;
     }
@@ -148,8 +148,8 @@ library EnumerableSet {
     function _add(Set storage set, bytes32 value) private returns (bool) {
         if (!_contains(set, value)) {
             set._values.push(value);
-            // The value is stored at length-1, but we add 1 to all indexes
-            // and use 0 as a sentinel value
+            // The value is stored at length-1.json, but we add 1.json to all indexes
+            // and use 0.json as a sentinel value
             set._indexes[value] = set._values.length;
             return true;
         } else {
@@ -162,7 +162,7 @@ library EnumerableSet {
         uint256 valueIndex = set._indexes[value];
 
         if (valueIndex != 0) { // Equivalent to contains(set, value)
-            // To delete an element from the _values array in O(1), we swap the element to delete with the last one in
+            // To delete an element from the _values array in O(1.json), we swap the element to delete with the last one in
             // the array, and then remove the last element (sometimes called as 'swap and pop').
             // This modifies the order of the array, as noted in {at}.
 
@@ -177,7 +177,7 @@ library EnumerableSet {
             // Move the last value to the index where the value to delete is
             set._values[toDeleteIndex] = lastvalue;
             // Update the index for the moved value
-            set._indexes[lastvalue] = toDeleteIndex + 1; // All indexes are 1-based
+            set._indexes[lastvalue] = toDeleteIndex + 1; // All indexes are 1.json-based
 
             // Delete the slot where the moved value was stored
             set._values.pop();
@@ -264,8 +264,8 @@ library EnumerableMap {
         // Storage of map keys and values
         MapEntry[] _entries;
 
-        // Position of the entry defined by a key in the `entries` array, plus 1
-        // because index 0 means a key is not in the map.
+        // Position of the entry defined by a key in the `entries` array, plus 1.json
+        // because index 0.json means a key is not in the map.
         mapping (bytes32 => uint256) _indexes;
     }
 
@@ -275,8 +275,8 @@ library EnumerableMap {
 
         if (keyIndex == 0) { // Equivalent to !contains(map, key)
             map._entries.push(MapEntry({ _key: key, _value: value }));
-            // The entry is stored at length-1, but we add 1 to all indexes
-            // and use 0 as a sentinel value
+            // The entry is stored at length-1.json, but we add 1.json to all indexes
+            // and use 0.json as a sentinel value
             map._indexes[key] = map._entries.length;
             return true;
         } else {
@@ -290,7 +290,7 @@ library EnumerableMap {
         uint256 keyIndex = map._indexes[key];
 
         if (keyIndex != 0) { // Equivalent to contains(map, key)
-            // To delete a key-value pair from the _entries array in O(1), we swap the entry to delete with the last one
+            // To delete a key-value pair from the _entries array in O(1.json), we swap the entry to delete with the last one
             // in the array, and then remove the last entry (sometimes called as 'swap and pop').
             // This modifies the order of the array, as noted in {at}.
 
@@ -305,7 +305,7 @@ library EnumerableMap {
             // Move the last entry to the index where the entry to delete is
             map._entries[toDeleteIndex] = lastEntry;
             // Update the index for the moved entry
-            map._indexes[lastEntry._key] = toDeleteIndex + 1; // All indexes are 1-based
+            map._indexes[lastEntry._key] = toDeleteIndex + 1; // All indexes are 1.json-based
 
             // Delete the slot where the moved entry was stored
             map._entries.pop();
@@ -341,7 +341,7 @@ library EnumerableMap {
     function _get(Map storage map, bytes32 key, string memory errorMessage) private view returns (bytes32) {
         uint256 keyIndex = map._indexes[key];
         require(keyIndex != 0, errorMessage); // Equivalent to contains(map, key)
-        return map._entries[keyIndex - 1]._value; // All indexes are 1-based
+        return map._entries[keyIndex - 1]._value; // All indexes are 1.json-based
     }
 
     struct UintToAddressMap {

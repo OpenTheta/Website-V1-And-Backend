@@ -9,14 +9,14 @@ const projects = require("./models/dbHelpers");
 //     });
 // }
 //
-// function addProject (project) {
-//     projects.addProject((project)).then(res => {
-//         console.log(res);
-//     }).catch(error => {
-//         console.log('failed to add project');
-//         console.log(error);
-//     })
-// }
+function addProject (project) {
+    projects.addProject((project)).then(res => {
+        console.log(res);
+    }).catch(error => {
+        console.log('failed to add project');
+        console.log(error);
+    })
+}
 //
 // const thetaBoard = {
 //     contract: '0x983bc6758b206a30dc521520e4b202bb37ce3bb9',
@@ -97,10 +97,21 @@ const projects = require("./models/dbHelpers");
 //     hasMetadata: true,
 // }
 
+const ThetaPugs = {
+    contract: '0x9791ddfefadb0b1bed5f35604de262506c6ee45c',
+    name: 'ThetaPugs',
+    creator: 'ThetaPugs',
+    tokenNumber: 10000,
+    description: 'A Collection of 10,000 Randomly Generated Pug NFTs, exclusive to the Theta Blockchain',
+    imgUrl:'https://imqbmq3agtaqg35bmcztbw4bmccrocpnva4oifxiebu2tqsmpqba.arweave.net/QyAWQ2A0wQNvoWCzMNuBYIUXCe2oOOQW6CBpqcJMfAI',
+    hasMetadata: true,
+}
+
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
 // addProject(JieyiApe)
 // addProject(KyleHuman)
+addProject(ThetaPugs);
 
 // const p2 = {
 //     contract: '2222',
@@ -113,8 +124,8 @@ const projects = require("./models/dbHelpers");
 // }
 
 // const nft1 = {
-//     itemId: 0,
-//     tokenId: 1,
+//     itemId: 0.json,
+//     tokenId: 1.json,
 //     seller: "seller",
 //     owner: "owner",
 //     category: "category",
@@ -127,8 +138,8 @@ const projects = require("./models/dbHelpers");
 // }
 //
 // const nft2 = {
-//     itemId: 2,
-//     tokenId: 1,
+//     itemId: 2.json,
+//     tokenId: 1.json,
 //     seller: "seller",
 //     owner: "owner",
 //     category: "category",
@@ -141,8 +152,8 @@ const projects = require("./models/dbHelpers");
 // }
 //
 // const nft3 = {
-//     itemId: 3,
-//     tokenId: 1,
+//     itemId: 3.json,
+//     tokenId: 1.json,
 //     seller: "seller",
 //     owner: "owner",
 //     category: "category",
@@ -156,7 +167,7 @@ const projects = require("./models/dbHelpers");
 //
 // const nft4 = {
 //     itemId: 4,
-//     tokenId: 1,
+//     tokenId: 1.json,
 //     seller: "seller",
 //     owner: "owner",
 //     category: "category",
@@ -231,7 +242,7 @@ const projects = require("./models/dbHelpers");
 // });
 //
 //
-// projects.deleteNFT(1).then(res => {
+// projects.deleteNFT(1.json).then(res => {
 //     console.log(res);
 // }).catch(error => {
 //     console.log("deleteNFT");
@@ -258,39 +269,39 @@ const projects = require("./models/dbHelpers");
 //     console.log('failed to delete project');
 // });
 //
-const updateThetaBoard = {
-    name: "ThetaBoard",
-}
+// const updateThetaBoard = {
+//     name: "ThetaBoard",
+// }
+//
+// const updateThetaMan = {
+//     name: "ThetaMan",
+// }
+//
+// const updateThetaBoard2021 = {
+//     name: "ThetaBoard 2021",
+// }
 
-const updateThetaMan = {
-    name: "ThetaMan",
-}
 
-const updateThetaBoard2021 = {
-    name: "ThetaBoard 2021",
-}
-
-
-projects.updateProject('0x34f573de2416c8c4e968ca16a18b46c2a7d833c2', updateThetaBoard).then(res => {
-    console.log("updateProject");
-    console.log(res);
-}).catch(error => {
-    console.log('failed to update project');
-});
-
-projects.updateProject('0x7500cbde64b1bf956351aa4ea2fa4ee1467a3428', updateThetaBoard2021).then(res => {
-    console.log("updateProject");
-    console.log(res);
-}).catch(error => {
-    console.log('failed to update project');
-});
-
-projects.updateProject('0xff290451c54a6ebd390287b4db18058a0e892cde', updateThetaMan).then(res => {
-    console.log("updateProject");
-    console.log(res);
-}).catch(error => {
-    console.log('failed to update project');
-});
+// projects.updateProject('0x34f573de2416c8c4e968ca16a18b46c2a7d833c2', updateThetaBoard).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
+//
+// projects.updateProject('0x7500cbde64b1bf956351aa4ea2fa4ee1467a3428', updateThetaBoard2021).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
+//
+// projects.updateProject('0xff290451c54a6ebd390287b4db18058a0e892cde', updateThetaMan).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
 //
 //
 // projects.getAllProjects().then(res => {
@@ -306,4 +317,8 @@ projects.updateProject('0xff290451c54a6ebd390287b4db18058a0e892cde', updateTheta
 //     console.log(res);
 // }).catch(error => {
 //     console.log('failed to delete project');
+// });
+
+// projects.getProjectsNFTsOnMarket('0x34f573de2416c8c4e968ca16a18b46c2a7d833c2').then(res => {
+//     console.log(res);
 // });

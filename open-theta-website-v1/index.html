@@ -35,6 +35,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item pe-auto"><a class="nav-link" href="#" v-on:click="onMarket">Overview</a></li>
                 <li class="nav-item pe-auto"><a class="nav-link" href="#" v-on:click="myAssets">MyAssets</a></li>
+                <li class="nav-item pe-auto"><a class="nav-link" href="#" v-on:click="Launchpad">Launchpad</a></li>
                 <li class="nav-item pe-auto"><a class="nav-link" target="_blank" href="https://how-to.opentheta.io">HowTo?</a></li>
                 <li class="nav-item pe-auto">
                     <b-nav-item-dropdown id="dropdown-1" text="Filter">
@@ -52,9 +53,10 @@
         </div>
 <!--    </div>-->
 </nav>
-
-<section style="width: 100%;min-height: 100vh;background: #dadada;padding-top: 100px;">
-        <div v-if="myAssetsPage" class="row d-flex justify-content-center">
+<nft-mint v-if="(currentFilter === 'ThetaPugs' || currentFilter === 'ALL') && page === 'marketPage'" :project="launchProjects[0]"></nft-mint>
+    <nft-mint v-for="project in launchProjects" v-if="page === 'launchpadPage'" :project="project"></nft-mint>
+<section v-if="!(page === 'launchpadPage')" style="width: 100%;min-height: 100vh;background: #dadada;padding-top: 100px;">
+        <div v-if="page === 'myAssetsPage'" class="row d-flex justify-content-center">
             <my-nft-card v-for="nft in myNFTs" :nft="nft" :onsale="false" :key="nft.name+nft.tokenId"></my-nft-card>
             <div v-if="myNFTs.length === 0" class="d-flex justify-content-center" style="color: #757575; padding-top: 50px">
                 <h2>You don't own NFTs...</h2>
@@ -64,7 +66,7 @@
             </div>
             <my-nft-card v-for="nft in marketNfts" v-if="nft.seller.toLowerCase() === userAddress" :nft="nft" :onsale="true" :key="nft.name+nft.tokenId"></my-nft-card>
         </div>
-        <div v-if="marketPage" class="row d-flex justify-content-center">
+        <div v-if="page === 'marketPage'" class="row d-flex justify-content-center">
             <nft-card v-for="nft in marketNfts" :nft="nft" :useraccount="userAddress" :key="nft.id" v-if="currentFilter === nft.category || currentFilter === 'ALL'" ></nft-card>
             <div v-if="marketNfts.length === 0" class="d-flex justify-content-center" style="color: #757575; padding-top: 50px">
                 <h2>Nothing on the market...</h2>
@@ -76,7 +78,7 @@
             <nft-sold v-for="nft in soldNFTs" :nft="nft" :key="nft.id" v-if="currentFilter === nft.category || currentFilter === 'ALL'"></nft-sold>
             <div style="height: 50px;"></div>
         </div>
-        <div v-if="sellPage" class="d-flex justify-content-center">
+        <div v-if="page === 'sellPage'" class="d-flex justify-content-center">
             <nft-sell :nft="sellNft"></nft-sell>
         </div>
 </section>
@@ -94,13 +96,12 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Beta test v0.1</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Beta test v1.0</h5>
                 </div>
                 <div class="modal-body">
                     <h4>Beta test</h4>
                     <p style="word-break: break-all;">
-                        This is a test version (v0.1) of our NFT marketplace. After
-                        thoroughly testing the smart contract on the theta testnet, we let you all try it out.
+                        This is a test version (v1.0) of our NFT marketplace. The smart contract our marketplace runs on is now audited!
                     </p>
                     <h6>
                         We are in no way affiliated with OpenSea or any other NFT marketplace.
@@ -114,10 +115,13 @@
                             ThetaPunks
                         </li>
                         <li>
-                            Thetaboard Early Adopter
+                            ThetaPugs
                         </li>
                         <li>
                             Theta Man on the Moon
+                        </li>
+                        <li>
+                            and more ...
                         </li>
                     </ul>
                     <p>

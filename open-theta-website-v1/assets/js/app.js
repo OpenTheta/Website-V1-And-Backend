@@ -4,7 +4,10 @@ Vue.component('my-nft-card', {
     template:
     '<div class="col" style="max-width: 400px">\n' +
         '    <div class="card" style="width: 20rem;border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;box-shadow: 2px 2px 16px 8px rgba(0,0,0,0.1);min-width: 300px;border-style: none;max-width: 100%;margin: 16px;">\n' +
-        '     <img class="image" :src="nft.imageUrl" style="height: 320px; border-top-left-radius: 20px;border-top-right-radius: 20px;"> \n' +
+        // '     <img class="image" :src="nft.imageUrl" style="height: 320px; border-top-left-radius: 20px;border-top-right-radius: 20px;"> \n' +
+        '     <div class="overflow-hidden" style="height: 320px; border-top-left-radius: 20px;border-top-right-radius: 20px; max-width: 400px; align-items: center; overflow: hidden; position: relative;">' +
+        '        <img class="img-responsive" :src="nft.imageUrl" style="border-top-left-radius: 20px;border-top-right-radius: 20px; max-width: 320px; position: absolute;"> \n' +
+        '     </div>' +
         '      <div class="card-body d-flex flex-column justify-content-between" style="padding-bottom: 20px;height: 240px;">\n' +
         '        <div>\n' +
         '           <div v-if="nft.onsale">\n' +
@@ -66,7 +69,9 @@ Vue.component('nft-card', {
     template:
         '<div class="col" style="max-width: 400px">\n' +
         '    <div class="card" style="width: 20rem;border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;box-shadow: 2px 2px 16px 8px rgba(0,0,0,0.1);min-width: 300px;border-style: none;max-width: 100%;margin: 16px;">\n' +
-        '     <img class="image" :src="nft.imageUrl" style="height: 320px; border-top-left-radius: 20px;border-top-right-radius: 20px;"> \n' +
+        '     <div class="overflow-hidden" style="height: 320px; border-top-left-radius: 20px;border-top-right-radius: 20px; max-width: 400px; align-items: center; overflow: hidden; position: relative;">' +
+        '        <img class="img-responsive" :src="nft.imageUrl" style="border-top-left-radius: 20px;border-top-right-radius: 20px; max-width: 320px; position: absolute;"> \n' +
+        '     </div>' +
         '      <div class="card-body d-flex flex-column justify-content-between" style="padding-bottom: 20px;height: 300px;">\n' +
         '        <div>\n' +
         '          <h6 class="text-muted d-inline mb-2" style="color: #757575;font-size: 20px;font-family: \'Source Sans Pro\', sans-serif;font-weight: 600;border-bottom-right-radius: 10px;border-top-right-radius: 10px;margin-left: -20px;padding-left: 20px;padding-right: 8px;padding-bottom: 2px;background: #cdcf66;padding-top: 2px;">{{(nft.price).toLocaleString(\'en\').replace(\',\', \' \')}} TFuel</h6>\n' +
@@ -84,7 +89,7 @@ Vue.component('nft-card', {
     methods: {
         buyNft: async function (nft) {
             this.waiting = true;
-            const signer = provider.getSigner()
+            const signer = provider.getSigner();
             console.log("buy");
             const contractMarketObject = new ethers.Contract(
                 marktAddress,
@@ -148,7 +153,9 @@ Vue.component('nft-sell', {
     },
     template:
         '    <div class="card" style="width: 20rem;border-top-left-radius: 20px;border-top-right-radius: 20px;border-bottom-right-radius: 20px;border-bottom-left-radius: 20px;box-shadow: 2px 2px 16px 8px rgba(0,0,0,0.1);min-width: 300px;border-style: none;max-width: 100%;margin: 16px;">\n' +
-        '     <img class="image" :src="nft.imageUrl" style="height: 320px; border-top-left-radius: 20px;border-top-right-radius: 20px;"> \n' +
+        '     <div class="overflow-hidden" style="height: 320px; border-top-left-radius: 20px;border-top-right-radius: 20px; max-width: 400px; align-items: center; overflow: hidden; position: relative;">' +
+        '        <img class="img-responsive" :src="nft.imageUrl" style="border-top-left-radius: 20px;border-top-right-radius: 20px; max-width: 320px; position: absolute; top:-10%"> \n' +
+        '     </div>' +
         '      <div class="card-body d-flex flex-column justify-content-between" style="padding-bottom: 20px;height: 310px;">\n' +
         '        <div>\n' +
         '          <h4 id="title1" style="font-family: \'Source Sans Pro\', sans-serif;font-weight: 700;color: rgb(255,160,0);margin-bottom: 8px;margin-top: 22px;">{{nft.name}}</h4>\n' +
@@ -236,6 +243,142 @@ Vue.component('nft-sell', {
     }
 });
 
+Vue.component('nft-mint', {
+    props:["project"],
+    data() {
+        return {
+            saleIsActive: false,
+            maxSupply: 0,
+            currentSupply: 0,
+            currentPrice: 0,
+            providerAvailable: true,
+        };
+    },
+    template:
+        '<section class="d-flex justify-content-center align-items-center" style="width: 100%;min-height: 100vh; background:#002f73; background-image: url(\'assets/img/background-ThetaPugs.jpg\'); background-repeat: no-repeat; background-size: cover">\n' +
+        '        <div class="container">\n' +
+        '            <div class="row">\n' +
+        '                <div class="col-md-6 d-flex flex-column align-items-center"><img :src="project.image" style="max-width: 90%;padding-top: 50px;">\n' +
+        '                    <h5 style="color: rgb(229,232,234);margin-top: 20px;">{{currentSupply}}/{{maxSupply}}</h5>\n' +
+        '                    <h5 style="color: rgb(229,232,234);">{{currentPrice}} TFuel</h5>\n' +
+        '                    <div v-if="saleIsActive" style="padding: 20px;"><a class="btn btn-light action-button" role="button" id="connectButton-1" href="#" v-on:click="mintNFT()" style="max-width: 100px;width: 90px;background: rgb(86,198,198);border-color: rgb(86,198,198);color: rgb(255,255,255);">Mint</a></div>\n' +
+        '                    <h5 v-if="!saleIsActive && providerAvailable" class="d-flex justify-content-center" style="color: #757575; padding-top: 10px">Minting stopped or ended</h5>' +
+        '                    <h5 v-if="!providerAvailable" class="d-flex justify-content-center" style="color: #757575; padding-top: 10px">No MetaMask installed, cannot fetch data</h5>' +
+        '                </div>\n' +
+        '                <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">\n' +
+        '                    <h1 style="color: rgb(229,232,234);margin-top: 50px;margin-bottom: 30px;">{{project.name}}</h1>\n' +
+        '                    <div>\n' +
+        '                        <p v-for="paragraph in project.description" style="color: rgb(229,232,234);margin-right: 5px;margin-left: 5px;">{{paragraph}}</p>\n' +
+        '                    </div><a :href="project.domain" style="margin-bottom: 20px;color: rgb(229,232,234);">{{project.domain.substring(8)}}</a>\n' +
+        '                </div>\n' +
+        '            </div>\n' +
+        '        </div>\n' +
+        '    </section>',
+    methods: {
+        sleep: function (ms) {
+            return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+            });
+        },
+        mintNFT: async function() {
+            console.log("mint", this.project.contract);
+            const signer = provider.getSigner();
+            const contractMintObject = new ethers.Contract(
+                this.project.contract,
+                contractThetaPunksABI,
+                signer
+            );
+            let price = contractMintObject.getNFTPrice();
+            let overrides = {
+                value: price,
+            };
+            if (typeof window.ethereum !== 'undefined') {
+                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                try{
+                    await contractMintObject.safeMint(accounts[0], overrides);
+                    await this.sleep(6000);
+                    this.updateValues(contractMintObject);
+                } catch (e) {
+                    console.log(e);
+                }
+            } else {
+                console.log("No Metamask");
+            }
+        },
+        updateValues: async function(contractMintObject) {
+            contractMintObject.totalSupply().then(res => {
+                this.currentSupply = res.toNumber();
+                if (this.currentSupply < this.maxSupply) {
+                    contractMintObject.saleIsActive().then(res => {
+                        this.saleIsActive = res;
+                        if(this.saleIsActive) {
+                            contractMintObject.getNFTPrice().then(res => {
+                                this.currentPrice = (ethers.BigNumber.from(res).div(ethers.BigNumber.from("1000000000000000000"))).toNumber();
+                            }).catch((error) => {
+                                console.log(error);
+                            });
+                        }
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                } else {
+                    this.saleIsActive = false;
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+
+        }
+    },
+    created () {
+        try {
+            const contractMintObject = new ethers.Contract(
+                this.project.contract,
+                contractThetaPunksABI,
+                provider
+            );
+            // get Items on sale from smart contract
+            contractMintObject.MAX_NFT_SUPPLY().then(res => {
+                this.maxSupply = res.toNumber();
+                this.updateValues(contractMintObject);
+            }).catch((error) => {
+                console.log(error);
+            });
+        } catch (e) {
+            console.log("No Provider");
+            this.providerAvailable = false;
+        }
+
+    },
+});
+
+// Projects to launch
+const launchProjects = [
+    {
+        name: "ThetaPugs",
+        contract: '0x9791ddfefadb0b1bed5f35604de262506c6ee45c',
+        image: "assets/img/pug-random-gradient-background.png",
+        description: [
+            "ThetaPugs is a randomly generated collection of 10,000 Pug NFT’s exclusive to the Theta Network.",
+            "Each Pug randomly selects a combination of clothing, headwear and accessories.",
+            "Pugs are happy and affectionate, loyal and charming, playful and mischievous, just like the community! Discover the collection and become part of the ThetaPugs journey.",
+        ],
+        domain: "https://thetapugs.com",
+    },
+    // {
+    //     name: "Swimming Porsche",
+    //     contract: '0xf215d120d65d2fd638b3298a5845e7d71ad9dca1',
+    //     image: "https://lzsjdbkzm3d5qscce7wbvigq5yiricj2gmp3oij6u2cwe5pxahdq.arweave.net/XmSRhVlmx9hIQifsGqDQ7hEUCTozH7chPqaFYnX3Acc",
+    //     description: [
+    //         "Swimming Porsche is a collection of 10 Swimming Porsche NFT’s exclusive to the Theta Network.",
+    //         "Each Swimming Porsche has a unique ID of which only ten different exist",
+    //         "Swimming Porsche is a masterpiece of a local artist which loves cars and water, just like our community! Discover our collection and become part of our journey.",
+    //     ],
+    //     domain: "",
+    // },
+
+]
+
 
 let NFTProjects = [];
 // const NFTProjects = [
@@ -281,15 +424,19 @@ let NFTProjects = [];
 // const NFTProjects = [
 //     {
 //         name: 'ThetaPunks',
-//         address: '0xaef0091cd3615e4e1da6e35398011bd26bccb7cd',
+//         contract: '0xaef0091cd3615e4e1da6e35398011bd26bccb7cd',
 //     },
 //     {
 //         name: 'ThetaMan',
-//         address: '0xe17b6cd2a176d2db8d27d73a9b8abcb0d7cb9609',
+//         contract: '0xe17b6cd2a176d2db8d27d73a9b8abcb0d7cb9609',
 //     },
 //     {
 //         name: 'ThetaBoard',
-//         address: '0x983bc6758b206a30dc521520e4b202bb37ce3bb9'
+//         contract: '0x22d1a8df6a03e3fc36bdb4c4b1aaceac2885ef0a'
+//     },
+//     {
+//         name: 'SwimmingPorsche',
+//         contract: '0x9012b13771b6aefc10bfc4045d8960fc1c9facea'
 //     }
 // ];
 
@@ -329,6 +476,12 @@ const contractThetaPunksABI = [
     "function approve(address to, uint256 tokenID)",
     "function getApproved(uint256 tokenId) view returns (address)",
     "event Approval(address indexed owner, address indexed to, uint256 tokenId)",
+
+    "function MAX_NFT_SUPPLY() view returns (uint256)",
+    "function totalSupply() view returns (uint256)",
+    "function saleIsActive() view returns (bool)",
+    "function getNFTPrice() view returns (uint256)",
+    "function safeMint(address _address) payable",
 ];
 
 
@@ -338,6 +491,7 @@ let app = new Vue({
          return {
              currentFilter: 'ALL',
              modal: true,
+             page: 'marketPage',
              marketPage: true,
              myAssetsPage: false,
              sellPage: false,
@@ -351,12 +505,14 @@ let app = new Vue({
     },
     methods: {
         sellNFT: function(nft) {
+            this.page = 'sellPage';
             this.marketPage = false;
             this.myAssetsPage = false;
             this.sellPage = true;
             this.sellNft = nft;
         },
         onTheMarket: async function () {
+            this.page = 'marketPage';
             this.marketPage = true;
             this.myAssetsPage = false;
             this.sellPage = false;
@@ -435,6 +591,7 @@ let app = new Vue({
 
         },
         onMarket: async function () {
+            this.page = 'marketPage';
             this.marketPage = true;
             this.myAssetsPage = false;
             this.sellPage = false;
@@ -493,6 +650,7 @@ let app = new Vue({
 
         },
         myAssets: async function () {
+            this.page = 'myAssetsPage';
             this.marketPage = false;
             this.myAssetsPage = true;
             this.sellPage = false;
@@ -545,6 +703,9 @@ let app = new Vue({
             } catch (err) {
                 throw err;
             }
+        },
+        Launchpad: async function () {
+            this.page = 'launchpadPage';
         },
         connectToMetamask: async function () {
             if (typeof window.ethereum !== 'undefined') {
