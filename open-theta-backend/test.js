@@ -17,6 +17,24 @@ function addProject (project) {
         console.log(error);
     })
 }
+
+
+
+
+
+// projects.getNFTsOnMarketByCreators(["Thetaboard","ThetaPunks"]).then(nfts => {
+//     console.log(nfts)
+// }).catch(error => {
+//     console.log(error);
+// });
+
+
+
+
+
+
+
+
 //
 // const thetaBoard = {
 //     contract: '0x983bc6758b206a30dc521520e4b202bb37ce3bb9',
@@ -97,13 +115,33 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
-const ThetaPugs = {
-    contract: '0x9791ddfefadb0b1bed5f35604de262506c6ee45c',
-    name: 'ThetaPugs',
-    creator: 'ThetaPugs',
-    tokenNumber: 10000,
-    description: 'A Collection of 10,000 Randomly Generated Pug NFTs, exclusive to the Theta Blockchain',
-    imgUrl:'https://imqbmq3agtaqg35bmcztbw4bmccrocpnva4oifxiebu2tqsmpqba.arweave.net/QyAWQ2A0wQNvoWCzMNuBYIUXCe2oOOQW6CBpqcJMfAI',
+// const ThetaPugs = {
+//     contract: '0x9791ddfefadb0b1bed5f35604de262506c6ee45c',
+//     name: 'ThetaPugs',
+//     creator: 'ThetaPugs',
+//     tokenNumber: 10000,
+//     description: 'A Collection of 10,000 Randomly Generated Pug NFTs, exclusive to the Theta Blockchain',
+//     imgUrl:'https://imqbmq3agtaqg35bmcztbw4bmccrocpnva4oifxiebu2tqsmpqba.arweave.net/QyAWQ2A0wQNvoWCzMNuBYIUXCe2oOOQW6CBpqcJMfAI',
+//     hasMetadata: true,
+// }
+
+// const ThetaZilla = {
+//     contract: '0xf610fb0063c7fee8d5caae7e26d67c32dbc7d2d4',
+//     name: 'ThetaZilla',
+//     creator: 'ThetaZillaClub',
+//     tokenNumber: 10000,
+//     description: 'A new era of technology has spawned a legendary generation of monsters. Can you capture these digital kings?',
+//     imgUrl:'https://if52rjzdj3s7sutnmzxffmeh43xbijkhopajzjenqupwdohaywwa.arweave.net/QXuopyNO5flSbWZuUrCH5u4UJUdzwJykjYUfYbjgxaw',
+//     hasMetadata: true,
+// }
+
+const ThetaPermabull = {
+    contract: '0xadc8fdca07ba7066c6e2d0efd7fe8cc35846ff3c',
+    name: 'ThetaPermabull',
+    creator: 'Fr0zenfir3',
+    tokenNumber: 444,
+    description: 'By holding one of the 444 Theta Permabull badges, it shows that you are Hardcore Theta Holder.',
+    imgUrl:'https://arweave.net/SA4PXBTjqAa5ee7oTuCuvfwJkzR2LtaNdwBn_S-bOfU',
     hasMetadata: true,
 }
 
@@ -111,7 +149,9 @@ const ThetaPugs = {
 // addProject(MitchAlien)
 // addProject(JieyiApe)
 // addProject(KyleHuman)
-addProject(ThetaPugs);
+// addProject(ThetaPugs);
+// addProject(ThetaZilla);
+addProject(ThetaPermabull);
 
 // const p2 = {
 //     contract: '2222',
@@ -230,7 +270,7 @@ addProject(ThetaPugs);
 //
 // let update = { isSold: true, soldTimestamp: '1635773132765' }
 //
-// projects.updateNFT(56, update).then(res => {
+// projects.updateNFT(18, update).then(res => {
 //     console.log("updateNFT");
 //     console.log(res);
 // });
@@ -270,18 +310,30 @@ addProject(ThetaPugs);
 // });
 //
 // const updateThetaBoard = {
-//     name: "ThetaBoard",
+//     imgUrl: "https://nft.thetaboard.io/nft/assets/thetaboard/early_adopter.png",
 // }
 //
 // const updateThetaMan = {
-//     name: "ThetaMan",
+//     imgUrl: "https://www.tstake.io/images/nft_1.jpg",
+// }
+//
+// const updateThetaPunks = {
+//     imgUrl: "https://arweave.net/HVED6DphStDZzz0vhQgI_INO4qwfzEit-oQfih3k5DU",
 // }
 //
 // const updateThetaBoard2021 = {
-//     name: "ThetaBoard 2021",
+//     image: "ThetaBoard 2021",
 // }
-
-
+// const updateThetaZilla = {
+//     contract: "0x371a0a0c9aad38c2d5dd33a679aea4b5fb521089",
+// }
+//
+// projects.updateProject('0xf610fb0063c7fee8d5caae7e26d67c32dbc7d2d4', updateThetaZilla).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
 // projects.updateProject('0x34f573de2416c8c4e968ca16a18b46c2a7d833c2', updateThetaBoard).then(res => {
 //     console.log("updateProject");
 //     console.log(res);
@@ -297,6 +349,13 @@ addProject(ThetaPugs);
 // });
 //
 // projects.updateProject('0xff290451c54a6ebd390287b4db18058a0e892cde', updateThetaMan).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
+//
+// projects.updateProject('0x1f3de9cdb1d4ed10e8b7b3f21f282d84f7f54473', updateThetaPunks).then(res => {
 //     console.log("updateProject");
 //     console.log(res);
 // }).catch(error => {

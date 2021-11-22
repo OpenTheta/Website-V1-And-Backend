@@ -36,7 +36,7 @@
                 <li class="nav-item pe-auto"><a class="nav-link" href="#" v-on:click="onMarket">Overview</a></li>
                 <li class="nav-item pe-auto"><a class="nav-link" href="#" v-on:click="myAssets">MyAssets</a></li>
                 <li class="nav-item pe-auto"><a class="nav-link" href="#" v-on:click="Launchpad">Launchpad</a></li>
-                <li class="nav-item pe-auto"><a class="nav-link" target="_blank" href="https://how-to.opentheta.io">HowTo?</a></li>
+                <li class="nav-item pe-auto"><a class="nav-link" href="#" v-on:click="setThetaPunks">ThetaPunks</a></li>
                 <li class="nav-item pe-auto">
                     <b-nav-item-dropdown id="dropdown-1" text="Filter">
                         <b-dropdown-item v-on:click="setSelected('ALL')">All</b-dropdown-item>
@@ -47,13 +47,22 @@
 
                     </b-nav-item-dropdown>
                 </li>
+                <li class="nav-item pe-auto"><a class="nav-link" target="_blank" href="https://how-to.opentheta.io">HowTo?</a></li>
             </ul>
             <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" id="connectButton"
                                                   v-on:click="connectToMetamask" style="max-width: 100px; margin-right: 20px">Connect</a></span>
         </div>
 <!--    </div>-->
 </nav>
-<nft-mint v-if="(currentFilter === 'ThetaPugs' || currentFilter === 'ALL') && page === 'marketPage'" :project="launchProjects[0]"></nft-mint>
+    <keep-alive>
+        <nft-mint v-if="(currentFilter === 'ThetaPermabull' || currentFilter === 'ALL') && page === 'marketPage'" :project="launchProjects[0]"></nft-mint>
+    </keep-alive>
+    <keep-alive>
+        <nft-mint v-if="(currentFilter === 'ThetaZilla') && page === 'marketPage'" :project="launchProjects[1]"></nft-mint>
+    </keep-alive>
+    <keep-alive>
+        <nft-mint v-if="(currentFilter === 'ThetaPugs') && page === 'marketPage'" :project="launchProjects[2]"></nft-mint>
+    </keep-alive>
     <nft-mint v-for="project in launchProjects" v-if="page === 'launchpadPage'" :project="project"></nft-mint>
 <section v-if="!(page === 'launchpadPage')" style="width: 100%;min-height: 100vh;background: #dadada;padding-top: 100px;">
         <div v-if="page === 'myAssetsPage'" class="row d-flex justify-content-center">
@@ -67,7 +76,7 @@
             <my-nft-card v-for="nft in marketNfts" v-if="nft.seller.toLowerCase() === userAddress" :nft="nft" :onsale="true" :key="nft.name+nft.tokenId"></my-nft-card>
         </div>
         <div v-if="page === 'marketPage'" class="row d-flex justify-content-center">
-            <nft-card v-for="nft in marketNfts" :nft="nft" :useraccount="userAddress" :key="nft.id" v-if="currentFilter === nft.category || currentFilter === 'ALL'" ></nft-card>
+            <nft-card v-for="nft in marketNfts" :nft="nft" :useraccount="userAddress" :key="nft.id" v-if="currentFilter === nft.category || currentFilter === 'ALL' || currentFilter === nft.creator" ></nft-card>
             <div v-if="marketNfts.length === 0" class="d-flex justify-content-center" style="color: #757575; padding-top: 50px">
                 <h2>Nothing on the market...</h2>
             </div>
@@ -86,7 +95,10 @@
         <div class="social"><a href="https://twitter.com/OpenTheta"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-reddit"></i></a></div>
         <ul class="list-inline">
             <li class="list-inline-item" v-on:click="onMarket"><a href="#">Overview</a></li>
-            <li class="list-inline-item" v-on:click="myAssets"><a href="#">My Assets</a></li>
+            <li class="list-inline-item" v-on:click="myAssets"><a href="#">MyAssets</a></li>
+            <li class="list-inline-item" v-on:click="Launchpad"><a href="#">Launchpad</a></li>
+            <li class="list-inline-item" v-on:click="setThetaPunks"><a href="#">ThetaPunks</a></li>
+            <li class="list-inline-item"><a target="_blank" href="./assets/audit/AuditReportOfOpenTheta.pdf">Audit</a></li>
         </ul>
         <p class="copyright">OpenTheta.io © 2021</p>
     </footer>
@@ -115,7 +127,7 @@
                             ThetaPunks
                         </li>
                         <li>
-                            ThetaPugs
+                            ThetaZillas
                         </li>
                         <li>
                             Theta Man on the Moon
@@ -149,14 +161,19 @@
                         </li>
                     </ol>
                     <p>
-                        Further, all assets that are displayed here are loaded directly from the blockchain API.
-                        We do not store wallet addresses or user data on our server. This provides more security but also
-                        makes loading the assets slow. We are currently working on improvements to the website's usability and
+                        Further, all assets that are displayed on the marketplace are loaded from our server.
+                        To improve the loading speed, we store assets that are currently on the marketplace on sale or have been sold.
+                        We do not store NFTs that are held in your wallet. All of the NFTs in your wallet are directly loaded from the blockchain API.
+                        This provides more security but also makes loading the MyAssets slow. We are currently working on improvements to the website's usability and
                         speed. Please be patient!
                     </p>
                     <p>
-                        Please keep in mind that we do not take any liability for losses or errors on the user
-                        side and the smart contract side. Usage only under your own risk!
+                        Please remember that we do not take any liability for losses or errors on the user
+                        side, the smart contract side, or the website. Usage only under your own risk!
+                        When using the marketplace please check that MetaMask is interacting with the correct smart contract (0xd539558887b6744c52c595cb24fb9efa664ba814).
+                        Projects that are launching and can be minted use their smart contracts.
+                        Ensure that you are allowed to use and trade on an NFT marketplace without KYC under your country's law.
+                        We do not take any responsibility!
                     </p>
                 </div>
                 <div class="modal-footer">

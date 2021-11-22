@@ -46,7 +46,7 @@ router.get('/onMarket', (req, res) => {
     });
 });
 
-//Returns all NFTs of address currently on the marketplace
+//Returns all NFTs of seller address currently on the marketplace
 router.get('/onMarket/:address', (req, res) => {
     const {address} = req.params;
     projects.getNFTsOnMarketByAddress(address).then(nfts => {
@@ -87,7 +87,7 @@ router.get('/new/:number', (req, res)=> {
     projects.getNFTsOnMarket().then(nfts => {
         if(nfts) {
             nfts.sort((a, b) => {
-                return (b.soldTimestamp - a.soldTimestamp); // descending
+                return (b.createdTimestamp - a.createdTimestamp); // descending
             })
             if(nfts.length > number){
                 nfts = nfts.slice(0,number);
@@ -101,29 +101,29 @@ router.get('/new/:number', (req, res)=> {
     });
 });
 
-// search in NFT name and project name and creator name -> returns results
-router.get('/search/:name', (req, res)=> {
-    const {name} = req.params;
-    projects.getNFTsOnMarket().then(nfts => {
-        let results = [];
-        if(nfts) {
-            if (name === 'ALL'){
-                res.status(200).json(nfts);
-            } else {
-                nfts.forEach( function (nft) {
-                    if(nft.projectName.indexOf(name) !== -1 || nft.creator.indexOf(name) !== -1 || nft.category.indexOf(name) !== -1) {
-                        results.push(nft);
-                    }
-                });
-                res.status(200).json(results);
-            }
-        } else {
-            res.status(404).json({message:'No new NFTs on market'})
-        }
-    }).catch(error => {
-        res.status(500).json({message: "Error retrieving new NFTs on market"});
-    });
-});
+// // search in NFT name and project name and creator name -> returns results
+// router.get('/search/:name', (req, res)=> {
+//     const {name} = req.params;
+//     projects.getNFTsOnMarket().then(nfts => {
+//         let results = [];
+//         if(nfts) {
+//             if (name === 'ALL'){
+//                 res.status(200).json(nfts);
+//             } else {
+//                 nfts.forEach( function (nft) {
+//                     if(nft.projectName.indexOf(name) !== -1 || nft.creator.indexOf(name) !== -1 || nft.category.indexOf(name) !== -1) {
+//                         results.push(nft);
+//                     }
+//                 });
+//                 res.status(200).json(results);
+//             }
+//         } else {
+//             res.status(404).json({message:'No new NFTs on market'})
+//         }
+//     }).catch(error => {
+//         res.status(500).json({message: "Error retrieving new NFTs on market"});
+//     });
+// });
 
 // search in NFT name and project name and creator name -> returns results
 router.get('/promoted', (req, res)=> {

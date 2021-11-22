@@ -19,7 +19,11 @@ module.exports = {
     getNFTById,
     getNFTsOnMarket,
     getSoldNFTs,
-    getNFTsOnMarketByAddress
+    getNFTsOnMarketByAddress,
+
+    getNFTsOnMarketByCreators,
+    getNFTsOnMarketByProjects,
+    getNFTsOnMarketByCreatorsAndProjects,
 }
 
 // interact with projects table
@@ -253,8 +257,77 @@ function getNFTsOnMarketByAddress(address) {
             "m.imgUrl as imgUrl",
             "m.description as description",
             "m.createdTimestamp as createdTimestamp",
-        ).where({
-            seller: address,
-            isSold: false
-        });
+        ).whereRaw(`LOWER(seller) LIKE ?`, [`%${address}%`]).where({isSold: false});
+}
+
+function getNFTsOnMarketByCreators(creators) {
+    return db("projects as p")
+        .join("marketplace as m", "p.contract", "m.nftContract")
+        .select(
+            "p.contract as nftContract",
+            "p.name as projectName",
+            "p.creator as creator",
+            "p.tokenNumber as tokenNumber",
+            "p.description as projectDescription",
+            "p.imgUrl as projectImgUrl",
+            "m.itemId as itemId",
+            "m.tokenId as tokenId",
+            "m.seller as seller",
+            "m.owner as owner",
+            "m.category as category",
+            "m.price as price",
+            "m.isSold as isSold",
+            "m.name as name",
+            "m.imgUrl as imgUrl",
+            "m.description as description",
+            "m.createdTimestamp as createdTimestamp",
+        ).whereIn("creator", creators);
+}
+
+function getNFTsOnMarketByProjects(projects) {
+    return db("projects as p")
+        .join("marketplace as m", "p.contract", "m.nftContract")
+        .select(
+            "p.contract as nftContract",
+            "p.name as projectName",
+            "p.creator as creator",
+            "p.tokenNumber as tokenNumber",
+            "p.description as projectDescription",
+            "p.imgUrl as projectImgUrl",
+            "m.itemId as itemId",
+            "m.tokenId as tokenId",
+            "m.seller as seller",
+            "m.owner as owner",
+            "m.category as category",
+            "m.price as price",
+            "m.isSold as isSold",
+            "m.name as name",
+            "m.imgUrl as imgUrl",
+            "m.description as description",
+            "m.createdTimestamp as createdTimestamp",
+        ).whereIn("projectName", projects);
+}
+
+function getNFTsOnMarketByCreatorsAndProjects(creators, projects) {
+    return db("projects as p")
+        .join("marketplace as m", "p.contract", "m.nftContract")
+        .select(
+            "p.contract as nftContract",
+            "p.name as projectName",
+            "p.creator as creator",
+            "p.tokenNumber as tokenNumber",
+            "p.description as projectDescription",
+            "p.imgUrl as projectImgUrl",
+            "m.itemId as itemId",
+            "m.tokenId as tokenId",
+            "m.seller as seller",
+            "m.owner as owner",
+            "m.category as category",
+            "m.price as price",
+            "m.isSold as isSold",
+            "m.name as name",
+            "m.imgUrl as imgUrl",
+            "m.description as description",
+            "m.createdTimestamp as createdTimestamp",
+        ).whereIn("creator", creators).orWhereIn("projectName", projects);
 }

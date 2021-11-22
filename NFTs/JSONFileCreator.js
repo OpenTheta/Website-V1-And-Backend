@@ -1,53 +1,44 @@
 const fs = require('fs');
 
-// File specifics
-// {
-//     "name":"ThetaPug #1",
-//     "symbol":"PUG",
-//     "description":"A Collection of 10,000 Randomly Generated Pug NFTs, exclusive to the Theta Blockchain",
-//     "image":"https://arweave.net/<ID>/1.png",
-//     "external_url": "https://thetapugs.com/",
-// }
+// Permabull
+// const baseName = "Theta Permabull #";
+// const symbol = "TPB";
+// const description = "By holding one of the 444 Theta Permabull badges, it shows that you are Hardcore Theta Holder.";
+// let baseImageURI = "https://arweave.net/SA4PXBTjqAa5ee7oTuCuvfwJkzR2LtaNdwBn_S-bOfU";
+// const twitter = "https://twitter.com/R3tt2";
+// const creator = "Fr0zenfir3";
+// const tokenNumber = 444
 
-const addresses = [
-    "https://arweave.net/YJLdpyCfW0K2Yn1xeEK3KVY235wyCNMPlp9q9On_D7Q/", // 200
-    "https://arweave.net/8T_VfjzgnHt7Iwa6zVE-wsfuTHwcFSr8QOY0NV_gxx8/", // 200
-    "https://arweave.net/hJsdhSOrZhJMrlYUGg6kFQ_-QUUV8W-exBjh-IoTM54/", // 600
-    "https://arweave.net/47ggzKP4Xqpk1UMp9QBg18dTBymDe7QENLOlt6R_hHw/", // 3000
-    "https://arweave.net/dbOOk4kjP7xoB89s569BGvDZEN78l-aivvD3-FDyy4c/", // 3000
-    "https://arweave.net/KNNe__aopa6zUB932ZhOefKmmLxaQuayo5gYhXSyU6I/", // 3000
-]
+// ThetaDiamond
+const baseName = "Self Illusion #";
+const symbol = "SI";
+const description = "The timelines of self are limitless.";
+let baseImageURI = "https://arweave.net/3SMxXka-01fQ_5tVUoT4ZdtH6sVfLp2pk8oqMSpkKxE/SelfIllusion.png";
+const twitter = "https://twitter.com/ThetaDiamond";
+const external_url = "thetadiamond.com";
+const creator = "ThetaDiamond";
+const collection = "Psychedelic Genesis";
+const tokenNumber = 50;
 
-
-const baseName = "ThetaPugs #";
-const symbol = "PUG";
-const description = "A Collection of 10,000 Randomly Generated Pug NFTs, exclusive to the Theta Blockchain";
-const baseImageURI = addresses[5];
-const external_url = "https://thetapugs.com";
-const tokenNumber = 3000;
-
-// const baseName = "Swimming Porsche #";
-// const symbol = "SP";
-// const description = "This NFT is limited to ten editions";
-// const baseImageURI = "https://arweave.net/EGr01u62EPAfCMniX-1UfdEJ0UqgAjr-NnU5TkROZQo/"
-// const tokenNumber = 10;
 
 async function writeFile(id) {
     let data = {
-        name: baseName+id.toString(),
+        name: baseName+(id+1).toString(),
         symbol: symbol,
         description: description,
-        // image: "https://lzsjdbkzm3d5qscce7wbvigq5yiricj2gmp3oij6u2cwe5pxahdq.arweave.net/XmSRhVlmx9hIQifsGqDQ7hEUCTozH7chPqaFYnX3Acc",
-        image: baseImageURI+id.toString()+".png",
+        image: baseImageURI,
+        twitter: twitter,
         external_url: external_url,
+        Collection: collection,
+        creator: creator,
     }
-    fs.writeFile("./JSONdata/"+(id - 1).toString()+".json", JSON.stringify(data), function(err) {
+    fs.writeFile("./../../../OpenThetaProjects/ThetaDiamond/SelfIllusion/JsonMetadata/"+id.toString()+".json", JSON.stringify(data), function(err) {
         if (err) {
             console.log(err);
         }
     });
 }
-const baseID = 7000;
-for(let i=1; i<=tokenNumber; i++) {
-    writeFile( baseID+i);
+
+for(let i=0; i<tokenNumber; i++) {
+    writeFile(i);
 }
