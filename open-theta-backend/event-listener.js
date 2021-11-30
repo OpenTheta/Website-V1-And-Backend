@@ -61,7 +61,13 @@ async function dataProcessing(eventData, event) {
         );
 
         contractNFTObject.tokenURI(tokenId[0].toNumber()).then(URI => {
+            if (URI.slice(0,4) === 'ipfs') {
+                URI = 'https://ipfs.io/ipfs/' + URI.substring(7)
+            }
             axios.get(URI).then(response => {
+                if (response.data.image.slice(0,4) === 'ipfs') {
+                    response.data.image = 'https://ipfs.io/ipfs/' + response.data.image.substring(7)
+                }
                 let nft = {
                     itemId: itemId[0].toNumber(),
                     nftContract: contract[0].toLowerCase(),

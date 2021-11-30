@@ -55,7 +55,25 @@
 <!--    </div>-->
 </nav>
     <keep-alive>
-        <nft-mint v-if="(currentFilter === 'ThetaPermabull' || currentFilter === 'ALL') && page === 'marketPage'" :project="launchProjects[0]"></nft-mint>
+        <thetadiamond-mint1 v-if="(currentFilter === 'SelfIllusion' || currentFilter === 'PluggedIn' || currentFilter === 'CleanupCrew' || currentFilter === 'TFuelDreams' || currentFilter === 'ThetaverseImmersion' || currentFilter === 'ALL') && (page === 'marketPage' || page === 'launchpadPage')" :project="launchThetaDiamond[4]"></thetadiamond-mint1>
+    </keep-alive>
+    <keep-alive>
+        <section class="d-flex justify-content-center align-items-center" v-if="(currentFilter === 'SelfIllusion' || currentFilter === 'PluggedIn' || currentFilter === 'CleanupCrew' || currentFilter === 'TFuelDreams' || currentFilter === 'ThetaverseImmersion' || currentFilter === 'ALL') && (page === 'marketPage' || page === 'launchpadPage')"
+                 style="width: 100%;min-height: 100vh;background: linear-gradient(black, #00b19c), #370000;">
+            <div class="container">
+                <div class="row">
+                    <thetadiamond-mint2 :project="launchThetaDiamond[0]"></thetadiamond-mint2>
+                    <thetadiamond-mint2 :project="launchThetaDiamond[1]"></thetadiamond-mint2>
+                </div>
+                <div class="row">
+                    <thetadiamond-mint2 :project="launchThetaDiamond[2]"></thetadiamond-mint2>
+                    <thetadiamond-mint2 :project="launchThetaDiamond[3]"></thetadiamond-mint2>
+                </div>
+            </div>
+        </section>
+    </keep-alive>
+    <keep-alive>
+        <nft-mint v-if="(currentFilter === 'ThetaPermabull') && page === 'marketPage'" :project="launchProjects[0]"></nft-mint>
     </keep-alive>
     <keep-alive>
         <nft-mint v-if="(currentFilter === 'ThetaZilla') && page === 'marketPage'" :project="launchProjects[1]"></nft-mint>
@@ -99,6 +117,7 @@
             <li class="list-inline-item" v-on:click="Launchpad"><a href="#">Launchpad</a></li>
             <li class="list-inline-item" v-on:click="setThetaPunks"><a href="#">ThetaPunks</a></li>
             <li class="list-inline-item"><a target="_blank" href="./assets/audit/AuditReportOfOpenTheta.pdf">Audit</a></li>
+
         </ul>
         <p class="copyright">OpenTheta.io © 2021</p>
     </footer>
@@ -200,6 +219,9 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js" type="text/javascript"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<script src="https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
+
 <script src="assets/js/app.js"></script>
 <script type="text/javascript">
 </script>

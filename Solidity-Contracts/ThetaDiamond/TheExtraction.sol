@@ -1365,18 +1365,15 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/access/Ownable.sol";
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract ThetaverseImmersion is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract TheExtraction is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 100;
+    uint256 public MAX_NFT_SUPPLY = 31;
 
     bool public saleIsActive = false;
 
-    address public feeAddress;
-
-    constructor(address fee, string memory uri) ERC721("ThetaverseImmersion", "TVI") {
-        feeAddress = fee;
+    constructor(string memory uri) ERC721("TheExtraction", "TE") {
         baseURI = uri;
     }
 
@@ -1387,7 +1384,8 @@ contract ThetaverseImmersion is ERC721, ERC721Enumerable, ERC721URIStorage, Owna
         uint currentSupply = totalSupply();
         require(currentSupply < MAX_NFT_SUPPLY, "Sale has already ended");
 
-        return 300000000000000000000; // 0 - 99 300 TFUEL
+
+        return 0; // 0
 
     }
 
@@ -1395,13 +1393,29 @@ contract ThetaverseImmersion is ERC721, ERC721Enumerable, ERC721URIStorage, Owna
     * Set some NFTs aside
     */
     function reserveNFTS(uint256 numberOfNfts, address _senderAddress) public onlyOwner {
-        require(totalSupply() < MAX_NFT_SUPPLY, "Reserve would exceed max supply");
+
         for (uint i = 0; i < numberOfNfts; i++) {
             uint supply = totalSupply();
 
             if (totalSupply() < MAX_NFT_SUPPLY )
             {
                 _safeMint(_senderAddress, supply);
+                string memory id = toString(supply);
+                _setTokenURI(supply, string(abi.encodePacked(id, ".json")));
+            }
+        }
+    }
+
+    /**
+    * send specific addresses free NFTs
+    */
+    function reserveToAddresses(uint256 numberOfNfts, address[] memory _senderAddress) public onlyOwner {
+
+        for (uint i = 0; i < numberOfNfts; i++) {
+            uint supply = totalSupply();
+            if (totalSupply() < MAX_NFT_SUPPLY)
+            {
+                _safeMint(_senderAddress[i], supply);
                 string memory id = toString(supply);
                 _setTokenURI(supply, string(abi.encodePacked(id, ".json")));
             }
@@ -1416,10 +1430,8 @@ contract ThetaverseImmersion is ERC721, ERC721Enumerable, ERC721URIStorage, Owna
         require(totalSupply() < MAX_NFT_SUPPLY, "Purchase would exceed max supply");
         require(getNFTPrice() == msg.value, "TFuel value sent is not correct");
 
-        uint256 ownerPayout = (msg.value / 100) * 80;
-        uint256 feePayout = msg.value - ownerPayout;
+        uint256 ownerPayout = msg.value;
         payable(owner()).transfer(ownerPayout);
-        payable(feeAddress).transfer(feePayout);
 
         uint256 tokenId = totalSupply();
 
@@ -1435,13 +1447,6 @@ contract ThetaverseImmersion is ERC721, ERC721Enumerable, ERC721URIStorage, Owna
         saleIsActive = !saleIsActive;
     }
 
-    /*
-    * Change fee address
-    */
-    function changeFeeAddress(address newAddress) public {
-        require(feeAddress == msg.sender, 'Only current feeAddress can change it');
-        feeAddress = newAddress;
-    }
 
     //    function _setBaseURI(string memory baseURI_) internal onlyOwner() {
     //        require(totalSupply() < MAX_NFT_SUPPLY, "all tokens are minted, URI not changeable");

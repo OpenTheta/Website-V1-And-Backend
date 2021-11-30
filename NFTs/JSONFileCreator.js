@@ -10,15 +10,15 @@ const fs = require('fs');
 // const tokenNumber = 444
 
 // ThetaDiamond
-const baseName = "Self Illusion #";
-const symbol = "SI";
-const description = "The timelines of self are limitless.";
-let baseImageURI = "https://arweave.net/3SMxXka-01fQ_5tVUoT4ZdtH6sVfLp2pk8oqMSpkKxE/SelfIllusion.png";
+const baseName = "The Extraction #";
+const symbol = "TE";
+const description = "Every world has its resources.";
+let baseImageURI = "https://arweave.net/zoI0FdzjbimnSDvngRlfdR3p2gRnGecd_WSumbNnGn4";
 const twitter = "https://twitter.com/ThetaDiamond";
 const external_url = "thetadiamond.com";
 const creator = "ThetaDiamond";
 const collection = "Psychedelic Genesis";
-const tokenNumber = 50;
+const tokenNumber = 31;
 
 
 async function writeFile(id) {
@@ -32,7 +32,7 @@ async function writeFile(id) {
         Collection: collection,
         creator: creator,
     }
-    fs.writeFile("./../../../OpenThetaProjects/ThetaDiamond/SelfIllusion/JsonMetadata/"+id.toString()+".json", JSON.stringify(data), function(err) {
+    fs.writeFile("./../../../OpenThetaProjects/ThetaDiamond/TheExtraction/JsonMetadata/"+id.toString()+".json", JSON.stringify(data), function(err) {
         if (err) {
             console.log(err);
         }

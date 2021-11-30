@@ -58,7 +58,7 @@ function addProject (project) {
 //
 // const ThetaMan = {
 //     contract: '0xe17b6cd2a176d2db8d27d73a9b8abcb0d7cb9609',
-//     name: 'Theta Man',
+//     name: 'ThetaMan',
 //     creator: 'tStake.io',
 //     tokenNumber: 1000,
 //     description: 'Theta Man on the Moon',
@@ -135,15 +135,86 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
-const ThetaPermabull = {
-    contract: '0xadc8fdca07ba7066c6e2d0efd7fe8cc35846ff3c',
-    name: 'ThetaPermabull',
-    creator: 'Fr0zenfir3',
-    tokenNumber: 444,
-    description: 'By holding one of the 444 Theta Permabull badges, it shows that you are Hardcore Theta Holder.',
-    imgUrl:'https://arweave.net/SA4PXBTjqAa5ee7oTuCuvfwJkzR2LtaNdwBn_S-bOfU',
+// const ThetaPermabull = {
+//     contract: '0xadc8fdca07ba7066c6e2d0efd7fe8cc35846ff3c',
+//     name: 'ThetaPermabull',
+//     creator: 'Fr0zenfir3',
+//     tokenNumber: 444,
+//     description: 'By holding one of the 444 Theta Permabull badges, it shows that you are Hardcore Theta Holder.',
+//     imgUrl:'https://arweave.net/SA4PXBTjqAa5ee7oTuCuvfwJkzR2LtaNdwBn_S-bOfU',
+//     hasMetadata: true,
+// }
+
+// const PluggedIn = {
+//     contract: '0x5bfcf20d4f141f03ffbbe009b193040cd63083b0',
+//     name: 'PluggedIn',
+//     creator: 'ThetaDiamond',
+//     tokenNumber: 500,
+//     description: 'Player 0369 has entered the Theta multiverse.',
+//     imgUrl:'https://arweave.net/zCy6s6bQBCqhtZlwOSzfOn1mrp0HKxRPZKPVcGDRESs/PluggedIn.jpg',
+//     hasMetadata: true,
+// }
+//
+// const CleanupCrew = {
+//     contract: '0x44c9239b1d9562aae04574c97710207e68f74816',
+//     name: 'CleanupCrew',
+//     creator: 'ThetaDiamond',
+//     tokenNumber: 350,
+//     description: 'Clean up in isle #07.',
+//     imgUrl:'https://arweave.net/zCy6s6bQBCqhtZlwOSzfOn1mrp0HKxRPZKPVcGDRESs/CleanupCrew.jpg',
+//     hasMetadata: true,
+// }
+//
+// const TFuelDreams = {
+//     contract: '0x58bbda670702b8217c7428fe25c28c95a6e3963c',
+//     name: 'TFuelDreams',
+//     creator: 'ThetaDiamond',
+//     tokenNumber: 250,
+//     description: 'Extracted and crystallized for your viewing pleasure.',
+//     imgUrl:'https://arweave.net/zCy6s6bQBCqhtZlwOSzfOn1mrp0HKxRPZKPVcGDRESs/TFUELDreams.jpg',
+//     hasMetadata: true,
+// }
+//
+// const ThetaverseImmersion = {
+//     contract: '0xc2c4cb5a9e50590e1e71f378d5fef744176b0459',
+//     name: 'ThetaverseImmersion',
+//     creator: 'ThetaDiamond',
+//     tokenNumber: 100,
+//     description: 'The Thetan you are trying to reach is unavailable, please leave a message.',
+//     imgUrl:'https://arweave.net/zCy6s6bQBCqhtZlwOSzfOn1mrp0HKxRPZKPVcGDRESs/ThetaverseImmersion.jpg',
+//     hasMetadata: true,
+// }
+//
+// const SelfIllusion = {
+//     contract: '0x74767412cfd446dba5994bd9646a5669106246e4',
+//     name: 'SelfIllusion',
+//     creator: 'ThetaDiamond',
+//     tokenNumber: 50,
+//     description: 'The timelines of self are limitless.',
+//     imgUrl:'https://arweave.net/zCy6s6bQBCqhtZlwOSzfOn1mrp0HKxRPZKPVcGDRESs/SelfIllusion.jpg',
+//     hasMetadata: true,
+// }
+
+// const TheExtraction = {
+//     contract: '0xb5e52d9f80914843141d72430f52c404bf93ec3b',
+//     name: 'TheExtraction',
+//     creator: 'ThetaDiamond',
+//     tokenNumber: 31,
+//     description: 'Every world has its resources.',
+//     imgUrl:'https://arweave.net/zoI0FdzjbimnSDvngRlfdR3p2gRnGecd_WSumbNnGn4',
+//     hasMetadata: true,
+// }
+
+const ThetaMan2 = {
+    contract: '0x3ce1b5615f5bd3a037211ba11c922b93c7c32068',
+    name: 'ThetaMan2',
+    creator: 'tStake.io',
+    tokenNumber: 23,
+    description: 'To reward our loyal stakers who are staking Theta and/or Tfuel to our nodes, we are distributed these three new staking NFTs featuring Theta Man!',
+    imgUrl:'https://arweave.net/qMFbmVZ_ipKwipXlP0KvQAVnL3qZbOdQSpcPKH7N0Aw',
     hasMetadata: true,
 }
+
 
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
@@ -151,7 +222,13 @@ const ThetaPermabull = {
 // addProject(KyleHuman)
 // addProject(ThetaPugs);
 // addProject(ThetaZilla);
-addProject(ThetaPermabull);
+// addProject(ThetaPermabull);
+// addProject(PluggedIn);
+// addProject(CleanupCrew);
+// addProject(TFuelDreams);
+// addProject(ThetaverseImmersion);
+// addProject(SelfIllusion);
+addProject(ThetaMan2);
 
 // const p2 = {
 //     contract: '2222',
