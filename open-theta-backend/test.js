@@ -17,8 +17,31 @@ function addProject (project) {
         console.log(error);
     })
 }
-
-
+//
+// async function updateNFT(nft) {
+//     await projects.updateNFT(nft.itemId, nft);
+//     console.log(nft.itemId)
+// }
+//
+//
+// async function checkNFT(itemId) {
+//     let res = await projects.checkItemId(itemId);
+//     return res;
+// }
+//
+// for(let i=1; i<3330; i++){
+//     checkNFT(i).then(res => {
+//         if(res.length === 1) {
+//             const update = {
+//                 itemId: i,
+//                 nftContract: res[0].nftContract.toLowerCase(),
+//                 seller: res[0].seller.toLowerCase(),
+//                 owner: res[0].owner.toLowerCase(),
+//             }
+//             updateNFT(update)
+//         }
+//     })
+// }
 
 
 
@@ -94,7 +117,6 @@ function addProject (project) {
 //     imgUrl:'https://ipfs.io/ipfs/QmUELjUHHqoZnUzw4ayi8ffMzHcfpapPNmWMDauCufW8mx',
 //     hasMetadata: true,
 // }
-
 // const JieyiApe = {
 //     contract: '0x050ce846802aab7b5f34d4efb1eeb72a83ef248c',
 //     name: 'JieyiApe',
@@ -104,7 +126,6 @@ function addProject (project) {
 //     imgUrl:'https://ipfs.io/ipfs/QmQNLQUao7wUFaQ8FgFjRw7xMfrQngZ5m7Y9zKmjyjcRhb',
 //     hasMetadata: true,
 // }
-
 // const KyleHuman = {
 //     contract: '0xb700ca3044fef95e17e217fe3a4a53139895d790',
 //     name: 'Kyle Human',
@@ -114,7 +135,6 @@ function addProject (project) {
 //     imgUrl:'https://ipfs.io/ipfs/QmV1B6sYGP7HmvSN9Zuj81zF55TACiUwRxBtqKzBMaxBhv',
 //     hasMetadata: true,
 // }
-
 // const ThetaPugs = {
 //     contract: '0x9791ddfefadb0b1bed5f35604de262506c6ee45c',
 //     name: 'ThetaPugs',
@@ -124,7 +144,6 @@ function addProject (project) {
 //     imgUrl:'https://imqbmq3agtaqg35bmcztbw4bmccrocpnva4oifxiebu2tqsmpqba.arweave.net/QyAWQ2A0wQNvoWCzMNuBYIUXCe2oOOQW6CBpqcJMfAI',
 //     hasMetadata: true,
 // }
-
 // const ThetaZilla = {
 //     contract: '0xf610fb0063c7fee8d5caae7e26d67c32dbc7d2d4',
 //     name: 'ThetaZilla',
@@ -134,7 +153,6 @@ function addProject (project) {
 //     imgUrl:'https://if52rjzdj3s7sutnmzxffmeh43xbijkhopajzjenqupwdohaywwa.arweave.net/QXuopyNO5flSbWZuUrCH5u4UJUdzwJykjYUfYbjgxaw',
 //     hasMetadata: true,
 // }
-
 // const ThetaPermabull = {
 //     contract: '0xadc8fdca07ba7066c6e2d0efd7fe8cc35846ff3c',
 //     name: 'ThetaPermabull',
@@ -144,7 +162,6 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/SA4PXBTjqAa5ee7oTuCuvfwJkzR2LtaNdwBn_S-bOfU',
 //     hasMetadata: true,
 // }
-
 // const PluggedIn = {
 //     contract: '0x5bfcf20d4f141f03ffbbe009b193040cd63083b0',
 //     name: 'PluggedIn',
@@ -194,7 +211,6 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/zCy6s6bQBCqhtZlwOSzfOn1mrp0HKxRPZKPVcGDRESs/SelfIllusion.jpg',
 //     hasMetadata: true,
 // }
-
 // const TheExtraction = {
 //     contract: '0xb5e52d9f80914843141d72430f52c404bf93ec3b',
 //     name: 'TheExtraction',
@@ -204,17 +220,54 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/zoI0FdzjbimnSDvngRlfdR3p2gRnGecd_WSumbNnGn4',
 //     hasMetadata: true,
 // }
+// const ThetaMan2 = {
+//     contract: '0x3ce1b5615f5bd3a037211ba11c922b93c7c32068',
+//     name: 'ThetaMan2',
+//     creator: 'tStake.io',
+//     tokenNumber: 23,
+//     description: 'To reward our loyal stakers who are staking Theta and/or Tfuel to our nodes, we are distributed these three new staking NFTs featuring Theta Man!',
+//     imgUrl:'https://arweave.net/qMFbmVZ_ipKwipXlP0KvQAVnL3qZbOdQSpcPKH7N0Aw',
+//     hasMetadata: true,
+// }
+// const ThetaFusion = {
+//     contract: '0x212c4cf4ce07df918d41d3874c8733ccabd6b140',
+//     name: 'ThetaFusion',
+//     creator: 'ThetaDiamond',
+//     tokenNumber: 24,
+//     description: 'Fuse with your surroundings.',
+//     imgUrl:'https://arweave.net/AhxNpxvrQBTOvr4KiXDTx6AWBdXBFfZgNSizVUspvdU',
+//     hasMetadata: true,
+// }
 
-const ThetaMan2 = {
-    contract: '0x3ce1b5615f5bd3a037211ba11c922b93c7c32068',
-    name: 'ThetaMan2',
-    creator: 'tStake.io',
-    tokenNumber: 23,
-    description: 'To reward our loyal stakers who are staking Theta and/or Tfuel to our nodes, we are distributed these three new staking NFTs featuring Theta Man!',
-    imgUrl:'https://arweave.net/qMFbmVZ_ipKwipXlP0KvQAVnL3qZbOdQSpcPKH7N0Aw',
-    hasMetadata: true,
-}
+// const Earth = {
+//     contract: '0x82bc05813ba10bdc12a469c3473104db1bcfcbfd',
+//     name: 'EARTH',
+//     creator: 'TKETS',
+//     tokenNumber: 1000,
+//     description: 'Soon, TKETS will be used for all types of events, from concerts to live sports. Perhaps some day, we may even see a TKETS arena...',
+//     imgUrl:'https://ipfs.io/ipfs/QmecPustetgoWbuFtZN5BgDDKTmfyNGdYeaZgdhtRqD6aA',
+//     hasMetadata: true,
+// }
 
+// const Gods = {
+//     contract: '0xe42ac9ff693d32e03732f1a4a96a916e792e39d9',
+//     name: 'GODS',
+//     creator: 'TKETS',
+//     tokenNumber: 1000,
+//     description: 'The first known tickets ever used were in Ancient Greece. The first known NFT tickets on the Theta Network are now on TKETS.',
+//     imgUrl:'https://ipfs.io/ipfs/QmfJ14xDpBWCGDHMJKf7uorr4nJwyvEpMQQCX9fyXtddag',
+//     hasMetadata: true,
+// }
+
+// const ThetiansGalaxy = {
+//     contract: '0xef6399f5cacfd30c2d2ec1ed86bd39d33741643b',
+//     name: 'Thetians Galaxy I.',
+//     creator: 'ThetaNostra',
+//     tokenNumber: 222,
+//     description: 'Discover the Galaxy of the ancient Theatians.',
+//     imgUrl:'https://arweave.net/10Kkbj5yrZW-Yq4aLXEvVHvL6tflWLKDwCVn6fqdrl0',
+//     hasMetadata: true,
+// }
 
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
@@ -228,7 +281,10 @@ const ThetaMan2 = {
 // addProject(TFuelDreams);
 // addProject(ThetaverseImmersion);
 // addProject(SelfIllusion);
-addProject(ThetaMan2);
+// addProject(ThetaMan2);
+// addProject(Earth);
+// addProject(Gods);
+// addProject(ThetiansGalaxy);
 
 // const p2 = {
 //     contract: '2222',
@@ -373,7 +429,7 @@ addProject(ThetaMan2);
 // })
 //
 //
-// projects.getNFTsOnMarket().then(res => {
+// projects.getNFTById(503).then(res => {
 //     console.log("getNFTsOnMarket");
 //     console.log(res);
 // })
@@ -404,6 +460,17 @@ addProject(ThetaMan2);
 // const updateThetaZilla = {
 //     contract: "0x371a0a0c9aad38c2d5dd33a679aea4b5fb521089",
 // }
+//
+// const updateGODS = {
+//     contract: "0xe42ac9ff693d32e03732f1a4a96a916e792e39d9",
+// }
+//
+// projects.updateProject('0xE42AC9Ff693d32e03732F1A4A96a916E792e39d9', updateGODS).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
 //
 // projects.updateProject('0xf610fb0063c7fee8d5caae7e26d67c32dbc7d2d4', updateThetaZilla).then(res => {
 //     console.log("updateProject");

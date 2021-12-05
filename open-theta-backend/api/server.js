@@ -11,12 +11,15 @@ const creatorsRouter = require("../Routes/creators-routes");
 
 const server = express();
 
+// const baseURL = "opentheta.de"
+const baseURL = "open-theta.de"
+
 server.use(express.json());
-// server.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
+server.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 server.get("/", (req, res,next) => {
     res.json({message: "this is the api of OpenTheta"})
@@ -26,17 +29,17 @@ server.post('/', (req, res, next) => {
     // Handle the post for this route
 });
 
-// https.createServer(
-//         {
-//             key: fs.readFileSync('/etc/letsencrypt/live/opentheta.de/privkey.pem'),
-//             cert: fs.readFileSync('/etc/letsencrypt/live/opentheta.de/cert.pem'),
-//             ca: fs.readFileSync("/etc/letsencrypt/live/opentheta.de/chain.pem")
-//         },
-//         server
-//     )
-//     .listen(443, () => {
-//         console.log('Listening...')
-//     });
+https.createServer(
+        {
+            key: fs.readFileSync('/etc/letsencrypt/live/'+baseURL+'/privkey.pem'),
+            cert: fs.readFileSync('/etc/letsencrypt/live/'+baseURL+'/cert.pem'),
+            ca: fs.readFileSync('/etc/letsencrypt/live/'+baseURL+'/chain.pem')
+        },
+        server
+    )
+    .listen(443, () => {
+        console.log('Listening...')
+    });
 
 server.get("/uri", (req, res) => {
     axios.get(req.query.url).then(response => {

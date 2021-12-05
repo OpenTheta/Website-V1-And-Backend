@@ -9,6 +9,8 @@ module.exports = {
     getAllProjects,
     getProjectByContract,
 
+    checkItemId,
+
     getProjectsNFTs,
     getProjectsNFTsOnMarket,
     getProjectsNFTsSold,
@@ -161,6 +163,10 @@ function getAllNFTs() {
             "m.createdTimestamp as createdTimestamp",
             "m.soldTimestamp as soldTimestamp"
         ).select("*");
+}
+
+function checkItemId(itemId){
+    return db('marketplace').where({itemId});
 }
 
 function getNFTById (itemId) {

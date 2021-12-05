@@ -1,7 +1,11 @@
 const projects = require("./models/dbHelpers");
 
 async function addNFT(nft) {
-    await projects.addNFT(nft);
+    console.log(nft)
+    let x = await projects.addNFT(nft).catch((error) => {
+        console.log(error);
+    });
+    console.log(x)
 }
 
 async function updateNFT(nft) {
@@ -47,6 +51,7 @@ const events = {
 };
 
 async function dataProcessing(eventData, event) {
+    console.log(eventData, event)
     // get data from event
     let [seller, owner, category, price, isSold] = ethers.utils.defaultAbiCoder.decode(["address","address","string","uint256","bool"], eventData.data);
     let itemId = ethers.utils.defaultAbiCoder.decode(["uint256"], eventData.topics[1]);
@@ -61,8 +66,11 @@ async function dataProcessing(eventData, event) {
         );
 
         contractNFTObject.tokenURI(tokenId[0].toNumber()).then(URI => {
+            console.log(tokenId[0].toNumber(), URI)
             if (URI.slice(0,4) === 'ipfs') {
+                console.log()
                 URI = 'https://ipfs.io/ipfs/' + URI.substring(7)
+                console.log(URI)
             }
             axios.get(URI).then(response => {
                 if (response.data.image.slice(0,4) === 'ipfs') {
@@ -82,7 +90,6 @@ async function dataProcessing(eventData, event) {
                     imgUrl: response.data.image,
                     description: response.data.description,
                 };
-
                 addNFT(nft);
             }).catch(error => {
                 console.log(error);
@@ -189,3 +196,5 @@ provider.on(filterItemSold, (result) => {
 //         updateNFT(nft);
 //     }
 // });
+
+// 3050,0xE42AC9Ff693d32e03732F1A4A96a916E792e39d9,241,0xF5793B348bA3BE64E6AC087e9c229DbBFC72f7Ac,0x0000000000000000000000000000000000000000,GODS,20000000000000000000000,false,3051,0xE42AC9Ff693d32e03732F1A4A96a916E792e39d9,202,0xc16EdA8352C7C9Dd16F9e2eb5f4Ca6Aa065bd4C9,0x0000000000000000000000000000000000000000,GODS,6000000000000000000000,false,3053,0xE42AC9Ff693d32e03732F1A4A96a916E792e39d9,549,0x16EEe09c1555aF67A3CD7DE2076D3f3C32Ebe8Aa,0x0000000000000000000000000000000000000000,GODS,4500000000000000000000,false,3064,0xE42AC9Ff693d32e03732F1A4A96a916E792e39d9,377,0x07C16eEb5afe9F1feb8dDdCf56f33ba54182a28A,0x0000000000000000000000000000000000000000,GODS,888000000000000000000,false
