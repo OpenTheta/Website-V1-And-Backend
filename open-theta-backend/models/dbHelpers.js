@@ -22,6 +22,7 @@ module.exports = {
     getNFTsOnMarket,
     getSoldNFTs,
     getSoldNFTsByAddress,
+    getSoldNFTsByUserAddress,
     getNFTsOnMarketByAddress,
 
     getNFTsOnMarketByCreators,
@@ -244,6 +245,31 @@ function getSoldNFTsByAddress(contract) {
         ).whereRaw(`LOWER(nftContract) LIKE ?`, [`%${contract}%`]).where({isSold: true});
 }
 
+function getSoldNFTsByUserAddress(address) {
+    return db("projects as p")
+        .join("marketplace as m", "p.contract", "m.nftContract")
+        .select(
+            "p.contract as nftContract",
+            "p.name as projectName",
+            "p.creator as creator",
+            "p.tokenNumber as tokenNumber",
+            "p.description as projectDescription",
+            "p.imgUrl as projectImgUrl",
+            "m.itemId as itemId",
+            "m.tokenId as tokenId",
+            "m.seller as seller",
+            "m.owner as owner",
+            "m.category as category",
+            "m.price as price",
+            "m.isSold as isSold",
+            "m.name as name",
+            "m.imgUrl as imgUrl",
+            "m.description as description",
+            "m.createdTimestamp as createdTimestamp",
+            "m.soldTimestamp as soldTimestamp"
+        ).whereRaw(`LOWER(seller) LIKE ?`, [`%${address}%`]).where({isSold: true});
+}
+
 function getNFTsOnMarket() {
     return db("projects as p")
         .join("marketplace as m", "p.contract", "m.nftContract")
@@ -361,5 +387,5 @@ function getNFTsOnMarketByCreatorsAndProjects(creators, projects) {
             "m.imgUrl as imgUrl",
             "m.description as description",
             "m.createdTimestamp as createdTimestamp",
-        ).whereIn("creator", creators).orWhereIn("projectName", projects).where({isSold: false});
+        ).whereIn("creator", creators).where({isSold: false}).orWhereIn("projectName", projects).where({isSold: false});
 }

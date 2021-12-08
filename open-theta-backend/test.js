@@ -26,8 +26,11 @@ function addProject (project) {
 //
 // async function checkNFT(itemId) {
 //     let res = await projects.checkItemId(itemId);
-//     return res;
+//     console.log(res)
 // }
+//
+// checkNFT(3326)
+
 //
 // for(let i=1; i<3330; i++){
 //     checkNFT(i).then(res => {
@@ -269,6 +272,16 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
+const THETAVERSE = {
+    contract: '0x0478578c5e906afeb1bdbbf358929affbf1575c8',
+    name: 'THETAVERSE',
+    creator: 'TKETS',
+    tokenNumber: 1000,
+    description: 'Is this what the future of Theta looks like? A.. a THETAVERSE?!',
+    imgUrl:'https://ipfs.io/ipfs/QmXtqYW3VTEcDkSZA9gDJ8iYyhA1QQecfsz4ebcZ3Y2TDy',
+    hasMetadata: true,
+}
+
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
 // addProject(JieyiApe)
@@ -285,6 +298,7 @@ function addProject (project) {
 // addProject(Earth);
 // addProject(Gods);
 // addProject(ThetiansGalaxy);
+addProject(THETAVERSE);
 
 // const p2 = {
 //     contract: '2222',

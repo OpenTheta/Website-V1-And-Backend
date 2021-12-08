@@ -97,6 +97,22 @@ router.get('/sold/recent/:number/:contract', (req, res) => {
     });
 });
 
+//Returns the most recent sold NFTs by user address (number = number of NFTs)
+router.get('/sold/my/:number/:contract', (req, res) => {
+    const {number, contract} = req.params;
+    projects.getSoldNFTsByUserAddress(contract).then(nfts => {
+        nfts.sort((a, b) => {
+            return (b.soldTimestamp - a.soldTimestamp); // descending
+        })
+        if(nfts.length > number){
+            nfts = nfts.slice(0,number);
+        }
+        res.status(200).json(nfts);
+    }).catch(error => {
+        res.status(500).json({message: "Error retrieving NFTs sold by user address"});
+    });
+});
+
 // Returns newly listed NFTs on the marketplace (number = number of NFTs)
 router.get('/new/:number', (req, res)=> {
     const {number} = req.params;
