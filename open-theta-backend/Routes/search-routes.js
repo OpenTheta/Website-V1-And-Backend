@@ -5,8 +5,10 @@ const ethers =  require("ethers")
 
 const router = express.Router();
 
-function filterNFTs(nfts, min, max, sorting, number) {
+function filterNFTs(nfts, minimum, maximum, sorting, number, search) {
     let results = []
+    let min = parseInt(minimum, 10);
+    let max = parseInt(maximum, 10);
     if (search === 'ALL'){
         results = nfts
     } else {
@@ -144,7 +146,7 @@ router.get('/:search/:number/:sorting/:min/:max', (req, res)=> {
         const creators = JSON.parse(req.query.creators);
         dataProvider.getNFTsOnMarketByCreatorsAndProjects(creators, projects).then(nfts => {
             if(nfts) {
-                let results = filterNFTs(nfts, min, max, sorting, number);
+                let results = filterNFTs(nfts, min, max, sorting, number, search);
                 res.status(200).json(results);
             } else {
                 res.status(404).json({message:'Search found no NFTs on market by creators and projects'});
@@ -156,7 +158,7 @@ router.get('/:search/:number/:sorting/:min/:max', (req, res)=> {
         const creators = JSON.parse(req.query.creators);
         dataProvider.getNFTsOnMarketByCreators(creators).then(nfts => {
             if(nfts) {
-                let results = filterNFTs(nfts, min, max, sorting, number);
+                let results = filterNFTs(nfts, min, max, sorting, number, search);
                 res.status(200).json(results);
             } else {
                 res.status(404).json({message:'Search found no NFTs on market by creators'});
@@ -168,7 +170,7 @@ router.get('/:search/:number/:sorting/:min/:max', (req, res)=> {
         const projects = JSON.parse(req.query.projects);
         dataProvider.getNFTsOnMarketByProjects(projects).then(nfts => {
             if(nfts) {
-                let results = filterNFTs(nfts, min, max, sorting, number);
+                let results = filterNFTs(nfts, min, max, sorting, number, search);
                 res.status(200).json(results);
             } else {
                 res.status(404).json({message:'Search found no NFTs on market by projects'});
@@ -180,7 +182,7 @@ router.get('/:search/:number/:sorting/:min/:max', (req, res)=> {
         dataProvider.getNFTsOnMarket().then(nfts => {
             let results = [];
             if(nfts) {
-                let results = filterNFTs(nfts, min, max, sorting, number);
+                let results = filterNFTs(nfts, min, max, sorting, number, search);
                 res.status(200).json(results);
             } else {
                 res.status(404).json({message:'Search found no NFTs on market'})
