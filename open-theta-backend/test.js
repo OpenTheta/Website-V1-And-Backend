@@ -1,4 +1,4 @@
-const projects = require("./models/dbHelpers");
+const projects = require("./database2/models/dbHelpers2");
 //
 // function addNFT (nft) {
 //     projects.addNFT(nft).then(res => {
@@ -272,15 +272,35 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
-const THETAVERSE = {
-    contract: '0x0478578c5e906afeb1bdbbf358929affbf1575c8',
-    name: 'THETAVERSE',
-    creator: 'TKETS',
-    tokenNumber: 1000,
-    description: 'Is this what the future of Theta looks like? A.. a THETAVERSE?!',
-    imgUrl:'https://ipfs.io/ipfs/QmXtqYW3VTEcDkSZA9gDJ8iYyhA1QQecfsz4ebcZ3Y2TDy',
-    hasMetadata: true,
-}
+// const THETAVERSE = {
+//     contract: '0x0478578c5e906afeb1bdbbf358929affbf1575c8',
+//     name: 'THETAVERSE',
+//     creator: 'TKETS',
+//     tokenNumber: 1000,
+//     description: 'Is this what the future of Theta looks like? A.. a THETAVERSE?!',
+//     imgUrl:'https://ipfs.io/ipfs/QmXtqYW3VTEcDkSZA9gDJ8iYyhA1QQecfsz4ebcZ3Y2TDy',
+//     hasMetadata: true,
+// }
+
+// const ThetaBulls = {
+//     contract: '0xcb8f0b07ab79118014c8d6fa2ab2e2d88477305f',
+//     name: 'ThetaBull',
+//     creator: 'ThetaBulls',
+//     tokenNumber: 10000,
+//     description: 'Earth has failed. Wars, overpopulation and greed has has brought our old home to its knees. A group of brave explorers has set out to find a new, prosperous galaxy we can call home. After months of research Professor Lucas set out to explore the galaxy known as GOAT 888. Upon circling a planet, very similar to earth, he notices a mysterious glowing object and decides to land his ship. As he passed through a thick forrest, he finds himself at the shores of a lake and gazes upon something miraculous … the first encounter.',
+//     imgUrl:'https://arweave.net/_MPa0zj-tTAYn5UcKHM_01yP7SLZD8dLYHltnbcE0L4',
+//     hasMetadata: true,
+// }
+
+// const MeemopMania = {
+//     contract: '0x38af6ddf4f3f3b044bd0ae1106d6726a011eefd1',
+//     name: 'MeemopMania',
+//     creator: 'CykoKO',
+//     tokenNumber: 888,
+//     description: 'Meemop Mania is a generative NFT project of 888 Meemop mints, each unique with vintage animation inspired faces, colors and accessories.',
+//     imgUrl:'https://arweave.net/pPvox9jH66voJEWTP0mlDE7DPPFY9yJkt6IbLxPXWS0',
+//     hasMetadata: true,
+// }
 
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
@@ -298,7 +318,9 @@ const THETAVERSE = {
 // addProject(Earth);
 // addProject(Gods);
 // addProject(ThetiansGalaxy);
-addProject(THETAVERSE);
+// addProject(THETAVERSE);
+// addProject(ThetaBulls);
+// addProject(MeemopMania);
 
 // const p2 = {
 //     contract: '2222',
@@ -428,8 +450,15 @@ addProject(THETAVERSE);
 //     console.log(res);
 // });
 //
+
+// projects.deleteNFT(2615).then(res => {
+//     console.log(res);
+// }).catch(error => {
+//     console.log("deleteNFT");
+//     console.log('failed to delete nft');
+// });
 //
-// projects.deleteNFT(1.json).then(res => {
+// projects.deleteNFT(2982).then(res => {
 //     console.log(res);
 // }).catch(error => {
 //     console.log("deleteNFT");
@@ -521,12 +550,13 @@ addProject(THETAVERSE);
 // });
 //
 //
-// projects.getAllProjects().then(res => {
-//     console.log("getAllProjects");
-//     console.log(res);
-// }).catch(error => {
-//     console.log('failed to get all projects');
-// });
+projects.getAllProjects().then(res => {
+    console.log("getAllProjects");
+    console.log(res);
+}).catch(error => {
+    console.log(error)
+    console.log('failed to get all projects');
+});
 //
 //
 // projects.deleteProject('2222').then(res => {

@@ -10,35 +10,35 @@ const fs = require('fs');
 // const tokenNumber = 444
 
 // ThetaDiamond
-const baseName = "Thetians Galaxy - I. Encounter #";
-const symbol = "TG";
-const description = "Earth has failed. Wars, overpopulation and greed has has brought our old home to its knees. A group of brave explorers has set out to find a new, prosperous galaxy we can call home. After months of research Professor Lucas set out to explore the galaxy known as GOAT 888. Upon circling a planet, very similar to earth, he notices a mysterious glowing object and decides to land his ship. As he passed through a thick forrest, he finds himself at the shores of a lake and gazes upon something miraculous … the first encounter.";
-let baseImageURI = "https://arweave.net/10Kkbj5yrZW-Yq4aLXEvVHvL6tflWLKDwCVn6fqdrl0";
-const twitter = "https://twitter.com/ThetaDiamond";
-const external_url = "thetadiamond.com";
-const creator = "ThetaNostra";
-const collection = "Galaxy of the Ancient Thetians";
-const tokenNumber = 222;
+const baseName = "TRS Bull #";
+// const symbol = "TG";
+const description = "Theta Research Squad Bull represents those who never stop digging, finding, and sharing content in the hopes of advancing our mission: global adoption of Theta Network.";
+let baseImageURI = "https://arweave.net/GEVHOyPMhoBdRfi7pDJB9RzFVi2ZlIbujGEGuBtDOFA";
+const twitter = "https://twitter.com/Thresh_Theta";
+const external_url = "";
+const creator = "ThetaBulls";
+const collection = "";
+const tokenNumber = 44;
 
 
 async function writeFile(id) {
     let data = {
-        name: baseName+(id+1).toString(),
-        symbol: symbol,
+        name: baseName+(id).toString(),
+        // symbol: symbol,
         description: description,
         image: baseImageURI,
-        // twitter: twitter,
+        twitter: twitter,
         // external_url: external_url,
-        Collection: collection,
+        // Collection: collection,
         creator: creator,
     }
-    fs.writeFile("./../../../OpenThetaProjects/ThetaNostra/ThetiansGalaxy-I.Encounter/MetaData/"+id.toString()+".json", JSON.stringify(data), function(err) {
+    fs.writeFile("./../../../OpenThetaProjects/ThetaBulls/TRSBulls/MetaData/"+id.toString()+".json", JSON.stringify(data), function(err) {
         if (err) {
             console.log(err);
         }
     });
 }
 
-for(let i=0; i<tokenNumber; i++) {
+for(let i=1; i<=tokenNumber; i++) {
     writeFile(i);
 }

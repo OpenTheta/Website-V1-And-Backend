@@ -54,34 +54,34 @@
         </div>
 <!--    </div>-->
 </nav>
-    <keep-alive>
-        <thetadiamond-mint1 v-if="(currentFilter === 'SelfIllusion' || currentFilter === 'PluggedIn' || currentFilter === 'CleanupCrew' || currentFilter === 'TFuelDreams' || currentFilter === 'ThetaverseImmersion' || currentFilter === 'ALL') && (page === 'marketPage' || page === 'launchpadPage')" :project="launchThetaDiamond[4]"></thetadiamond-mint1>
-    </keep-alive>
-    <keep-alive>
-        <section class="d-flex justify-content-center align-items-center" v-if="(currentFilter === 'SelfIllusion' || currentFilter === 'PluggedIn' || currentFilter === 'CleanupCrew' || currentFilter === 'TFuelDreams' || currentFilter === 'ThetaverseImmersion' || currentFilter === 'ALL') && (page === 'marketPage' || page === 'launchpadPage')"
-                 style="width: 100%;min-height: 100vh;background: linear-gradient(black, #00b19c), #370000;">
-            <div class="container">
-                <div class="row">
-                    <thetadiamond-mint2 :project="launchThetaDiamond[0]"></thetadiamond-mint2>
-                    <thetadiamond-mint2 :project="launchThetaDiamond[1]"></thetadiamond-mint2>
-                </div>
-                <div class="row">
-                    <thetadiamond-mint2 :project="launchThetaDiamond[2]"></thetadiamond-mint2>
-                    <thetadiamond-mint2 :project="launchThetaDiamond[3]"></thetadiamond-mint2>
-                </div>
-            </div>
-        </section>
-    </keep-alive>
-    <keep-alive>
-        <nft-mint v-if="(currentFilter === 'ThetaPermabull') && page === 'marketPage'" :project="launchProjects[0]"></nft-mint>
-    </keep-alive>
-    <keep-alive>
-        <nft-mint v-if="(currentFilter === 'ThetaZilla') && page === 'marketPage'" :project="launchProjects[1]"></nft-mint>
-    </keep-alive>
-    <keep-alive>
-        <nft-mint v-if="(currentFilter === 'ThetaPugs') && page === 'marketPage'" :project="launchProjects[2]"></nft-mint>
-    </keep-alive>
-    <nft-mint v-for="project in launchProjects" v-if="page === 'launchpadPage'" :project="project"></nft-mint>
+<!--    <keep-alive>-->
+<!--        <thetadiamond-mint1 v-if="(currentFilter === 'SelfIllusion' || currentFilter === 'PluggedIn' || currentFilter === 'CleanupCrew' || currentFilter === 'TFuelDreams' || currentFilter === 'ThetaverseImmersion' || currentFilter === 'ALL') && (page === 'marketPage' || page === 'launchpadPage')" :project="launchThetaDiamond[4]"></thetadiamond-mint1>-->
+<!--    </keep-alive>-->
+<!--    <keep-alive>-->
+<!--        <section class="d-flex justify-content-center align-items-center" v-if="(currentFilter === 'SelfIllusion' || currentFilter === 'PluggedIn' || currentFilter === 'CleanupCrew' || currentFilter === 'TFuelDreams' || currentFilter === 'ThetaverseImmersion' || currentFilter === 'ALL') && (page === 'marketPage' || page === 'launchpadPage')"-->
+<!--                 style="width: 100%;min-height: 100vh;background: linear-gradient(black, #00b19c), #370000;">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <thetadiamond-mint2 :project="launchThetaDiamond[0]"></thetadiamond-mint2>-->
+<!--                    <thetadiamond-mint2 :project="launchThetaDiamond[1]"></thetadiamond-mint2>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <thetadiamond-mint2 :project="launchThetaDiamond[2]"></thetadiamond-mint2>-->
+<!--                    <thetadiamond-mint2 :project="launchThetaDiamond[3]"></thetadiamond-mint2>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
+<!--    </keep-alive>-->
+<!--    <keep-alive>-->
+<!--        <nft-mint v-if="(currentFilter === 'ThetaPermabull') && page === 'marketPage'" :project="launchProjects[0]"></nft-mint>-->
+<!--    </keep-alive>-->
+<!--    <keep-alive>-->
+<!--        <nft-mint v-if="(currentFilter === 'ThetaZilla') && page === 'marketPage'" :project="launchProjects[1]"></nft-mint>-->
+<!--    </keep-alive>-->
+<!--    <keep-alive>-->
+<!--        <nft-mint v-if="(currentFilter === 'ThetaPugs') && page === 'marketPage'" :project="launchProjects[2]"></nft-mint>-->
+<!--    </keep-alive>-->
+<!--    <nft-mint v-for="project in launchProjects" v-if="page === 'launchpadPage'" :project="project"></nft-mint>-->
 <section v-if="!(page === 'launchpadPage')" style="width: 100%;min-height: 100vh;background: #dadada;padding-top: 100px;">
         <div v-if="page === 'myAssetsPage'" class="row d-flex justify-content-center">
             <my-nft-card v-for="nft in myNFTs" :nft="nft" :onsale="false" :key="nft.name+nft.tokenId"></my-nft-card>

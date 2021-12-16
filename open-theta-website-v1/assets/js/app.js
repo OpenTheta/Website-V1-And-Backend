@@ -52,6 +52,7 @@ Vue.component('my-nft-card', {
                     name = NFTProjects[i].name;
                 }
             }
+            console.log(nft.id)
             await contractMarketObject.createMarketCancel(nft.contract, nft.id);
             // await contractMarketObject.createMarketCancel(nft.contract, nft.id, overrides);
 
@@ -195,7 +196,7 @@ Vue.component('nft-sell', {
                 this.ready = true;
                 return;
             }
-
+            console.log("Approve:", nft.tokenId)
             this.waiting = true;
             await contractNFTObject.approve(marktAddress, nft.tokenId);
 
@@ -703,33 +704,33 @@ let NFTProjects = [];
 // ];
 
 // Test chain
-// NFTProjects = [
-//     {
-//         name: 'ThetaPunks',
-//         contract: '0xaef0091cd3615e4e1da6e35398011bd26bccb7cd',
-//     },
-//     {
-//         name: 'ThetaMan',
-//         contract: '0xe17b6cd2a176d2db8d27d73a9b8abcb0d7cb9609',
-//     },
-//     {
-//         name: 'ThetaBoard',
-//         contract: '0x22d1a8df6a03e3fc36bdb4c4b1aaceac2885ef0a'
-//     },
-//     {
-//         name: 'SwimmingPorsche',
-//         contract: '0x9012b13771b6aefc10bfc4045d8960fc1c9facea'
-//     },
-//     {
-//         name: 'ThetaPermabull',
-//         contract: '0x09f4d98ab02af0c310cd7dc57c3edd35c71e938c'
-//     },
-//     {
-//       name: 'SelfIllusion',
-//       contract: '0x089e9285f35ab9767ceb4e3e398dc5765a788f5f'
-//     }
-//
-// ];
+NFTProjects = [
+    {
+        name: 'ThetaPunks',
+        contract: '0xaef0091cd3615e4e1da6e35398011bd26bccb7cd',
+    },
+    {
+        name: 'ThetaMan',
+        contract: '0xe17b6cd2a176d2db8d27d73a9b8abcb0d7cb9609',
+    },
+    {
+        name: 'ThetaBoard',
+        contract: '0x22d1a8df6a03e3fc36bdb4c4b1aaceac2885ef0a'
+    },
+    {
+        name: 'SwimmingPorsche',
+        contract: '0x9012b13771b6aefc10bfc4045d8960fc1c9facea'
+    },
+    {
+        name: 'ThetaPermabull',
+        contract: '0x09f4d98ab02af0c310cd7dc57c3edd35c71e938c'
+    },
+    {
+      name: 'SelfIllusion',
+      contract: '0x089e9285f35ab9767ceb4e3e398dc5765a788f5f'
+    }
+
+];
 
 try {
     globalThis.provider  = new ethers.providers.Web3Provider(window.ethereum);
@@ -742,8 +743,8 @@ try {
 
 
 
-const marktAddress = "0xd539558887b6744c52c595cb24fb9efa664ba814";
-// const marktAddress = "0x8823b2e45fd716c395230500d9668816c141e1ce"; //Testchain
+// const marktAddress = "0xd539558887b6744c52c595cb24fb9efa664ba814";
+const marktAddress = "0x02209a3fda3a7ed321f0c9f7658818278b21d7a2"; //Testchain
 
 const contractMarketABI = [
     "event MarketItemCreated(uint256 indexed itemId, address indexed nftContract, uint256 indexed tokenId, address seller, address owner, string category, uint256 price, bool isSold)",
@@ -804,7 +805,7 @@ let app = new Vue({
             this.sellPage = true;
             this.sellNft = nft;
         },
-        onTheMarket: async function () {
+        onMarket: async function () {
             this.page = 'marketPage';
             this.marketPage = true;
             this.myAssetsPage = false;
@@ -883,70 +884,70 @@ let app = new Vue({
             }
 
         },
-        onMarket: async function () {
-            this.page = 'marketPage';
-            this.currentFilter = 'ALL';
-            this.marketPage = true;
-            this.myAssetsPage = false;
-            this.sellPage = false;
-            this.marketNfts = [];
-            this.soldNFTs = [];
-
-            try {
-
-                axios.get('https://opentheta.de/api/nft/on-market').then(response => {
-                    for (let i = 0; i < response.data.length; i++) {
-                        let nft = {
-                            name: response.data[i].name,
-                            imageUrl: response.data[i].imgUrl,
-                            description: response.data[i].description,
-                            id: response.data[i].itemId,
-                            contract: response.data[i].nftContract,
-                            tokenId: response.data[i].tokenId,
-                            seller: response.data[i].seller,
-                            owner: response.data[i].owner,
-                            category: response.data[i].category,
-                            creator: response.data[i].creator,
-                            price: (ethers.BigNumber.from(response.data[i].price).div(ethers.BigNumber.from("10000000000000000"))).toNumber()/100,
-                            realPrice: ethers.BigNumber.from(response.data[i].price),
-                            isSold: response.data[i].isSold,
-                        }
-                        if(nft.category === "ThetaPunks"){
-                            nft["rank"] = this.PunkRank[parseInt(nft.name.slice(11))];
-                        }
-                        this.marketNfts.push(nft);
-                    }
-                });
-                axios.get('https://opentheta.de/api/nft/sold/recent/200').then(response => {
-                    response.data.sort((a, b) => {
-                        return (b.soldTimestamp - a.soldTimestamp); // ascending
-                    });
-
-                    for (let i = 0; i < response.data.length; i++) {
-                        let date = new Date(response.data[i].soldTimestamp);
-                        let nft = {
-                            name: response.data[i].name,
-                            imageUrl: response.data[i].imgUrl,
-                            description: response.data[i].description,
-                            id: response.data[i].itemId,
-                            contract: response.data[i].nftContract,
-                            tokenId: response.data[i].tokenId,
-                            seller: response.data[i].seller,
-                            owner: response.data[i].owner,
-                            category: response.data[i].category,
-                            price: (ethers.BigNumber.from(response.data[i].price).div(ethers.BigNumber.from("10000000000000000"))).toNumber()/100,
-                            isSold: true,
-                            soldTime: date.toLocaleString(),
-                        }
-                        this.soldNFTs.push(nft);
-                    }
-
-                });
-            } catch (err) {
-                throw err;
-            }
-
-        },
+        // onMarket: async function () {
+        //     this.page = 'marketPage';
+        //     this.currentFilter = 'ALL';
+        //     this.marketPage = true;
+        //     this.myAssetsPage = false;
+        //     this.sellPage = false;
+        //     this.marketNfts = [];
+        //     this.soldNFTs = [];
+        //
+        //     try {
+        //
+        //         axios.get('https://opentheta.de/api/nft/on-market').then(response => {
+        //             for (let i = 0; i < response.data.length; i++) {
+        //                 let nft = {
+        //                     name: response.data[i].name,
+        //                     imageUrl: response.data[i].imgUrl,
+        //                     description: response.data[i].description,
+        //                     id: response.data[i].itemId,
+        //                     contract: response.data[i].nftContract,
+        //                     tokenId: response.data[i].tokenId,
+        //                     seller: response.data[i].seller,
+        //                     owner: response.data[i].owner,
+        //                     category: response.data[i].category,
+        //                     creator: response.data[i].creator,
+        //                     price: (ethers.BigNumber.from(response.data[i].price).div(ethers.BigNumber.from("10000000000000000"))).toNumber()/100,
+        //                     realPrice: ethers.BigNumber.from(response.data[i].price),
+        //                     isSold: response.data[i].isSold,
+        //                 }
+        //                 if(nft.category === "ThetaPunks"){
+        //                     nft["rank"] = this.PunkRank[parseInt(nft.name.slice(11))];
+        //                 }
+        //                 this.marketNfts.push(nft);
+        //             }
+        //         });
+        //         axios.get('https://opentheta.de/api/nft/sold/recent/200').then(response => {
+        //             response.data.sort((a, b) => {
+        //                 return (b.soldTimestamp - a.soldTimestamp); // ascending
+        //             });
+        //
+        //             for (let i = 0; i < response.data.length; i++) {
+        //                 let date = new Date(response.data[i].soldTimestamp);
+        //                 let nft = {
+        //                     name: response.data[i].name,
+        //                     imageUrl: response.data[i].imgUrl,
+        //                     description: response.data[i].description,
+        //                     id: response.data[i].itemId,
+        //                     contract: response.data[i].nftContract,
+        //                     tokenId: response.data[i].tokenId,
+        //                     seller: response.data[i].seller,
+        //                     owner: response.data[i].owner,
+        //                     category: response.data[i].category,
+        //                     price: (ethers.BigNumber.from(response.data[i].price).div(ethers.BigNumber.from("10000000000000000"))).toNumber()/100,
+        //                     isSold: true,
+        //                     soldTime: date.toLocaleString(),
+        //                 }
+        //                 this.soldNFTs.push(nft);
+        //             }
+        //
+        //         });
+        //     } catch (err) {
+        //         throw err;
+        //     }
+        //
+        // },
         myAssets: async function () {
             this.page = 'myAssetsPage';
             this.marketPage = false;
@@ -977,7 +978,7 @@ let app = new Vue({
                             const nftURI = await contractObject.tokenURI(tokenID);
                             // console.log(nftURI);
 
-                            axios.get('https://opentheta.de/uri/?url='+nftURI).then(response => {
+                            axios.get(nftURI).then(response => {
                                 for (let i = 0; i<this.myNFTs.length; i++) {
                                     if (this.myNFTs[i].name === response.data.name){
                                         return;
@@ -1035,9 +1036,9 @@ let app = new Vue({
         },
     },
     created() {
-        axios.get('https://opentheta.de/api/projects').then(response => {
-            NFTProjects = response.data;
-        });
+        // axios.get('https://opentheta.de/api/projects').then(response => {
+        //     NFTProjects = response.data;
+        // });
         this.onMarket();
         try{
             if(provider){

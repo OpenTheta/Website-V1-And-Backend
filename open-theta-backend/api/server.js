@@ -47,6 +47,7 @@ server.get("/uri", (req, res) => {
     });
 });
 
+server.use('/api/static', express.static('public'))
 server.use('/api/projects', projectsRouter);
 server.use('/api/nft', nftRouter);
 server.use('/api/search', searchRouter);
