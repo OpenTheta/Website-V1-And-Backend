@@ -1,4 +1,4 @@
-const projects = require("./database2/models/dbHelpers2");
+const projects = require("./models/dbHelpers");
 //
 // function addNFT (nft) {
 //     projects.addNFT(nft).then(res => {
@@ -302,6 +302,36 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
+// const TRSBulls = {
+//     contract: '0x75ad7c8a882382b3e6132370bf317113c96248ac',
+//     name: 'TRSBull',
+//     creator: 'ThetaBulls',
+//     tokenNumber: 44,
+//     description: 'Theta Research Squad Bull represents those who never stop digging, finding, and sharing content in the hopes of advancing our mission: global adoption of Theta Network.',
+//     imgUrl:'https://arweave.net/GEVHOyPMhoBdRfi7pDJB9RzFVi2ZlIbujGEGuBtDOFA',
+//     hasMetadata: true,
+// }
+
+// const MysticGurus2021 = {
+//     contract: '0xe48f6e05c119bae8e2a30f7637264c29255b061c',
+//     name: 'MysticGurus2021',
+//     creator: 'MysticGurus',
+//     tokenNumber: 555,
+//     description: 'Mystic Gurus 2021 Promo Drop. The journey begins.',
+//     imgUrl:'https://arweave.net/AVsye9uQBGdmecHlkKkPIYWHt3KL5h1TZIppNVM2rGE',
+//     hasMetadata: true,
+// }
+
+const ThetaTeeth = {
+    contract: '0x23a185f6cf673d74f3dd69086f20136ee30e7129',
+    name: 'ThetaTeeth',
+    creator: 'ThetaTeeth',
+    tokenNumber: 3232,
+    description: 'ThetaTeeth is a collection of 3232 unique NFTs. In ancient times teeth were used as tokens by hunters and they were quite symbolic. This is very common and coincides with our vision that Theta blockchain is still in its infancy and we, just like ancient hunters, want to have something symbolic to remember about these early days.',
+    imgUrl:'https://arweave.net/biEkrXgvMtlumPZvFRGnTj4-E6dWTo2MTQpBufqYFqs',
+    hasMetadata: true,
+}
+
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
 // addProject(JieyiApe)
@@ -321,6 +351,10 @@ function addProject (project) {
 // addProject(THETAVERSE);
 // addProject(ThetaBulls);
 // addProject(MeemopMania);
+// addProject(TRSBulls);
+// addProject(MysticGurus2021)
+addProject(ThetaTeeth)
+
 
 // const p2 = {
 //     contract: '2222',
@@ -550,13 +584,13 @@ function addProject (project) {
 // });
 //
 //
-projects.getAllProjects().then(res => {
-    console.log("getAllProjects");
-    console.log(res);
-}).catch(error => {
-    console.log(error)
-    console.log('failed to get all projects');
-});
+// projects.getAllProjects().then(res => {
+//     console.log("getAllProjects");
+//     console.log(res);
+// }).catch(error => {
+//     console.log(error)
+//     console.log('failed to get all projects');
+// });
 //
 //
 // projects.deleteProject('2222').then(res => {

@@ -9,7 +9,7 @@ const fs = require('fs');
 //     "external_url": "https://thetapugs.com/",
 // }
 
-const url = "https://arweave.net/Lk8iRxl9gv5meimf1Db5CPAvb4HeLlmSshj_I-_g8_Q/"
+const url = "https://arweave.net/3rgb29ooG0z8oShY4lIVoK0RaUjrBSSwckgU6Ioh7ZQ/"
 
 
 const baseName = "Mystic Gurus 2021 Promo #";
@@ -49,27 +49,32 @@ const creator = "MysticGurus"
 // }
 
 // finalize files sorted
-// async function writeFile(jsonId, type) {
-//     let data = await fs.readFileSync('./../../../../OpenThetaProjects/MysticGurus/AllMetadata/'+counter.toString()+".json")
-//     data = JSON.parse(data);
-//     data.name = baseName+(jsonId).toString();
-//     data.image = url + jsonId.toString() + ".jpeg";
-//     data.description = description;
-//     data.external_url = external_url;
-//     data["twitter"] = twitter;
-//     data["creator"] = creator;
-//     data.attributes.push(
-//     {trait_type:"type",value:type}
-//     )
-//     delete data.hash;
-//     delete data.fee_recipient;
-//     delete data.seller_fee_basis_points;
-//     fs.writeFile("./../../../../OpenThetaProjects/MysticGurus/AllMetadata/final/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
-//         if (err) {
-//             console.log(err);
-//         }
-//     });
-// }
+async function writeFile(jsonId, type) {
+    let data = await fs.readFileSync('./../../../../OpenThetaProjects/MysticGurus/Giveaways2021/Metadata/'+jsonId.toString()+".json")
+    data = JSON.parse(data);
+    data.name = baseName+(jsonId).toString();
+    data.image = url + jsonId.toString() + ".jpeg";
+    data.description = description;
+    data.external_url = external_url;
+    data["twitter"] = twitter;
+    data["creator"] = creator;
+    // console.log(data.attributes[8])
+    if(data.attributes[8]){
+        console.log(data.attributes[8])
+    } else {
+        data.attributes.push(
+            {trait_type:"type",value:type}
+        )
+    }
+    delete data.hash;
+    delete data.fee_recipient;
+    delete data.seller_fee_basis_points;
+    fs.writeFile("./../../../../OpenThetaProjects/MysticGurus/AllMetadata/FinalRandom2/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+}
 
 //Randomize files
 // async function copyFile(jsonId, newId) {
@@ -103,28 +108,41 @@ const creator = "MysticGurus"
 // async function finalizeFile(jsonId) {
 //     let data = await fs.readFileSync('./../../../../OpenThetaProjects/MysticGurus/AllMetadata/FinalRandom/'+jsonId.toString()+".json")
 //     data = JSON.parse(data);
-//     data.name = baseName+(jsonId).toString();
-//     fs.writeFile("./../../../../OpenThetaProjects/MysticGurus/AllMetadata/FinalRandom/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
+//     data.name = baseName+(jsonId + 55).toString();
+//     fs.writeFile("./../../../../OpenThetaProjects/MysticGurus/AllMetadata/FinalRandom2/"+(jsonId +55).toString()+".json", JSON.stringify(data), function(err) {
 //         if (err) {
 //             console.log(err);
 //         }
 //     });
 // }
 
-let watch = []
+// for(let i=1; i<=55; i++){
+//     writeFile(i, "Giveaway")
+// }
+
+// let watch = []
+
+// let toFind = ['139.jpeg', '153.jpeg', '179.jpeg', '195.jpeg', '267.jpeg', '282.jpeg', '389.jpeg', '401.jpeg', '434.jpeg', '447.jpeg']
 async function getCrossover(i) {
-    let data = await fs.readFileSync('./../../../../OpenThetaProjects/MysticGurus/AllMetadata/FinalRandom/'+i.toString()+".json");
+    let data = await fs.readFileSync('./../../../../OpenThetaProjects/MysticGurus/AllMetadata/FinalRandom2/'+i.toString()+".json");
     data = JSON.parse(data);
     // console.log(data.attributes[8].value.substring(0,8))
-    if(data.attributes[6].value.substring(0,9) === "Hands Now"){
+    // // if(data.attributes[6].value.substring(0,9) === "Hands Now"){
+    // console.log()
         // console.log(i);
-        watch.push(i)
-        console.log(watch.length)
-    }
-}
+        // watch.push(i)
+        // console.log(watch.length)
+    // }
 
-// const baseID = 7000;
-for(let i=1; i<=tokenNumber; i++) {
+    console.log(data.name, data.image)
+
+    // if(data.attributes[8].value === "Crossover GuruZilla"){
+    //     console.log(i)
+    // }
+}
+//
+// // const baseID = 7000;
+for(let i=1; i<=555; i++) {
     getCrossover(i);
 }
 
@@ -149,6 +167,8 @@ for(let i=1; i<=tokenNumber; i++) {
 // for(let i=1; i<=tokenNumber; i++) {
 //     copyFile(i, a[i-1]+1);
 // }
+
+// 139, 153, 179, 195, 267, 282, 389, 401, 434, 447
 
 // let folders = [
 //     {

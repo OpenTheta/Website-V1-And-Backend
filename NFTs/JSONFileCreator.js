@@ -10,15 +10,16 @@ const fs = require('fs');
 // const tokenNumber = 444
 
 // ThetaDiamond
-const baseName = "TRS Bull #";
+const baseName = "Xmas Greetings TB#";
 // const symbol = "TG";
-const description = "Theta Research Squad Bull represents those who never stop digging, finding, and sharing content in the hopes of advancing our mission: global adoption of Theta Network.";
-let baseImageURI = "https://arweave.net/GEVHOyPMhoBdRfi7pDJB9RzFVi2ZlIbujGEGuBtDOFA";
-const twitter = "https://twitter.com/Thresh_Theta";
-const external_url = "";
-const creator = "ThetaBulls";
-const collection = "";
-const tokenNumber = 44;
+const description = 'Seasons Greetings from Thetabet, to all the Theta community.';
+let baseImageURI = "https://arweave.net/7qyaWKfGvLswrmMAngjHeTxYrm3tvyia-9CKmjnxK4Y/XMAS.png";
+const twitter = "https://twitter.com/ThetaBets";
+const external_url = "https://thetabetnft.com";
+const animation_url = "https://arweave.net/k7i4crpNeFcuEkVnFmDaBEv3mUZlHJHizQcoEO6FbnE/XMAS.mp4";
+const creator = "ThetaBet";
+// const collection = "Zilla-Mania";
+const tokenNumber = 100;
 
 
 async function writeFile(id) {
@@ -27,12 +28,13 @@ async function writeFile(id) {
         // symbol: symbol,
         description: description,
         image: baseImageURI,
+        animation_url: animation_url,
         twitter: twitter,
-        // external_url: external_url,
-        // Collection: collection,
+        external_url: external_url,
+        // collection: collection,
         creator: creator,
     }
-    fs.writeFile("./../../../OpenThetaProjects/ThetaBulls/TRSBulls/MetaData/"+id.toString()+".json", JSON.stringify(data), function(err) {
+    fs.writeFile("./../../../OpenThetaProjects/ThetaBet/AnimatedNFTs/MetadataXMAS/"+id.toString()+".json", JSON.stringify(data), function(err) {
         if (err) {
             console.log(err);
         }

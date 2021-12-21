@@ -5,10 +5,30 @@ const projects2 = require("../../database2/models/dbHelpers2");
 
 const router = express.Router();
 
+async function checkProjectOnMarket(p) {
+    for(let i=0; i<p.length; i++){
+        let existOnMarket = false
+        let res  = await projects2.getProjectsNFTsOnMarket(p[i].contract)
+        if(res.length > 0) {
+            existOnMarket = true
+        } else {
+            let res =  await projects.getProjectsNFTsOnMarket(p[i].contract)
+            if(res.length > 0) {
+                existOnMarket = true
+            }
+        }
+        p[i]["existsOnMarket"] = existOnMarket
+    }
+    return p
+}
+
+
 router.get('/', (req, res) => {
 
-    projects2.getAllProjects().then(projects => {
-        res.status(200).json(projects);
+    projects2.getAllProjects().then(Projects => {
+        checkProjectOnMarket(Projects).then(p=> {
+            res.status(200).json(p);
+        })
     }).catch(error => {
         res.status(500).json({message: "Error retrieving all projects"});
     });

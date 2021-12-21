@@ -54,56 +54,78 @@ let info = [
     { name: "8", number: 30 },
     { name: "9", number: 30 },
 ]
-let count = 0
-for(let i=0; i<info.length; i++){
-    count += info[i].number
-}
-console.log(count)
+
 const baseImageURI = [
-    "https://arweave.net/T-P7U4CWaQwZlw3CUU6CBftAtLhRklIZZv8DIhryJ1w/", // 888
+    "https://arweave.net/lgk3mJiGtNfNO3qA7v-ywFR6sAwdXT3LRdwKgb5MNBY/",
 ]
 
 
-// const baseName = "ThetaZilla #";
+const baseName = "ThetaBet / First Edition";
 const symbol = "TT";
-const description = "ThetaTeeth is a collection of 3232 unique NFTs. In ancient times teeth were used as tokens by hunters and they were quite symbolic. This is very common and coincides with our vision that Theta blockchain is still in its infancy and we, just like ancient hunters, want to have something symbolic to remember about these early days.";
-const external_url = "www.ThetaTeeth.com";
-const twitter = "https://twitter.com/theta_teeth";
-const tokenNumber = 3232;
+const description = "Collectable characters and numbers, a unique take on the alphabet. Everyone has a letter or number that’s personal to them and our aim is make NFTs as memorable as possible. Play our word games using your ThetaBet NFT letters to win TFUEL.";
+const external_url = "https://thetabetnft.com";
+const twitter = "https://twitter.com/ThetaBets";
+const creator = "ThetaBet"
+// const tokenNumber = count;
 
-// const baseName = "Meemop Mania #";
-// const creator = "Cyko KO"
-// const symbol = "SP";
-// const description = "This NFT is limited to ten editions";
-// const tokenNumber = 10;
 
-async function writeFile(jsonId) {
-    fs.readFile('./../../../OpenThetaProjects/ThetaTeeth/json/'+ (jsonId) + '.json', 'utf8' , (err, data) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        let image = baseImageURI[0]+(jsonId).toString()+".png";
+// Create a array with numbers from 0 to 1380
+let a = [];
+let c = 0
+for (let i=0;i<info.length; i++) {
+    for(let j=1; j<=info[i].number; j++) {
+        a[c] = info[i].name
+        c++;
+    }
+}
 
-        data =  JSON.parse(data);
-        data.description = description;
-        data["external_url"] = external_url;
-        // data.name = baseName + (jsonId).toString();
-        data["twitter"] = twitter;
-        data["image"] = image;
-        // data["creator"] = creator;
-        delete data.compiler;
-        fs.writeFile("./../../../OpenThetaProjects/ThetaTeeth/Metadata/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
-            if (err) {
-                console.log(err);
+// console.log(a)
+// shuffle that array randomly
+function shuffle(array) {
+    let tmp, current, top = array.length;
+    if(top) while(--top) {
+        current = Math.floor(Math.random() * (top + 1));
+        tmp = array[current];
+        array[current] = array[top];
+        array[top] = tmp;
+    }
+    return array;
+}
+
+a = shuffle(a);
+
+
+async function writeFile(symbol, jsonId) {
+    let image = baseImageURI[0]+(symbol).toString()+".png";
+
+    if(symbol === "%3F") {
+        symbol = "?"
+    }
+    data =  {
+        "name": baseName,
+        "description": description,
+        "image": image,
+        "creator": creator,
+        "external_url": external_url,
+        "twitter": twitter,
+        "attributes": [
+            {
+                "trait_type": "Symbol",
+                "value": symbol
             }
-        });
+    ]
+    }
+
+    fs.writeFile("./../../../../OpenThetaProjects/ThetaBet/FirstEdition/Metadata/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
+        if (err) {
+            console.log(err);
+        }
     });
 }
-// const baseID = 7000;
-// for(let i=1; i<=tokenNumber; i++) {
-//     writeFile( baseID+i);
-// }
+
+for(let i=1; i<=a.length; i++) {
+    writeFile(a[i-1], i);
+}
 
 // Create a array with numbers from 0 to 9999
 // let a = [];
