@@ -120,11 +120,11 @@ async function writeFile(jsonId, type) {
 //     writeFile(i, "Giveaway")
 // }
 
-// let watch = []
+let watch = {}
 
 // let toFind = ['139.jpeg', '153.jpeg', '179.jpeg', '195.jpeg', '267.jpeg', '282.jpeg', '389.jpeg', '401.jpeg', '434.jpeg', '447.jpeg']
 async function getCrossover(i) {
-    let data = await fs.readFileSync('./../../../../OpenThetaProjects/MysticGurus/AllMetadata/FinalRandom2/'+i.toString()+".json");
+    let data = await fs.readFileSync('./../../../../OpenThetaProjects/ThetaBet/FirstEdition/Metadata/'+i.toString()+".json");
     data = JSON.parse(data);
     // console.log(data.attributes[8].value.substring(0,8))
     // // if(data.attributes[6].value.substring(0,9) === "Hands Now"){
@@ -133,8 +133,13 @@ async function getCrossover(i) {
         // watch.push(i)
         // console.log(watch.length)
     // }
-
-    console.log(data.name, data.image)
+    // console.log(data.attributes[0].value)
+    if(watch[data.attributes[0].value]) {
+        watch[data.attributes[0].value]++
+    } else {
+        watch[data.attributes[0].value] = 1
+    }
+    // console.log(data.name, data.image)
 
     // if(data.attributes[8].value === "Crossover GuruZilla"){
     //     console.log(i)
@@ -142,9 +147,13 @@ async function getCrossover(i) {
 }
 //
 // // const baseID = 7000;
-for(let i=1; i<=555; i++) {
+for(let i=1; i<=1380; i++) {
     getCrossover(i);
 }
+
+setTimeout(() => {
+    console.log(watch)
+},5000)
 
 // Create a array with numbers from 0 to 9999
 // let a = [];

@@ -1366,17 +1366,17 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
 // Token starting at 1
-contract Firezilla is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract ThetaSnow is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 55;
+    uint256 public MAX_NFT_SUPPLY = 100;
 
     bool public saleIsActive = false;
 
     address public feeAddress;
 
-    constructor(address fee, string memory uri) ERC721("Firezilla", "FZ") {
+    constructor(address fee, string memory uri) ERC721("ThetaSnow", "TS") {
         feeAddress = fee;
         baseURI = uri;
     }
@@ -1388,7 +1388,7 @@ contract Firezilla is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         uint currentSupply = totalSupply();
         require(currentSupply < MAX_NFT_SUPPLY, "Sale has already ended");
 
-        return 200000000000000000000; // 1 - 55 200 TFUEL
+        return 222000000000000000000; // 1 - 100 222 TFUEL
     }
 
     /**

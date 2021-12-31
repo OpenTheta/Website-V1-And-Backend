@@ -1388,7 +1388,7 @@ contract Zillarina is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         uint currentSupply = totalSupply();
         require(currentSupply < MAX_NFT_SUPPLY, "Sale has already ended");
 
-        return 200000000000000000000; // 1 - 555 300 TFUEL
+        return 200000000000000000000; // 1 - 55 200 TFUEL
     }
 
     /**

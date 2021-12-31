@@ -1366,17 +1366,17 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
 // Token starting at 1
-contract Firezilla is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract WarmedByTFuel2021 is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 55;
+    uint256 public MAX_NFT_SUPPLY = 10000;
 
-    bool public saleIsActive = false;
+    bool public saleIsActive = true;
 
     address public feeAddress;
 
-    constructor(address fee, string memory uri) ERC721("Firezilla", "FZ") {
+    constructor(address fee, string memory uri) ERC721("WarmedByTFuel2021", "WBT21") {
         feeAddress = fee;
         baseURI = uri;
     }
@@ -1385,27 +1385,21 @@ contract Firezilla is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
  * @dev Gets current Price
      */
     function getNFTPrice() public view returns (uint256) {
-        uint currentSupply = totalSupply();
-        require(currentSupply < MAX_NFT_SUPPLY, "Sale has already ended");
+        require(saleIsActive, "Sale has already ended");
 
-        return 200000000000000000000; // 1 - 55 200 TFUEL
+        return 2000000000000000000; // 1 - n 2 TFUEL
     }
 
     /**
     * Set some NFTs aside
     */
     function reserveNFTS(uint256 numberOfNfts, address _senderAddress) public onlyOwner {
+        require(saleIsActive, "Sale has already ended");
 
         for (uint i = 0; i < numberOfNfts; i++) {
             uint256 supply = totalSupply();
-
-            if (supply < MAX_NFT_SUPPLY )
-            {
-                uint256 tokenId = supply+1;
-                _safeMint(_senderAddress, tokenId);
-                string memory id = toString(tokenId);
-                _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
-            }
+            uint256 tokenId = supply+1;
+            _safeMint(_senderAddress, tokenId);
         }
     }
 
@@ -1413,11 +1407,10 @@ contract Firezilla is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     * Mint token if sale is active and total supply < max supply
     */
     function safeMint(address to) public payable {
-        require(saleIsActive, "Sale must be active to mint");
-        require(totalSupply() < MAX_NFT_SUPPLY, "Purchase would exceed max supply");
+        require(saleIsActive, "Sale has already ended");
         require(getNFTPrice() == msg.value, "TFuel value sent is not correct");
 
-        uint256 ownerPayout = (msg.value / 100) * 80;
+        uint256 ownerPayout = (msg.value / 100) * 85;
         uint256 feePayout = msg.value - ownerPayout;
         payable(owner()).transfer(ownerPayout);
         payable(feeAddress).transfer(feePayout);
@@ -1425,15 +1418,21 @@ contract Firezilla is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         uint256 tokenId = totalSupply() + 1;
 
         _safeMint(to, tokenId);
-        string memory id = toString(tokenId);
-        _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
+
+        emit FeeSplit(
+            feePayout,
+            feeAddress,
+            ownerPayout,
+            owner
+        );
     }
 
     /*
     * Pause sale if active, make active if paused
     */
-    function flipSaleState() public onlyOwner {
-        saleIsActive = !saleIsActive;
+    function deactivateSale() public onlyOwner {
+        saleIsActive = false;
+        MAX_NFT_SUPPLY = totalSupply();
     }
 
     /*
@@ -1467,7 +1466,8 @@ contract Firezilla is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     override(ERC721, ERC721URIStorage)
     returns (string memory)
     {
-        return super.tokenURI(tokenId);
+        require(_exists(tokenId), "URI query for nonexistent token");
+        return _baseURI();
     }
 
     function supportsInterface(bytes4 interfaceId)
@@ -1478,33 +1478,6 @@ contract Firezilla is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     {
         return super.supportsInterface(interfaceId);
     }
-
-    /**
- * @dev Converts a `uint256` to its ASCII `string` decimal representation.
-     */
-    /**
-     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
-     */
-    function toString(uint256 value) internal pure returns (string memory) {
-        // Inspired by OraclizeAPI's implementation - MIT licence
-        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
-
-        if (value == 0) {
-            return "0";
-        }
-        uint256 temp = value;
-        uint256 digits;
-        while (temp != 0) {
-            digits++;
-            temp /= 10;
-        }
-        bytes memory buffer = new bytes(digits);
-        while (value != 0) {
-            digits -= 1;
-            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
-            value /= 10;
-        }
-        return string(buffer);
-    }
 }
+
 

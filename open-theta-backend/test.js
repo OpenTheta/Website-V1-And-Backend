@@ -322,13 +322,113 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
-const ThetaTeeth = {
-    contract: '0x23a185f6cf673d74f3dd69086f20136ee30e7129',
-    name: 'ThetaTeeth',
-    creator: 'ThetaTeeth',
-    tokenNumber: 3232,
-    description: 'ThetaTeeth is a collection of 3232 unique NFTs. In ancient times teeth were used as tokens by hunters and they were quite symbolic. This is very common and coincides with our vision that Theta blockchain is still in its infancy and we, just like ancient hunters, want to have something symbolic to remember about these early days.',
-    imgUrl:'https://arweave.net/biEkrXgvMtlumPZvFRGnTj4-E6dWTo2MTQpBufqYFqs',
+// const ThetaTeeth = {
+//     contract: '0x23a185f6cf673d74f3dd69086f20136ee30e7129',
+//     name: 'ThetaTeeth',
+//     creator: 'ThetaTeeth',
+//     tokenNumber: 3232,
+//     description: 'ThetaTeeth is a collection of 3232 unique NFTs. In ancient times teeth were used as tokens by hunters and they were quite symbolic. This is very common and coincides with our vision that Theta blockchain is still in its infancy and we, just like ancient hunters, want to have something symbolic to remember about these early days.',
+//     imgUrl:'https://arweave.net/biEkrXgvMtlumPZvFRGnTj4-E6dWTo2MTQpBufqYFqs',
+//     hasMetadata: true,
+// }
+
+// const ThetaBetFirstEdition = {
+//     contract: '0x875b7e0042629966eb73eff2e5e876229612d502',
+//     name: 'ThetaBetFirstEdition',
+//     creator: 'ThetaBet',
+//     tokenNumber: 1380,
+//     description: 'Collectable characters and numbers, a unique take on the alphabet. Everyone has a letter or number that’s personal to them and our aim is make NFTs as memorable as possible. Play our word games using your ThetaBet NFT letters to win TFUEL. Collect 10 or more ThetaBet for your chance to be airdropped a special animated NFT."',
+//     imgUrl:'https://arweave.net/eWsnE1qVMUL_GgJv47XMD2mGB-Ri2byRCuYGJHTEJgE',
+//     hasMetadata: true,
+// }
+//
+// const ThetaSnow = {
+//     contract: '0xebb704d36c14245ecacf167ac41fc26e02281cff',
+//     name: 'ThetaSnow',
+//     creator: 'ThetaBet',
+//     tokenNumber: 100,
+//     description: 'Celebrate the Holiday with our Thaterish Xmas NFT.',
+//     imgUrl:'https://arweave.net/7qyaWKfGvLswrmMAngjHeTxYrm3tvyia-9CKmjnxK4Y/XMASTheta.png',
+//     hasMetadata: true,
+// }
+//
+// const XMAS = {
+//     contract: '0xb884e3d5d83e154853ae02a3641e06e8309239ff',
+//     name: 'XmasGreetings',
+//     creator: 'ThetaBet',
+//     tokenNumber: 100,
+//     description: 'Seasons Greetings from Thetabet, to all the Theta community.',
+//     imgUrl:'https://arweave.net/7qyaWKfGvLswrmMAngjHeTxYrm3tvyia-9CKmjnxK4Y/XMAS.png',
+//     hasMetadata: true,
+// }
+//
+// const RARE = {
+//     contract: '0x70b31e3e3736fc17ed1d3e3446029d4a3626eeb8',
+//     name: 'RARE',
+//     creator: 'ThetaBet',
+//     tokenNumber: 10,
+//     description: 'Our RARE NFT is the first ever ThetaBet Word Edition. With only 10 minted, that makes it extremely RARE.',
+//     imgUrl:'https://arweave.net/yonsYmu_7RQl-02dypNoAjUen9erHNnIDfyxymiYkZs',
+//     hasMetadata: true,
+// }
+
+// const SantaBull = {
+//     contract: '0x61ce58995a0aefb9e788a696ab302ebaffb03cb6',
+//     name: 'SantaBull',
+//     creator: 'ThetaBulls',
+//     tokenNumber: 55,
+//     description: 'The North Pole is in chaos; elves run from one end of the toy shoppe to the other looking for the man in the suit without avail—Santa’s gone AWOL. With no one to turn to, the elves and Mrs. Clause enlist the ThetaBulls to save Christmas. Fresh from the pasture, they’ve got Santa’s sack and the red suit in hoof, as the Bulls set forth to deliver Yuletide joy across the Thetaverse. But that velvet sack isn’t full of toys; no, it’s overflowing with bear traps, spray, and all the makings for a comfy bear fur rug. Sorry Bears, no toys this year, the ThetaBulls are back, and this time, you’re on the naughty list. It’s the running of the Christmas Bulls, leaving a wake of candy canes and pain.',
+//     imgUrl:'https://arweave.net/vENF6V6wewbVytZcSfbRxNMFRmvm5XtD2mACtL5Ss4k',
+//     hasMetadata: true,
+// }
+
+const Goldzilla = {
+    contract: '0xb8a427267d54c56d6e3763a068d83f6cfd43981e',
+    name: 'Goldzilla',
+    creator: 'Barrizan',
+    tokenNumber: 26,
+    description: 'Goldzilla is not someone you would want to see across from you at the WPT poker table. Despite the fact that he could instantly annihilate any of his competitors with a single fiery breath, Goldzilla also has a special trick up his sleeve as he possesses a certain special Golden Chip ;). Collect Goldzilla for an instant chance to receive a custom made NFT of your choice from Zilla-Mania artist Barrizan.',
+    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Goldzilla.jpg',
+    hasMetadata: true,
+}
+
+const Bobzilla = {
+    contract: '0x74ae2ad6b214bec1a42d3ccd57204c8f9da59924',
+    name: 'Bobzilla',
+    creator: 'Barrizan',
+    tokenNumber: 33,
+    description: 'To quote the famous Bobzilla “there are no mistakes when you become involved with Theta and Tfuel, just happy accidents”.',
+    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Bobzilla.jpg',
+    hasMetadata: true,
+}
+
+const Astrozilla = {
+    contract: '0x9e2e3025a26a001d1d3857c70b36dcee82e7608d',
+    name: 'Astrozilla',
+    creator: 'Barrizan',
+    tokenNumber: 33,
+    description: 'Astrozilla will literally take Theta to the moon. Rocking the highest quality space gear that Theta has to offer, Astrozilla searches the moon for valuable Tfuel deposits.',
+    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Astrozilla.jpg',
+    hasMetadata: true,
+}
+
+const Firezilla = {
+    contract: '0xb63a79d06ecbf137002832c7bb14266e25446982',
+    name: 'Firezilla',
+    creator: 'Barrizan',
+    tokenNumber: 55,
+    description: 'With Theta set to ignite an inferno in 2022, Theta employ Firezilla to collect precious Tfuel flames to harness their power.',
+    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Firezilla.jpg',
+    hasMetadata: true,
+}
+
+const Zillarina = {
+    contract: '0xcb58da80df801f000f59cebd9d51f4d50a9bb952',
+    name: 'Zillarina',
+    creator: 'Barrizan',
+    tokenNumber: 55,
+    description: 'Like a true Renaissance-Zilla, Zillarina has no gender-roles. Zillarina stuns in each performance, executing mind bending flexibility, coordination, and grace.',
+    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Zillarina.jpg',
     hasMetadata: true,
 }
 
@@ -353,8 +453,17 @@ const ThetaTeeth = {
 // addProject(MeemopMania);
 // addProject(TRSBulls);
 // addProject(MysticGurus2021)
-addProject(ThetaTeeth)
-
+// addProject(ThetaTeeth)
+// addProject(ThetaBetFirstEdition);
+// addProject(ThetaSnow);
+// addProject(XMAS);
+// addProject(RARE);
+// addProject(SantaBull)
+addProject(Goldzilla)
+addProject(Bobzilla)
+addProject(Astrozilla)
+addProject(Firezilla)
+addProject(Zillarina)
 
 // const p2 = {
 //     contract: '2222',
