@@ -533,23 +533,33 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
-const THETANET = {
-    contract: '0x81821cb1f7fd9857a76ddfb2640fba23e91eedd4',
-    name: 'THETANET',
-    creator: 'TKETS',
-    tokenNumber: 70,
-    description: 'The first ever GENESIS airdrop. NOT FOR SALE.',
-    imgUrl:'https://ipfs.io/ipfs/QmYq6h49L55nBXZF7585Vy73ob4oMH7Mr6HB8oG9STsmQG',
-    hasMetadata: true,
-}
+// const THETANET = {
+//     contract: '0x81821cb1f7fd9857a76ddfb2640fba23e91eedd4',
+//     name: 'THETANET',
+//     creator: 'TKETS',
+//     tokenNumber: 70,
+//     description: 'The first ever GENESIS airdrop. NOT FOR SALE.',
+//     imgUrl:'https://ipfs.io/ipfs/QmYq6h49L55nBXZF7585Vy73ob4oMH7Mr6HB8oG9STsmQG',
+//     hasMetadata: true,
+// }
+//
+// const GojiraIsland = {
+//     contract: '0xa8ace2512b663decc712b09befedff14d1d2d693',
+//     name: 'Gojira Island',
+//     creator: 'THETHOVEN',
+//     tokenNumber: 111,
+//     description: 'Antarctica is one of the world\'s least explored & most mysterious places on earth. Fallen angels & underground alien bases .. Godzilla .. The Original THETA token ?? only one can imagine',
+//     imgUrl:'https://arweave.net/94i3h_nnoFI-bIZJjJS2WdemIvg1qAiUx43ZWYMPHoA',
+//     hasMetadata: true,
+// }
 
-const GojiraIsland = {
-    contract: '0xa8ace2512b663decc712b09befedff14d1d2d693',
-    name: 'Gojira Island',
-    creator: 'THETHOVEN',
-    tokenNumber: 111,
-    description: 'Antarctica is one of the world\'s least explored & most mysterious places on earth. Fallen angels & underground alien bases .. Godzilla .. The Original THETA token ?? only one can imagine',
-    imgUrl:'https://arweave.net/94i3h_nnoFI-bIZJjJS2WdemIvg1qAiUx43ZWYMPHoA',
+const GreekGodZilla = {
+    contract: '0x4e91be87a48f3c37e0f862021d0e24e501f50327',
+    name: 'Greek God Zilla',
+    creator: 'Barrizan',
+    tokenNumber: 11,
+    description: 'Only the most devoted Zilla-Mania holders will be able to possess Greek-God-Zilla and his powers. Collect all 5 Zilla-Mania NFT’s in order to receive the Greek-God-Zilla as an airdrop from Barrizan.',
+    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/GreekGodZilla.jpg',
     hasMetadata: true,
 }
 
@@ -595,8 +605,10 @@ const GojiraIsland = {
 // addProject(PugGames)
 // addProject(WarmedByTFuelBigDog)
 // addProject(ThetaTime)
-addProject(THETANET)
-addProject(GojiraIsland)
+// addProject(THETANET)
+// addProject(GojiraIsland)
+addProject(GreekGodZilla)
+
 
 // const p2 = {
 //     contract: '2222',
