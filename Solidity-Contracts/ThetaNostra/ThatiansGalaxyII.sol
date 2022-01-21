@@ -1366,32 +1366,82 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
 // Token starting at 1
-contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract ThetiansGalaxyII is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 33;
+    uint256 public MAX_NFT_SUPPLY = 222;
 
-    constructor(string memory uri) ERC721("ThetaTime", "TT") {
+    bool public saleIsActive = false;
+
+    address public feeAddress;
+
+    constructor(address fee, string memory uri) ERC721("ThetiansGalaxyII", "TGII") {
+        feeAddress = fee;
         baseURI = uri;
+    }
+
+    /**
+ * @dev Gets current Price
+     */
+    function getNFTPrice() public view returns (uint256) {
+        uint currentSupply = totalSupply();
+        require(currentSupply < MAX_NFT_SUPPLY, "Sale has already ended");
+
+        return 88000000000000000000; // 1 - 222 88 TFUEL
     }
 
     /**
     * Set some NFTs aside
     */
-    function reserveNFTS(uint256 numberOfNFTs, address _senderAddress) public onlyOwner {
+    function reserveNFTS(uint256 numberOfNfts, address _senderAddress) public onlyOwner {
 
-        for (uint i = 0; i < numberOfNFTs; i++) {
+        for (uint i = 0; i < numberOfNfts; i++) {
             uint256 supply = totalSupply();
 
             if (supply < MAX_NFT_SUPPLY )
             {
                 uint256 tokenId = supply+1;
                 _safeMint(_senderAddress, tokenId);
-                string memory id = Strings.toString(tokenId);
+                string memory id = toString(tokenId);
                 _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
             }
         }
+    }
+
+    /*
+    * Mint token if sale is active and total supply < max supply
+    */
+    function safeMint(address to) public payable {
+        require(saleIsActive, "Sale must be active to mint");
+        require(totalSupply() < MAX_NFT_SUPPLY, "Purchase would exceed max supply");
+        require(getNFTPrice() == msg.value, "TFuel value sent is not correct");
+
+        uint256 ownerPayout = (msg.value / 100) * 80;
+        uint256 feePayout = msg.value - ownerPayout;
+        payable(owner()).transfer(ownerPayout);
+        payable(feeAddress).transfer(feePayout);
+
+        uint256 tokenId = totalSupply() + 1;
+
+        _safeMint(to, tokenId);
+        string memory id = toString(tokenId);
+        _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
+    }
+
+    /*
+    * Pause sale if active, make active if paused
+    */
+    function flipSaleState() public onlyOwner {
+        saleIsActive = !saleIsActive;
+    }
+
+    /*
+    * Change fee address
+    */
+    function changeFeeAddress(address newAddress) public {
+        require(feeAddress == msg.sender, 'Only current feeAddress can change it');
+        feeAddress = newAddress;
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -1428,5 +1478,34 @@ contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     {
         return super.supportsInterface(interfaceId);
     }
+
+    /**
+ * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
 }
+
 

@@ -1,3 +1,6 @@
+/**
+ *Submitted for verification at thetatoken.org on 2021-12-30
+ */
 // SPDX-License-Identifier: MIT
 
 
@@ -1370,7 +1373,7 @@ contract WarmedByTFuel2021 is ERC721, ERC721Enumerable, ERC721URIStorage, Ownabl
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 10000;
+    uint256 public MAX_NFT_SUPPLY = 1000000;
 
     bool public saleIsActive = true;
 
@@ -1381,13 +1384,20 @@ contract WarmedByTFuel2021 is ERC721, ERC721Enumerable, ERC721URIStorage, Ownabl
         baseURI = uri;
     }
 
+    event FeeSplit(
+        uint256 userPayout,
+        address userAddress,
+        uint256 ownerPayout,
+        address ownerAddress
+    );
+
     /**
  * @dev Gets current Price
      */
     function getNFTPrice() public view returns (uint256) {
         require(saleIsActive, "Sale has already ended");
 
-        return 2000000000000000000; // 1 - n 2 TFUEL
+        return 700000000000000000000; // 1 - n 700 TFUEL
     }
 
     /**
@@ -1423,7 +1433,7 @@ contract WarmedByTFuel2021 is ERC721, ERC721Enumerable, ERC721URIStorage, Ownabl
             feePayout,
             feeAddress,
             ownerPayout,
-            owner
+            owner()
         );
     }
 
@@ -1479,5 +1489,4 @@ contract WarmedByTFuel2021 is ERC721, ERC721Enumerable, ERC721URIStorage, Ownabl
         return super.supportsInterface(interfaceId);
     }
 }
-
 

@@ -1106,19 +1106,110 @@ abstract contract ReentrancyGuard {
     }
 }
 
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/IERC20.sol)
+// File: @openzeppelin/contracts/token/ERC20/IERC20.sol
+pragma solidity ^0.8.0;
 
-contract NFTMarket is ReentrancyGuard {
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `recipient`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address recipient, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `sender` to `recipient` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) external returns (bool);
+
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+
+contract OpenThetaNFTMarket is ReentrancyGuard {
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds; // Id for each individual item
     Counters.Counter private _itemsSold; // Number of items sold
 
-    // Currency is in Matic (lower price than ethereum)
-    address payable owner; // The owner of the NFTMarket contract (transfer and send function availabe to payable addresses)
+    /// @notice The super admin address / owner
+    address public superAdmin;
+
+    /// @notice The admin address
+    address public admin;
+
+    address public owner;
+
     uint256 salesFeeBasisPoints = 400;
     bool public listingIsActive = true;
+    address WTFuel;
 
-    constructor() {
+    constructor(address wTFuel) {
+        superAdmin = payable(msg.sender);
         owner = payable(msg.sender);
+        WTFuel = wTFuel;
     }
 
     struct MarketItem {
@@ -1145,8 +1236,24 @@ contract NFTMarket is ReentrancyGuard {
     //    mapping NFT address to creators address
     mapping(address => Creator) private AddressToCreatorFeeItem;
 
+    /**
+    * @notice events
+    */
+
     // Event called when a new Item is created
     event MarketItemCreated(
+        uint256 indexed itemId,
+        address indexed nftContract,
+        uint256 indexed tokenId,
+        address seller,
+        address owner,
+        string category,
+        uint256 price,
+        bool isSold
+    );
+
+    // Event called when a new Item is updated
+    event MarketItemUpdated(
         uint256 indexed itemId,
         address indexed nftContract,
         uint256 indexed tokenId,
@@ -1169,8 +1276,8 @@ contract NFTMarket is ReentrancyGuard {
         bool isSold
     );
 
-    // Event when someone places a bid
-    event PlaceBid(
+    // Event when someone places a offer
+    event PlaceOffer(
         uint256 indexed itemId,
         address indexed nftContract,
         uint256 indexed tokenId,
@@ -1191,16 +1298,21 @@ contract NFTMarket is ReentrancyGuard {
         address creatorAddress
     );
 
-    function getSalesFee() public view returns (uint256) {
-        return salesFeeBasisPoints;
+    /**
+    * @notice modifiers
+    */
+    modifier onlySuperAdmin {
+        require(msg.sender == superAdmin, "only the super admin can perform this action");
+        _;
     }
 
-    function createMarketItem(
-        address nftContract,
-        uint256 tokenId,
-        uint256 price,
-        string calldata category
-    ) public nonReentrant {
+    modifier onlyAdmin {
+        require(msg.sender == admin, "only the admin can perform this action");
+        _;
+    }
+
+    // Marketplace functions
+    function createMarketItem(address nftContract, uint256 tokenId, uint256 price, string calldata category) public nonReentrant {
         require(listingIsActive == true, "Listing disabled");
         require(price > 0, "No item for free here");
 
@@ -1232,11 +1344,29 @@ contract NFTMarket is ReentrancyGuard {
         );
     }
 
-    function createMarketSale(address nftContract, uint256 itemId)
-    public
-    payable
-    nonReentrant
-    {
+    function updateMarketItem(address nftContract, uint256 tokenId, uint256 price, uint256 itemId) public nonReentrant {
+        require(listingIsActive == true, "Listing disabled");
+        require(price > 0, "No item for free here");
+        require(idToMarketItem[itemId].isSold == false, "Item is already sold");
+        require(idToMarketItem[itemId].nftContract == nftContract, "Not correct NFT address");
+        require(idToMarketItem[itemId].tokenId == tokenId, "Not correct tokenId");
+        require(idToMarketItem[itemId].seller == msg.sender, "Only seller can update Item");
+
+        idToMarketItem[itemId].price = price;
+
+        emit MarketItemUpdated(
+            itemId,
+            nftContract,
+            tokenId,
+            msg.sender,
+            address(0),
+            idToMarketItem[itemId].category,
+            price,
+            false
+        );
+    }
+
+    function createMarketSale(address nftContract, uint256 itemId) public payable nonReentrant {
         require(idToMarketItem[itemId].isSold == false, "Item is already sold");
 
         uint256 price = idToMarketItem[itemId].price;
@@ -1251,7 +1381,6 @@ contract NFTMarket is ReentrancyGuard {
         uint256 creatorPayout = 0;
         address creator = AddressToCreatorFeeItem[addressNFT].creator;
         if(creator == address(0x0)) {
-            address creator = address(0x0);
             creatorPayout = 0;
         } else {
             // if creator is set
@@ -1279,12 +1408,12 @@ contract NFTMarket is ReentrancyGuard {
         // Through events
         emit MarketItemSale(
             itemId,
-            idToMarketItem[itemId].nftContract,
+            nftContract,
             idToMarketItem[itemId].tokenId,
             idToMarketItem[itemId].seller,
             idToMarketItem[itemId].owner,
             idToMarketItem[itemId].category,
-            idToMarketItem[itemId].price,
+            price,
             true
         );
 
@@ -1293,8 +1422,8 @@ contract NFTMarket is ReentrancyGuard {
             idToMarketItem[itemId].seller,
             ownerPayout,
             owner,
-            creator,
-            creatorPayout
+            creatorPayout,
+            creator
         );
     }
 
@@ -1327,44 +1456,54 @@ contract NFTMarket is ReentrancyGuard {
         );
     }
 
-    function createMarketItemOffer(address nftContract, uint256 itemId, uint256 offerPrice) public payable nonReentrant {
+    // For TNT20 token (WrapedTFuel)
+    function createMarketItemOfferTNT20(address nftContract, uint256 itemId, uint256 offerPrice) public nonReentrant {
         require(idToMarketItem[itemId].isSold == false,"Item is already sold");
         require(idToMarketItem[itemId].nftContract == nftContract, "Not correct NFT address");
 
+        uint256 allowance = IERC20(WTFuel).allowance(msg.sender, address(this));
         uint256 highestOffer = idToMarketItem[itemId].highestOffer;
 
-        require(highestOffer < offerPrice, "Not highest offer");
-        require(msg.value == offerPrice, "Please make the price to be same as listing price");
-
-        if(highestOffer > 0){
-            idToMarketItem[itemId].bidder.transfer(highestOffer);
+        require(allowance >= offerPrice, "Allowance of TNT20 token is not big enough");
+        if(IERC20(WTFuel).allowance(idToMarketItem[itemId].bidder, address(this)) >= highestOffer){
+            require(highestOffer < offerPrice, "Not highest offer");
         }
 
         // set in marketItem
         idToMarketItem[itemId].highestOffer = offerPrice;
         idToMarketItem[itemId].bidder = payable(msg.sender);
 
-        emit PlaceBid(
+        emit PlaceOffer(
             itemId,
             nftContract,
             idToMarketItem[itemId].tokenId,
             idToMarketItem[itemId].seller,
             offerPrice,
             idToMarketItem[itemId].bidder,
-            idToMarketItem[itemId].nftContract,
+            idToMarketItem[itemId].category,
             idToMarketItem[itemId].price
         );
     }
 
-    function acceptMarketItemOffer(address nftContract, uint256 itemId) public payable nonReentrant {
+    function acceptMarketItemOfferTNT20(address nftContract, uint256 itemId) public payable nonReentrant {
         require(msg.sender == idToMarketItem[itemId].seller, "You have to be the seller to cancel");
         require(idToMarketItem[itemId].isSold == false,"Item is already sold");
+
+        address bidder = idToMarketItem[itemId].bidder;
+
+        if(IERC20(WTFuel).allowance(bidder, address(this)) < idToMarketItem[itemId].highestOffer) {
+            // delete offer, bidder has not enough TNT20 tokens
+            //        // set in marketItem
+            idToMarketItem[itemId].highestOffer = 0;
+            idToMarketItem[itemId].bidder = address(0x0);
+            return;
+        }
 
         idToMarketItem[itemId].price = idToMarketItem[itemId].highestOffer;
         uint256 tokenId = idToMarketItem[itemId].tokenId;
         address addressNFT = idToMarketItem[itemId].nftContract;
 
-        require(idToMarketItem[itemId].nftContract == nftContract, "Not correct NFT address");
+        require(addressNFT == nftContract, "Not correct NFT address");
 
         // Read data from mappings
         uint256 creatorPayout = 0;
@@ -1375,12 +1514,12 @@ contract NFTMarket is ReentrancyGuard {
             // if creator is set
             uint256 creatorFeeBasisPoints = AddressToCreatorFeeItem[addressNFT].feeBasisPoints;
             creatorPayout = (msg.value / 10000) * creatorFeeBasisPoints;
-            payable(creator).transfer(creatorPayout);
+            IERC20(WTFuel).transferFrom(bidder, creator, creatorPayout);
         }
 
         // set in marketItem
         idToMarketItem[itemId].isSold = true;
-        idToMarketItem[itemId].owner = idToMarketItem[itemId].bidder;
+        idToMarketItem[itemId].owner = payable(idToMarketItem[itemId].bidder);
 
         _itemsSold.increment();
 
@@ -1391,18 +1530,20 @@ contract NFTMarket is ReentrancyGuard {
         uint256 userPayout = msg.value - creatorPayout - ownerPayout;
 
         // Payout to user and owner (opentheta)
-        idToMarketItem[itemId].seller.transfer(userPayout);
-        payable(owner).transfer(ownerPayout);
+        IERC20(WTFuel).transferFrom(bidder, idToMarketItem[itemId].seller, userPayout);
+        IERC20(WTFuel).transferFrom(bidder, owner, ownerPayout);
+
+        MarketItem memory item = idToMarketItem[itemId];
 
         // Through events
         emit MarketItemSale(
             itemId,
-            idToMarketItem[itemId].nftContract,
-            idToMarketItem[itemId].tokenId,
-            idToMarketItem[itemId].seller,
-            idToMarketItem[itemId].owner,
-            idToMarketItem[itemId].category,
-            idToMarketItem[itemId].price,
+            nftContract,
+            item.tokenId,
+            item.seller,
+            item.owner,
+            item.category,
+            item.price,
             true
         );
 
@@ -1411,18 +1552,20 @@ contract NFTMarket is ReentrancyGuard {
             idToMarketItem[itemId].seller,
             ownerPayout,
             owner,
-            creator,
-            creatorPayout
+            creatorPayout,
+            creator
         );
     }
 
-    function cancelMarketItemOffer(uint256 itemId) {
+    function cancelMarketItemOfferTNT20(uint256 itemId) public nonReentrant {
         require(msg.sender == idToMarketItem[itemId].bidder, "You have to be the bidder to cancel");
         require(idToMarketItem[itemId].isSold == false,"Item is already sold");
 
-        // todo: continue
+        idToMarketItem[itemId].highestOffer = 0;
+        idToMarketItem[itemId].bidder = address(0x0);
     }
 
+    // Read data from marketplace
     function getMarketItems() public view returns (MarketItem[] memory) {
         uint256 itemCount = _itemIds.current();
         uint256 unsoldItemCount = _itemIds.current() - _itemsSold.current();
@@ -1487,11 +1630,7 @@ contract NFTMarket is ReentrancyGuard {
         return marketItems;
     }
 
-    function getItemsByCategory(string calldata category)
-    public
-    view
-    returns (MarketItem[] memory)
-    {
+    function getItemsByCategory(string calldata category) public view returns (MarketItem[] memory) {
         uint256 totalItemCount = _itemIds.current();
         uint256 itemCount = 0;
         uint256 currentIndex = 0;
@@ -1527,11 +1666,17 @@ contract NFTMarket is ReentrancyGuard {
         return idToMarketItem[id];
     }
 
+    // set creator fee
+    function setCreatorFeeBasisPoints(uint256 feeBasisPoints, address creatorAddress, address NFTAddress) public onlySuperAdmin onlyAdmin{
+        require(feeBasisPoints <= 1000, "Sales Fee cant be higher than 10%");
+        AddressToCreatorFeeItem[NFTAddress].feeBasisPoints = feeBasisPoints;
+        AddressToCreatorFeeItem[NFTAddress].creator = payable(creatorAddress);
+    }
+
     /*
     * Pause listings if active
     */
-    function flipListingState() public {
-        require(msg.sender == owner, "Only owner flip listing state");
+    function flipListingState() onlySuperAdmin public {
         listingIsActive = !listingIsActive;
     }
 
@@ -1539,15 +1684,147 @@ contract NFTMarket is ReentrancyGuard {
 
     receive() external payable {}
 
-    function retrieveMoney(uint256 amount) external {
-        require(msg.sender == owner, "Only owner can retrieve Money");
+    function getSalesFee() public view returns (uint256) {
+        return salesFeeBasisPoints;
+    }
+
+    function retrieveMoney(uint256 amount) onlySuperAdmin external {
         require(amount <= address(this).balance, "You can not withdraw more money than there is");
         payable(owner).transfer(amount);
     }
 
-    function setSalesFeeBasisPoints(uint256 fee) external {
-        require(msg.sender == owner, "Only owner can set listingPrice");
-        require(fee <= 1000, "Sales Fee cant be higher than 10%");
-        salesFeeBasisPoints = fee;
+    function setSalesFeeBasisPoints(uint256 feeBasisPoints) onlySuperAdmin external {
+        require(feeBasisPoints <= 1000, "Sales Fee cant be higher than 10%");
+        salesFeeBasisPoints = feeBasisPoints;
+    }
+
+    function setWTFuelAddress(address wTFuel) onlySuperAdmin external {
+        WTFuel = wTFuel;
+    }
+
+    /**
+     * @notice Change the admin address
+     * @param superAdmin_ The address of the new super admin
+     */
+    function setSuperAdmin(address superAdmin_) onlySuperAdmin external {
+        superAdmin = superAdmin_;
+    }
+
+    /**
+     * @notice Change the admin address
+     * @param admin_ The address of the new admin
+     */
+    function setAdmin(address admin_) onlySuperAdmin external {
+        admin = admin_;
     }
 }
+
+
+//    function createMarketItemOffer(address nftContract, uint256 itemId, uint256 offerPrice) public payable nonReentrant {
+//        require(idToMarketItem[itemId].isSold == false,"Item is already sold");
+//        require(idToMarketItem[itemId].nftContract == nftContract, "Not correct NFT address");
+//
+//        uint256 highestOffer = idToMarketItem[itemId].highestOffer;
+//
+//        require(highestOffer < offerPrice, "Not highest offer");
+//        require(msg.value == offerPrice, "Please make the price to be same as listing price");
+//
+//        if(highestOffer > 0 && idToMarketItem[itemId].bidder != address(0x0)){
+//            idToMarketItem[itemId].bidder.transfer(highestOffer);
+//        }
+//
+//        // set in marketItem
+//        idToMarketItem[itemId].highestOffer = offerPrice;
+//        idToMarketItem[itemId].bidder = payable(msg.sender);
+//
+//        totalOfferedTFuel += offerPrice;
+//
+//        emit PlaceBid(
+//            itemId,
+//            nftContract,
+//            idToMarketItem[itemId].tokenId,
+//            idToMarketItem[itemId].seller,
+//            offerPrice,
+//            idToMarketItem[itemId].bidder,
+//            idToMarketItem[itemId].nftContract,
+//            idToMarketItem[itemId].price
+//        );
+//    }
+//
+//    function acceptMarketItemOffer(address nftContract, uint256 itemId) public payable nonReentrant {
+//        require(msg.sender == idToMarketItem[itemId].seller, "You have to be the seller to cancel");
+//        require(idToMarketItem[itemId].isSold == false,"Item is already sold");
+//
+//        idToMarketItem[itemId].price = idToMarketItem[itemId].highestOffer;
+//        uint256 tokenId = idToMarketItem[itemId].tokenId;
+//        address addressNFT = idToMarketItem[itemId].nftContract;
+//
+//        require(idToMarketItem[itemId].nftContract == nftContract, "Not correct NFT address");
+//
+//        // Read data from mappings
+//        uint256 creatorPayout = 0;
+//        address creator = AddressToCreatorFeeItem[addressNFT].creator;
+//        if(creator == address(0x0)) {
+//            creatorPayout = 0;
+//        } else {
+//            // if creator is set
+//            uint256 creatorFeeBasisPoints = AddressToCreatorFeeItem[addressNFT].feeBasisPoints;
+//            creatorPayout = (msg.value / 10000) * creatorFeeBasisPoints;
+//            payable(creator).transfer(creatorPayout);
+//        }
+//
+//        // set in marketItem
+//        idToMarketItem[itemId].isSold = true;
+//        idToMarketItem[itemId].owner = idToMarketItem[itemId].bidder;
+//
+//        _itemsSold.increment();
+//
+//        IERC721(nftContract).transferFrom(address(this), idToMarketItem[itemId].bidder, tokenId);
+//
+//        // Calculate Payouts
+//        uint256 ownerPayout = (msg.value / 10000) * salesFeeBasisPoints;
+//        uint256 userPayout = msg.value - creatorPayout - ownerPayout;
+//
+//        // Payout to user and owner (opentheta)
+//        idToMarketItem[itemId].seller.transfer(userPayout);
+//        payable(owner).transfer(ownerPayout);
+//
+//        // Through events
+//        emit MarketItemSale(
+//            itemId,
+//            idToMarketItem[itemId].nftContract,
+//            idToMarketItem[itemId].tokenId,
+//            idToMarketItem[itemId].seller,
+//            idToMarketItem[itemId].owner,
+//            idToMarketItem[itemId].category,
+//            idToMarketItem[itemId].price,
+//            true
+//        );
+//
+//        emit FeeSplit(
+//            userPayout,
+//            idToMarketItem[itemId].seller,
+//            ownerPayout,
+//            owner,
+//            creator,
+//            creatorPayout
+//        );
+//    }
+//
+//    function cancelMarketItemOffer(uint256 itemId) {
+//        require(msg.sender == idToMarketItem[itemId].bidder, "You have to be the bidder to cancel");
+//        require(idToMarketItem[itemId].highestOffer > 0,"Bid must be higher then 0");
+//
+//        uint256 toReturnValue = idToMarketItem[itemId].highestOffer;
+//        uint256 toReturnAddress = idToMarketItem[itemId].bidder;
+//
+//        // set in marketItem
+//        idToMarketItem[itemId].highestOffer = 0;
+//        idToMarketItem[itemId].bidder = address(0x0);
+//
+//        // Payout to bidder
+//        idToMarketItem[itemId].seller.transfer(userPayout);
+//        payable(toReturnAddress).transfer(toReturnValue);
+//
+//        totalOfferedTFuel -= toReturnValue;
+//    }

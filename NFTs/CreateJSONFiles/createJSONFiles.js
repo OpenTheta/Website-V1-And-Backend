@@ -10,24 +10,20 @@ const fs = require('fs');
 // }
 
 const baseImageURI = [
-    "https://arweave.net/vENF6V6wewbVytZcSfbRxNMFRmvm5XtD2mACtL5Ss4k", // 55
+    "https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/GreekGodZilla.jpg", // 55
 ]
 
+const baseName = "Greek God Zilla #";
+const description = "Only the most devoted Zilla-Mania holders will be able to possess Greek-God-Zilla and his powers. Collect all 5 Zilla-Mania NFT’s in order to receive the Greek-God-Zilla as an airdrop from Barrizan."
+// const external_url = "https://thetabetnft.com"
+const twitter = "https://twitter.com/Barrizan";
+const tokenNumber = 15;
 
-// const baseName = "ThetaZilla #";
-const symbol = "SB";
-const description = "The North Pole is in chaos; elves run from one end of the toy shoppe to the other looking for the man in the suit without avail—Santa’s gone AWOL. With no one to turn to, the elves and Mrs. Clause enlist the ThetaBulls to save Christmas. Fresh from the pasture, they’ve got Santa’s sack and the red suit in hoof, as the Bulls set forth to deliver Yuletide joy across the Thetaverse. But that velvet sack isn’t full of toys; no, it’s overflowing with bear traps, spray, and all the makings for a comfy bear fur rug. Sorry Bears, no toys this year, the ThetaBulls are back, and this time, you’re on the naughty list. It’s the running of the Christmas Bulls, leaving a wake of candy canes and pain.";
-const external_url = "https://www.bullsontheta.io";
-const twitter = "https://twitter.com/ThetaBulls";
-const tokenNumber = 55;
 
-const baseName = "Santa Bull #";
-const creator = "ThetaBulls"
-// const symbol = "SP";
-// const description = "This NFT is limited to ten editions";
-// const tokenNumber = 10;
+const creator = "Barrizan"
+const collection = "Zilla-Mania"
 
-async function writeFile(jsonId) {
+async function writeFile(jsonId, extension) {
     // fs.readFile('./../../../OpenThetaProjects/ThetaTeeth/json/'+ (jsonId) + '.json', 'utf8' , (err, data) => {
     //     if (err) {
     //         console.error(err);
@@ -39,11 +35,14 @@ async function writeFile(jsonId) {
         // data =  JSON.parse(data);
     let data = {
         name: baseName + jsonId.toString(),
+        // name: baseName,
+        // image: baseImageURI[0] + jsonId + "." + extension,
         image: baseImageURI[0],
         description: description,
-        external_url: external_url,
+        // external_url: external_url,
         creator: creator,
-        twitter: twitter
+        twitter: twitter,
+        collection: collection
     }
         // data.description = description;
         // data["external_url"] = external_url;
@@ -52,7 +51,7 @@ async function writeFile(jsonId) {
         // data["image"] = image;
         // data["creator"] = creator;
         // delete data.compiler;
-        fs.writeFile("./../../../../OpenThetaProjects/ThetaBulls/SantaBull/metadata/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
+        fs.writeFile("./../../../../OpenThetaProjects/Barrizan/Zilla-Mania/Metadata/GreekGodZilla/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
             if (err) {
                 console.log(err);
             }
@@ -65,7 +64,15 @@ async function writeFile(jsonId) {
 // }
 
 // Create a array with numbers from 0 to 9999
-let a = [];
+// let a = [];
 for (let i=1;i<=tokenNumber;++i){
-    writeFile(i)
+    writeFile(i,)
 }
+
+// fs.readdirSync("./../../../../OpenThetaProjects/ThetaDiamond/EVENTPROXIMA/images/").forEach(file => {
+//     let arr = file.split(".")
+//     // let extension = arr.pop()
+//     // let newName = file.replace(/(^\d+)(.+$)/i,'$1') + "." + extension;
+//     // console.log(arr[0], arr[1])
+//     writeFile(arr[0], arr[1])
+// });

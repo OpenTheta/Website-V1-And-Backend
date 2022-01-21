@@ -1366,32 +1366,111 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
 // Token starting at 1
-contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract ThetaManAsteroidBelt is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 33;
+    uint256 public MAX_NFT_SUPPLY = 1000;
 
-    constructor(string memory uri) ERC721("ThetaTime", "TT") {
+    bool public saleIsActive = false;
+
+    address public feeAddress;
+    address private creatorAddress = 0x1dB1D7E6d96d0ab950fDad883ea9e78Bc7abf8fc;
+    address private owner1Address = 0x690Ca89Ae66007DC29dE0baf1a99B5557663ff84;
+    address private owner2Address = 0x5045d6a88d16e03c03BFbBDFBD1365Ba84E3C985;
+
+    constructor(address fee, string memory uri) ERC721("ThetaManAsteroidBelt", "TMSA-02") {
+        feeAddress = fee;
         baseURI = uri;
+    }
+
+    /**
+ * @dev Gets current Price
+     */
+    function getNFTPrice() public view returns (uint256) {
+        uint currentSupply = totalSupply();
+        require(currentSupply < MAX_NFT_SUPPLY, "Sale has already ended");
+        return 99000000000000000000; // 99 TFUEL
     }
 
     /**
     * Set some NFTs aside
     */
-    function reserveNFTS(uint256 numberOfNFTs, address _senderAddress) public onlyOwner {
+    function reserveNFT(address _senderAddress, uint256 tokenId) public onlyOwner {
+        require(!_exists(tokenId), "tokenId already exists");
+        require(tokenId > 0 && tokenId <= MAX_NFT_SUPPLY, "tokenId is not valid");
 
-        for (uint i = 0; i < numberOfNFTs; i++) {
+        uint256 supply = totalSupply();
+
+        if (supply < MAX_NFT_SUPPLY)
+        {
+            _safeMint(_senderAddress, tokenId);
+            string memory id = Strings.toString(tokenId);
+            _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
+        }
+
+    }
+
+    /**
+* Set some NFTs aside
+*/
+    function reserveNFTS(uint256 numberOfNfts, address _senderAddress) public onlyOwner {
+
+        for (uint i = 0; i < numberOfNfts; i++) {
             uint256 supply = totalSupply();
 
             if (supply < MAX_NFT_SUPPLY )
             {
                 uint256 tokenId = supply+1;
+                while(_exists(tokenId)){
+                    tokenId = (tokenId % MAX_NFT_SUPPLY) + 1;
+                }
                 _safeMint(_senderAddress, tokenId);
                 string memory id = Strings.toString(tokenId);
                 _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
             }
         }
+    }
+
+    /*
+    * Mint token if sale is active and total supply < max supply
+    */
+    function safeMint(address to) public payable {
+        require(saleIsActive, "Sale must be active to mint");
+        require(totalSupply() < MAX_NFT_SUPPLY, "Purchase would exceed max supply");
+        require(msg.value == getNFTPrice(), "TFuel value sent is not correct");
+
+        uint256 ownerPayout = (msg.value / 100) * 35;
+        uint256 creatorPayout = (msg.value / 100) * 10;
+        uint256 feePayout = msg.value - ownerPayout - ownerPayout - creatorPayout;
+        payable(owner1Address).transfer(ownerPayout);
+        payable(owner2Address).transfer(ownerPayout);
+        payable(creatorAddress).transfer(creatorPayout);
+        payable(feeAddress).transfer(feePayout);
+
+
+        uint256 tokenId = (block.number % MAX_NFT_SUPPLY) + 1;
+        while(_exists(tokenId)){
+            tokenId = (tokenId % MAX_NFT_SUPPLY) + 1;
+        }
+        _safeMint(to, tokenId);
+        string memory id = Strings.toString(tokenId);
+        _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
+    }
+
+    /*
+    * Pause sale if active, make active if paused
+    */
+    function flipSaleState() public onlyOwner {
+        saleIsActive = !saleIsActive;
+    }
+
+    /*
+    * Change fee address
+    */
+    function changeFeeAddress(address newAddress) public {
+        require(feeAddress == msg.sender, 'Only current feeAddress can change it');
+        feeAddress = newAddress;
     }
 
     function _baseURI() internal view virtual override returns (string memory) {

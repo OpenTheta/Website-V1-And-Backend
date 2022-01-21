@@ -382,53 +382,174 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
-const Goldzilla = {
-    contract: '0xb8a427267d54c56d6e3763a068d83f6cfd43981e',
-    name: 'Goldzilla',
-    creator: 'Barrizan',
-    tokenNumber: 26,
-    description: 'Goldzilla is not someone you would want to see across from you at the WPT poker table. Despite the fact that he could instantly annihilate any of his competitors with a single fiery breath, Goldzilla also has a special trick up his sleeve as he possesses a certain special Golden Chip ;). Collect Goldzilla for an instant chance to receive a custom made NFT of your choice from Zilla-Mania artist Barrizan.',
-    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Goldzilla.jpg',
+// const Goldzilla = {
+//     contract: '0xb8a427267d54c56d6e3763a068d83f6cfd43981e',
+//     name: 'Goldzilla',
+//     creator: 'Barrizan',
+//     tokenNumber: 26,
+//     description: 'Goldzilla is not someone you would want to see across from you at the WPT poker table. Despite the fact that he could instantly annihilate any of his competitors with a single fiery breath, Goldzilla also has a special trick up his sleeve as he possesses a certain special Golden Chip ;). Collect Goldzilla for an instant chance to receive a custom made NFT of your choice from Zilla-Mania artist Barrizan.',
+//     imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Goldzilla.jpg',
+//     hasMetadata: true,
+// }
+//
+// const Bobzilla = {
+//     contract: '0x74ae2ad6b214bec1a42d3ccd57204c8f9da59924',
+//     name: 'Bobzilla',
+//     creator: 'Barrizan',
+//     tokenNumber: 33,
+//     description: 'To quote the famous Bobzilla “there are no mistakes when you become involved with Theta and Tfuel, just happy accidents”.',
+//     imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Bobzilla.jpg',
+//     hasMetadata: true,
+// }
+//
+// const Astrozilla = {
+//     contract: '0x9e2e3025a26a001d1d3857c70b36dcee82e7608d',
+//     name: 'Astrozilla',
+//     creator: 'Barrizan',
+//     tokenNumber: 33,
+//     description: 'Astrozilla will literally take Theta to the moon. Rocking the highest quality space gear that Theta has to offer, Astrozilla searches the moon for valuable Tfuel deposits.',
+//     imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Astrozilla.jpg',
+//     hasMetadata: true,
+// }
+//
+// const Firezilla = {
+//     contract: '0xb63a79d06ecbf137002832c7bb14266e25446982',
+//     name: 'Firezilla',
+//     creator: 'Barrizan',
+//     tokenNumber: 55,
+//     description: 'With Theta set to ignite an inferno in 2022, Theta employ Firezilla to collect precious Tfuel flames to harness their power.',
+//     imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Firezilla.jpg',
+//     hasMetadata: true,
+// }
+//
+// const Zillarina = {
+//     contract: '0xcb58da80df801f000f59cebd9d51f4d50a9bb952',
+//     name: 'Zillarina',
+//     creator: 'Barrizan',
+//     tokenNumber: 55,
+//     description: 'Like a true Renaissance-Zilla, Zillarina has no gender-roles. Zillarina stuns in each performance, executing mind bending flexibility, coordination, and grace.',
+//     imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Zillarina.jpg',
+//     hasMetadata: true,
+// }
+
+// const WarmedByTFuel2021 = {
+//     contract: '0x056651a953143236fdc2025b8e195ce61f286482',
+//     name: 'WarmedByTFuel2021',
+//     creator: 'WarmedByTFuel',
+//     tokenNumber: 10000000,
+//     description: 'The crypto winter descends upon the land. The wisest of #ThetaHodlers find refuge by the glowing hearth of Tfuel.',
+//     imgUrl:'https://arweave.net/2IyAhsicHzyOu1__7AES7bYqFGs98ZaOKoEq3HJo3jE',
+//     hasMetadata: true,
+// }
+
+// const ThetiansGalaxyII = {
+//     contract: '0x2860c2e82967c2a79aa9d8b1a79421478843cc46',
+//     name: 'Thetians Galaxy II.',
+//     creator: 'ThetaNostra',
+//     tokenNumber: 222,
+//     description: 'Discover the Galaxy of the ancient Theatians.',
+//     imgUrl:'https://arweave.net/TZSux8CJcgY-ImBIooaWWNn5mRewtSFdkSDvZjWsvCQ',
+//     hasMetadata: true,
+// }
+
+// const EVENT_PROXIMA = {
+//     contract: '0xc357a28c0285f6c45a7ff7e8c4cc92fad0b34114',
+//     name: 'EVENT PROXIMA',
+//     creator: 'ThetaDiamond',
+//     tokenNumber: 1202,
+//     description: '4 years ago the closest star to our Sun, Proxima Centauri went supernova. This is what\'s left, these are our memories..',
+//     imgUrl:'https://arweave.net/FhYtnmPVr6KGrVz3NXweKdPluiH7WV9eE_wWhkwvhz4',
+//     hasMetadata: true,
+// }
+
+// const BarrizanCustom = {
+//     contract: '0x23b8b352ba1eb43fed713f4c718cc840669cdb5f',
+//     name: 'BarrizanCustom',
+//     creator: 'Barrizan',
+//     tokenNumber: 0,
+//     description: 'Custom NFTs and Airdrops from Barrizan',
+//     imgUrl:'https://open-theta.de/api/images/creators/Barrizan.jpg',
+//     hasMetadata: true,
+// }
+
+
+// const ThetaManSpacewalk = {
+//     contract: '0xfcbb9f1962b9ae8a28ba38feffaa0a047ee97cd4',
+//     name: 'ThetaManSpacewalk',
+//     creator: 'tStake.io',
+//     tokenNumber: 1000,
+//     description: 'Theta Man teaches his dog how to move in space using a jetpack.',
+//     imgUrl:'https://arweave.net/0-ipkmfrwZrPLLXnqc5dwzymTylmsS0u5G-KnXq8sww/Theta-Man-Space-Adventures-01-Spacewalk.jpg',
+//     hasMetadata: true,
+// }
+//
+// const ThetaManAsteroidBelt = {
+//     contract: '0xc4b85cfaa74d6a107358932cf73fbfdc277106b2',
+//     name: 'ThetaManAsteroidBelt',
+//     creator: 'tStake.io',
+//     tokenNumber: 1000,
+//     description: 'Theta Man plays hide-and-seek with his dog in the asteroid belt.',
+//     imgUrl:'https://arweave.net/2voMuUaJv7cU3BiV6PWcnTTNvaexFl7Cdn-Zj6jBAvU/Theta-Man-Space-Adventures-02-Asteroid-Belt.jpg',
+//     hasMetadata: true,
+// }
+//
+// const ThetaManIapetus = {
+//     contract: '0xb64f92b841615ccc55b7d16a5fe1035323b5d775',
+//     name: 'ThetaManIapetus',
+//     creator: 'tStake.io',
+//     tokenNumber: 1000,
+//     description: 'Theta Man and his dog enjoy a visit to Iapetus, one of Saturn\'s moons.',
+//     imgUrl:'https://arweave.net/WF-P3NCzr60K5a5hAVFnH2bpoqimRkCn-f94NPsAX5o/Theta-Man-Space-Adventures-03-Iapetus.jpg',
+//     hasMetadata: true,
+// }
+
+// const PugGames = {
+//     contract: '0x81e034a9dc071d1261631d8a21fb6144218f14b1',
+//     name: 'PugGames',
+//     creator: 'ThetaPugs',
+//     tokenNumber: 7,
+//     description: 'ThetaPugs - Pug Games Special NFT',
+//     imgUrl:'https://arweave.net/WxCfM90J-Kc1tQYiKHa4drcMZhPUlhrXqi26wVE12ew',
+//     hasMetadata: true,
+// }
+
+// const WarmedByTFuelBigDog = {
+//     contract: '0x761f48c0cbc57323cd57cbc939131e5a1a56718f',
+//     name: 'WarmedByTFuelWithBigDog1111',
+//     creator: 'WarmedByTFuel',
+//     tokenNumber: 130,
+//     description: 'With a passion for all things freedom and Theta, Big Dog 1111 knows where to find warmth in the crypto Winter',
+//     imgUrl:'https://arweave.net/1NLp_JO0gIwyyRjrPoVEBkc2i1PKv_74W8ATUwKbQmk',
+//     hasMetadata: true,
+// }
+
+// const ThetaTime = {
+//     contract: '0x0015bc623bc3020f36de90dc112c2c79e1a3f912',
+//     name: 'ThetaTime',
+//     creator: 'ThetaBet',
+//     tokenNumber: 33,
+//     description: 'Turn heads with our ThetaBet, Spinning Theta.',
+//     imgUrl:'https://arweave.net/7qyaWKfGvLswrmMAngjHeTxYrm3tvyia-9CKmjnxK4Y/SpinningTheta.png',
+//     hasMetadata: true,
+// }
+
+const THETANET = {
+    contract: '0x81821cb1f7fd9857a76ddfb2640fba23e91eedd4',
+    name: 'THETANET',
+    creator: 'TKETS',
+    tokenNumber: 70,
+    description: 'The first ever GENESIS airdrop. NOT FOR SALE.',
+    imgUrl:'https://ipfs.io/ipfs/QmYq6h49L55nBXZF7585Vy73ob4oMH7Mr6HB8oG9STsmQG',
     hasMetadata: true,
 }
 
-const Bobzilla = {
-    contract: '0x74ae2ad6b214bec1a42d3ccd57204c8f9da59924',
-    name: 'Bobzilla',
-    creator: 'Barrizan',
-    tokenNumber: 33,
-    description: 'To quote the famous Bobzilla “there are no mistakes when you become involved with Theta and Tfuel, just happy accidents”.',
-    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Bobzilla.jpg',
-    hasMetadata: true,
-}
-
-const Astrozilla = {
-    contract: '0x9e2e3025a26a001d1d3857c70b36dcee82e7608d',
-    name: 'Astrozilla',
-    creator: 'Barrizan',
-    tokenNumber: 33,
-    description: 'Astrozilla will literally take Theta to the moon. Rocking the highest quality space gear that Theta has to offer, Astrozilla searches the moon for valuable Tfuel deposits.',
-    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Astrozilla.jpg',
-    hasMetadata: true,
-}
-
-const Firezilla = {
-    contract: '0xb63a79d06ecbf137002832c7bb14266e25446982',
-    name: 'Firezilla',
-    creator: 'Barrizan',
-    tokenNumber: 55,
-    description: 'With Theta set to ignite an inferno in 2022, Theta employ Firezilla to collect precious Tfuel flames to harness their power.',
-    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Firezilla.jpg',
-    hasMetadata: true,
-}
-
-const Zillarina = {
-    contract: '0xcb58da80df801f000f59cebd9d51f4d50a9bb952',
-    name: 'Zillarina',
-    creator: 'Barrizan',
-    tokenNumber: 55,
-    description: 'Like a true Renaissance-Zilla, Zillarina has no gender-roles. Zillarina stuns in each performance, executing mind bending flexibility, coordination, and grace.',
-    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Zillarina.jpg',
+const GojiraIsland = {
+    contract: '0xa8ace2512b663decc712b09befedff14d1d2d693',
+    name: 'Gojira Island',
+    creator: 'THETHOVEN',
+    tokenNumber: 111,
+    description: 'Antarctica is one of the world\'s least explored & most mysterious places on earth. Fallen angels & underground alien bases .. Godzilla .. The Original THETA token ?? only one can imagine',
+    imgUrl:'https://arweave.net/94i3h_nnoFI-bIZJjJS2WdemIvg1qAiUx43ZWYMPHoA',
     hasMetadata: true,
 }
 
@@ -459,11 +580,23 @@ const Zillarina = {
 // addProject(XMAS);
 // addProject(RARE);
 // addProject(SantaBull)
-addProject(Goldzilla)
-addProject(Bobzilla)
-addProject(Astrozilla)
-addProject(Firezilla)
-addProject(Zillarina)
+// addProject(Goldzilla)
+// addProject(Bobzilla)
+// addProject(Astrozilla)
+// addProject(Firezilla)
+// addProject(Zillarina)
+// addProject(WarmedByTFuel2021)d
+// addProject(ThetiansGalaxyII)
+// addProject(EVENT_PROXIMA)
+// addProject(BarrizanCustom)
+// addProject(ThetaManSpacewalk)
+// addProject(ThetaManAsteroidBelt)
+// addProject(ThetaManIapetus)
+// addProject(PugGames)
+// addProject(WarmedByTFuelBigDog)
+// addProject(ThetaTime)
+addProject(THETANET)
+addProject(GojiraIsland)
 
 // const p2 = {
 //     contract: '2222',
@@ -651,6 +784,16 @@ addProject(Zillarina)
 //     contract: "0xe42ac9ff693d32e03732f1a4a96a916e792e39d9",
 // }
 //
+// const WBT2021 = {
+//     tokenNumber: 130,
+// }
+// //
+// projects.updateProject('0x056651a953143236fdc2025b8e195ce61f286482', WBT2021).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
 // projects.updateProject('0xE42AC9Ff693d32e03732F1A4A96a916E792e39d9', updateGODS).then(res => {
 //     console.log("updateProject");
 //     console.log(res);

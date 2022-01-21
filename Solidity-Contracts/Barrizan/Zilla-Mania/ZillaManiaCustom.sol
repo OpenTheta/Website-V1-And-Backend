@@ -1366,36 +1366,23 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
 // Token starting at 1
-contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract BarrizanCustom is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
-    string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 33;
 
-    constructor(string memory uri) ERC721("ThetaTime", "TT") {
-        baseURI = uri;
+    constructor() ERC721("BarrizanCustom", "BC") {
     }
 
-    /**
-    * Set some NFTs aside
+
+    /*
+    * Mint token if sale is active and total supply < max supply
     */
-    function reserveNFTS(uint256 numberOfNFTs, address _senderAddress) public onlyOwner {
+    function safeMint(address to, string memory uri) public onlyOwner {
 
-        for (uint i = 0; i < numberOfNFTs; i++) {
-            uint256 supply = totalSupply();
+        uint256 tokenId = totalSupply() + 1;
 
-            if (supply < MAX_NFT_SUPPLY )
-            {
-                uint256 tokenId = supply+1;
-                _safeMint(_senderAddress, tokenId);
-                string memory id = Strings.toString(tokenId);
-                _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
-            }
-        }
-    }
-
-    function _baseURI() internal view virtual override returns (string memory) {
-        return baseURI;
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
     }
 
     // The following functions are overrides required by Solidity.
@@ -1429,4 +1416,5 @@ contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         return super.supportsInterface(interfaceId);
     }
 }
+
 

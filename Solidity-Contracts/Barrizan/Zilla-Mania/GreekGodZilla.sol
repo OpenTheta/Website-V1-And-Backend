@@ -1366,13 +1366,13 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
 // Token starting at 1
-contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract GreekGodZilla is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 33;
+    uint256 public MAX_NFT_SUPPLY = 11;
 
-    constructor(string memory uri) ERC721("ThetaTime", "TT") {
+    constructor(string memory uri) ERC721("Greek God Zilla", "GDZ") {
         baseURI = uri;
     }
 
@@ -1429,4 +1429,5 @@ contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         return super.supportsInterface(interfaceId);
     }
 }
+
 

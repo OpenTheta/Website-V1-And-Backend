@@ -1,3 +1,6 @@
+/**
+ *Submitted for verification at thetatoken.org on 2021-12-30
+ */
 // SPDX-License-Identifier: MIT
 
 
@@ -1366,13 +1369,13 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
 // Token starting at 1
-contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract WarmedByTFuelWithBigDog1111 is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 33;
+    uint256 public MAX_NFT_SUPPLY = 130;
 
-    constructor(string memory uri) ERC721("ThetaTime", "TT") {
+    constructor(string memory uri) ERC721("WarmedByTFuelWithBigDog1111", "WBT-BG1111") {
         baseURI = uri;
     }
 
@@ -1380,16 +1383,28 @@ contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     * Set some NFTs aside
     */
     function reserveNFTS(uint256 numberOfNFTs, address _senderAddress) public onlyOwner {
+        require(totalSupply()<MAX_NFT_SUPPLY, "Sale has already ended");
 
         for (uint i = 0; i < numberOfNFTs; i++) {
-            uint256 supply = totalSupply();
-
-            if (supply < MAX_NFT_SUPPLY )
+            if (totalSupply() < MAX_NFT_SUPPLY )
             {
+                uint256 supply = totalSupply();
                 uint256 tokenId = supply+1;
                 _safeMint(_senderAddress, tokenId);
-                string memory id = Strings.toString(tokenId);
-                _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
+            }
+        }
+    }
+
+    /**
+    * send specific addresses free NFTs
+    */
+    function reserveToAddresses(uint256 numberOfNFTs, address[] memory _senderAddress) public onlyOwner {
+        require(totalSupply()<MAX_NFT_SUPPLY, "Sale has already ended");
+        for (uint i = 0; i < numberOfNFTs; i++) {
+            uint supply = totalSupply() + 1;
+            if (totalSupply() < MAX_NFT_SUPPLY)
+            {
+                _safeMint(_senderAddress[i], supply);
             }
         }
     }
@@ -1417,7 +1432,8 @@ contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     override(ERC721, ERC721URIStorage)
     returns (string memory)
     {
-        return super.tokenURI(tokenId);
+        require(_exists(tokenId), "URI query for nonexistent token");
+        return _baseURI();
     }
 
     function supportsInterface(bytes4 interfaceId)

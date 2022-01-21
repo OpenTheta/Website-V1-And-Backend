@@ -1366,14 +1366,103 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
 // Token starting at 1
-contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract ERC721Custom is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+
+
+
+    constructor(string memory name, string memory symbol) ERC721(name, symbol) {
+    }
+
+
+    /*
+    * Mint token if sale is active and total supply < max supply
+    */
+    function safeMint(address to, string memory uri) public onlyOwner {
+
+        uint256 tokenId = totalSupply() + 1;
+
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
+    }
+
+    // The following functions are overrides required by Solidity.
+
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId)
+    internal
+    override(ERC721, ERC721Enumerable)
+    {
+        super._beforeTokenTransfer(from, to, tokenId);
+    }
+
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
+    }
+
+    function tokenURI(uint256 tokenId)
+    public
+    view
+    override(ERC721, ERC721URIStorage)
+    returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+    public
+    view
+    override(ERC721, ERC721Enumerable)
+    returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+}
+
+pragma solidity ^0.8.2;
+
+//import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+//import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+//import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+//import "@openzeppelin/contracts/access/Ownable.sol";
+//import "@openzeppelin/contracts/utils/Counters.sol";
+
+// Token starting at 1
+contract ERC721IncrementalURI is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 33;
+    uint256 public MAX_NFT_SUPPLY;
 
-    constructor(string memory uri) ERC721("ThetaTime", "TT") {
-        baseURI = uri;
+    uint256 private price;
+
+    bool public saleIsActive = false;
+
+    address public feeAddress;
+
+    uint public feeBasisPoints;
+
+    constructor(address FeeAddress, uint256 FeeBasisPoints, string memory BaseURI, uint256 maxSupply, uint256 Price, string memory name, string memory symbol) ERC721(name, symbol) {
+        feeAddress = FeeAddress;
+        baseURI = BaseURI;
+        MAX_NFT_SUPPLY = maxSupply;
+        price = Price;
+        feeBasisPoints = FeeBasisPoints;
+    }
+
+    event FeeSplit(
+        uint256 userPayout,
+        address userAddress,
+        uint256 ownerPayout,
+        address ownerAddress
+    );
+
+    /**
+ * @dev Gets current Price
+     */
+    function getNFTPrice() public view returns (uint256) {
+        uint currentSupply = totalSupply();
+        require(currentSupply < MAX_NFT_SUPPLY, "Sale has already ended");
+
+        return price;
     }
 
     /**
@@ -1392,6 +1481,64 @@ contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
                 _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
             }
         }
+    }
+
+    /**
+    * send specific addresses free NFTs
+    */
+    function reserveToAddresses(uint256 numberOfNFTs, address[] memory _senderAddress) public onlyOwner {
+
+        for (uint i = 0; i < numberOfNFTs; i++) {
+            uint supply = totalSupply() + 1;
+            if (totalSupply() < MAX_NFT_SUPPLY)
+            {
+                _safeMint(_senderAddress[i], supply);
+                string memory id = Strings.toString(supply);
+                _setTokenURI(supply, string(abi.encodePacked(id, ".json")));
+            }
+        }
+    }
+
+    /*
+    * Mint token if sale is active and total supply < max supply
+    */
+    function safeMint(address to) public payable {
+        require(saleIsActive, "Sale must be active to mint");
+        require(totalSupply() < MAX_NFT_SUPPLY, "Purchase would exceed max supply");
+        require(getNFTPrice() == msg.value, "TFuel value sent is not correct");
+
+        uint256 ownerPayout = (msg.value / 10000) * feeBasisPoints;
+        uint256 feePayout = msg.value - ownerPayout;
+        payable(owner()).transfer(ownerPayout);
+        payable(feeAddress).transfer(feePayout);
+
+        uint256 tokenId = totalSupply() + 1;
+
+        _safeMint(to, tokenId);
+        string memory id = Strings.toString(tokenId);
+        _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
+
+        emit FeeSplit(
+            feePayout,
+            feeAddress,
+            ownerPayout,
+            owner()
+        );
+    }
+
+    /*
+    * Pause sale if active, make active if paused
+    */
+    function flipSaleState() public onlyOwner {
+        saleIsActive = !saleIsActive;
+    }
+
+    /*
+    * Change fee address
+    */
+    function changeFeeAddress(address newAddress) public {
+        require(feeAddress == msg.sender, 'Only current feeAddress can change it');
+        feeAddress = newAddress;
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -1430,3 +1577,298 @@ contract ThetaTime is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     }
 }
 
+
+pragma solidity ^0.8.2;
+
+//import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+//import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+//import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+//import "@openzeppelin/contracts/access/Ownable.sol";
+//import "@openzeppelin/contracts/utils/Counters.sol";
+
+// Token starting at 1
+contract ERC721FixedURI is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+
+    string private baseURI;
+
+    uint256 public MAX_NFT_SUPPLY;
+
+    uint256 private price;
+
+    bool public saleIsActive = false;
+
+    address public feeAddress;
+
+    uint public feeBasisPoints;
+
+    constructor(address FeeAddress, uint256 FeeBasisPoints, string memory uri, uint256 maxSupply, uint256 Price, string memory name, string memory symbol) ERC721(name, symbol) {
+        feeAddress = FeeAddress;
+        baseURI = uri;
+        MAX_NFT_SUPPLY = maxSupply;
+        price = Price;
+        feeBasisPoints = FeeBasisPoints;
+    }
+
+    event FeeSplit(
+        uint256 userPayout,
+        address userAddress,
+        uint256 ownerPayout,
+        address ownerAddress
+    );
+
+    /**
+ * @dev Gets current Price
+     */
+    function getNFTPrice() public view returns (uint256) {
+        require(saleIsActive, "Sale has already ended");
+
+        return price;
+    }
+
+    /**
+    * Set some NFTs aside
+    */
+    function reserveNFTS(uint256 numberOfNFTs, address _senderAddress) public onlyOwner {
+        require(saleIsActive, "Sale has already ended");
+
+        for (uint i = 0; i < numberOfNFTs; i++) {
+            uint256 supply = totalSupply();
+            uint256 tokenId = supply+1;
+            _safeMint(_senderAddress, tokenId);
+        }
+    }
+
+    /**
+    * send specific addresses free NFTs
+    */
+    function reserveToAddresses(uint256 numberOfNFTs, address[] memory _senderAddress) public onlyOwner {
+
+        for (uint i = 0; i < numberOfNFTs; i++) {
+            uint supply = totalSupply() + 1;
+            if (totalSupply() < MAX_NFT_SUPPLY)
+            {
+                _safeMint(_senderAddress[i], supply);
+            }
+        }
+    }
+
+    /*
+    * Mint token if sale is active and total supply < max supply
+    */
+    function safeMint(address to) public payable {
+        require(saleIsActive, "Sale has already ended");
+        require(getNFTPrice() == msg.value, "TFuel value sent is not correct");
+
+        uint256 feePayout = (msg.value / 10000) * feeBasisPoints;
+        uint256 ownerPayout = msg.value - feePayout;
+        payable(owner()).transfer(ownerPayout);
+        payable(feeAddress).transfer(feePayout);
+
+        uint256 tokenId = totalSupply() + 1;
+
+        _safeMint(to, tokenId);
+
+        emit FeeSplit(
+            feePayout,
+            feeAddress,
+            ownerPayout,
+            owner()
+        );
+    }
+
+    /*
+    * Pause sale if active, make active if paused
+    */
+    function deactivateSale() public onlyOwner {
+        saleIsActive = false;
+        MAX_NFT_SUPPLY = totalSupply();
+    }
+
+    /*
+    * Change fee address
+    */
+    function changeFeeAddress(address newAddress) public {
+        require(feeAddress == msg.sender, 'Only current feeAddress can change it');
+        feeAddress = newAddress;
+    }
+
+    function _baseURI() internal view virtual override returns (string memory) {
+        return baseURI;
+    }
+
+    // The following functions are overrides required by Solidity.
+
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId)
+    internal
+    override(ERC721, ERC721Enumerable)
+    {
+        super._beforeTokenTransfer(from, to, tokenId);
+    }
+
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
+    }
+
+    function tokenURI(uint256 tokenId)
+    public
+    view
+    override(ERC721, ERC721URIStorage)
+    returns (string memory)
+    {
+        require(_exists(tokenId), "URI query for nonexistent token");
+        return _baseURI();
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+    public
+    view
+    override(ERC721, ERC721Enumerable)
+    returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+}
+
+
+contract ERC721Factory is Ownable {
+
+    using Counters for Counters.Counter;
+    Counters.Counter private _contractIds; // Id for each individual item
+
+    mapping(address => bool) private whitelistedCreators;
+
+    struct DeployedContract {
+        address contractAddress;
+        address creator;
+        string category;
+    }
+
+    mapping(uint256 => DeployedContract) private DeployedContractsList;
+
+    event CreateContract(address contractAddress, address creator, string category);
+
+    uint256 feeBasisPoints;
+    address feeAddress;
+
+    constructor(address FeeAddress, uint256 FeeBasisPoints) {
+        feeBasisPoints = FeeBasisPoints;
+        feeAddress = FeeAddress;
+    }
+
+    function buildERC721Custom(string calldata name, string calldata symbol) external {
+        require(whitelistedCreators[msg.sender], "Creator not whitelisted");
+        string memory category = "custom";
+        _contractIds.increment();
+        ERC721Custom newContract = new ERC721Custom(name, symbol);
+        newContract.transferOwnership(msg.sender);
+        DeployedContractsList[_contractIds.current()] = DeployedContract(
+                                            address(newContract),
+                                            msg.sender,
+                                            category
+                                        );
+        emit CreateContract(address(newContract), msg.sender, category);
+    }
+
+    function buildERC721IncrementalURI( string memory baseURI, uint256 maxSupply, uint256 price, string memory name, string memory symbol) external {
+        require(whitelistedCreators[msg.sender], "Creator not whitelisted");
+        string memory category = "incremental";
+        _contractIds.increment();
+        ERC721IncrementalURI newContract = new ERC721IncrementalURI(feeAddress, feeBasisPoints, baseURI, maxSupply, price, name, symbol);
+        newContract.transferOwnership(msg.sender);
+        DeployedContractsList[_contractIds.current()] = DeployedContract(
+                                                address(newContract),
+                                                msg.sender,
+                                                category
+                                            );
+        emit CreateContract(address(newContract), msg.sender, category);
+    }
+
+    function buildERC721FixedURI(string memory uri, uint256 maxSupply, uint256 price, string calldata name, string calldata symbol) external {
+        require(whitelistedCreators[msg.sender], "Creator not whitelisted");
+        string memory category = "fixed";
+        _contractIds.increment();
+        ERC721FixedURI newContract = new ERC721FixedURI(feeAddress, feeBasisPoints, uri, maxSupply, price, name, symbol);
+        newContract.transferOwnership(msg.sender);
+        DeployedContractsList[_contractIds.current()] = DeployedContract(
+                                                address(newContract),
+                                                msg.sender,
+                                                category
+                                            );
+        emit CreateContract(address(newContract), msg.sender, category);
+    }
+
+    function whitelist(address creator, bool whitelisted) public onlyOwner {
+        whitelistedCreators[creator] = whitelisted;
+    }
+
+    function setFeeAddress(address FeeAddress) public onlyOwner {
+        feeAddress = FeeAddress;
+    }
+
+    function setFeeBasisPoints(uint256 FeeBasisPoints) public onlyOwner {
+        feeBasisPoints = FeeBasisPoints;
+    }
+
+    function getCreator(address creator) public view returns (bool isWhitelisted) {
+        return whitelistedCreators[creator];
+    }
+
+    function getDeployedContracts() public view returns (DeployedContract[] memory) {
+        uint256 itemCount = _contractIds.current();
+
+        DeployedContract[] memory DeployedContracts = new DeployedContract[](itemCount);
+        for (uint256 i = 1; i <= itemCount; i++) {
+            DeployedContracts[i] = DeployedContractsList[i];
+
+        }
+        return DeployedContracts;
+    }
+
+    function getDeployedContractsByCreator(address creator) public view returns (DeployedContract[] memory) {
+        uint256 totalItemCount = _contractIds.current();
+        uint256 itemCount = 0;
+
+        for (uint256 i = 1; i <= totalItemCount; i++) {
+            if (DeployedContractsList[i].creator == creator) {
+                itemCount += 1; // No dynamic length. Predefined length has to be made
+            }
+        }
+
+        uint256 currentId = 0;
+
+        DeployedContract[] memory DeployedContracts = new DeployedContract[](itemCount);
+        for (uint256 i = 1; i <= itemCount; i++) {
+            if(DeployedContractsList[i].creator == creator){
+                DeployedContracts[currentId] = DeployedContractsList[i];
+                currentId += 1;
+            }
+        }
+        return DeployedContracts;
+    }
+
+    function getContractsByCategory(string calldata category) public view returns (DeployedContract[] memory) {
+        uint256 totalItemCount = _contractIds.current();
+        uint256 itemCount = 0;
+        uint256 currentIndex = 0;
+
+        for (uint256 i = 1; i <= totalItemCount; i++) {
+            if (keccak256(abi.encodePacked(DeployedContractsList[i].category)) == keccak256(abi.encodePacked(category))) {
+                itemCount += 1;
+            }
+        }
+
+        DeployedContract[] memory DeployedContracts = new DeployedContract[](itemCount);
+        for (uint256 i = 1; i <= totalItemCount; i++) {
+            if (keccak256(abi.encodePacked(DeployedContractsList[i].category)) == keccak256(abi.encodePacked(category))) {
+                DeployedContracts[currentIndex] = DeployedContractsList[i];
+                currentIndex += 1;
+            }
+        }
+        return DeployedContracts;
+    }
+
+    function getByMarketId(uint256 id) public view returns (DeployedContract memory){
+        require(id <= _contractIds.current(), "id doesn't exist");
+        return DeployedContractsList[id];
+    }
+}
