@@ -2,8 +2,8 @@ const axios = require('axios');
 const fs = require('fs');
 
 
-const baseURL = 'https://arweave.net/H3RvgPs97jOiAVfB2habKBRnUHlbeaE6tn34R9nV7-4'; // JSON
-const hasNumbering = false
+const baseURL = 'https://arweave.net/_v1YcZj6Doq-tGMIm0MOPQ48i7Wb0TokPW8zA9hzGm4/'; // JSON
+const hasNumbering = true
 
 async function check () {
     let finalReport = {
@@ -24,8 +24,8 @@ async function check () {
             failed: []
         }
     }
-    for (let i = 1; i <= 1; i++) {
-        console.log("Checking " + i)
+    for (let i = 0; i <= 9999; i++) {
+        if(i%10 === 0)console.log("Checking " + i)
         finalReport.metadata.checked.push(i)
         let count = 0
         let timeout = true

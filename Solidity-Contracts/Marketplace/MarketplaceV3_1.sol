@@ -132,7 +132,8 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
     }
 
 
-    function setTier(uint tier, uint256 tokenBalance, uint marketFeeMultiplierSale, uint creatorFeeMultiplierSale, uint marketFeeMultiplierOffer, uint creatorFeeMultiplierOffer) onlySuperAdmin external {
+    function setTier(uint tier, uint256 tokenBalance, uint marketFeeMultiplierSale, uint creatorFeeMultiplierSale,
+        uint marketFeeMultiplierOffer, uint creatorFeeMultiplierOffer) onlySuperAdmin external {
         require(tier >= 0, "Tier is not in range");
         require(tier < 3, "Tier is not in range");
         require(marketFeeMultiplierSale <= 100 && creatorFeeMultiplierSale <= 100 && marketFeeMultiplierOffer <= 100 && creatorFeeMultiplierOffer <= 100, "Fee multiplier to big");
@@ -189,7 +190,8 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
     }
 
     // Marketplace functions
-    function createMarketItem(address nftContract, uint256 tokenId, uint256 price, string calldata category) public nonReentrant {
+    function createMarketItem(address nftContract, uint256 tokenId, uint256 price, string calldata category)
+    public nonReentrant {
         require(listingIsActive == true, "Listing disabled");
         require(price > 0, "No item for free here");
 
@@ -212,7 +214,8 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
         emit MarketItemCreated(itemId, nftContract, tokenId, msg.sender, address(0), category, price, false);
     }
 
-    function updateMarketItem(address nftContract, uint256 tokenId, uint256 price, uint256 itemId) public nonReentrant {
+    function updateMarketItem(address nftContract, uint256 tokenId, uint256 price, uint256 itemId)
+    public nonReentrant {
         require(listingIsActive == true, "Listing disabled");
         require(price > 0, "No item for free here");
         require(idToMarketItem[itemId].isSold == false, "Item is already sold");
@@ -243,11 +246,11 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
         // Read data from mappings
         uint256 creatorPayout = 0;
         address creator = AddressToCreatorFeeItem[addressNFT].creator;
-        if(creator != address(0x0)) {
+        if (creator != address(0x0)) {
             // if creator is set
             creatorPayout = (msg.value / 10000) * AddressToCreatorFeeItem[addressNFT].feeBasisPoints * creatorFeeMultiplier / 100;
             //            payable(creator).transfer(creatorPayout);
-            (bool success, ) = payable(creator).call{value: creatorPayout}("");
+            (bool success,) = payable(creator).call{value : creatorPayout}("");
             require(success, "Transfer failed.");
         }
 
@@ -267,10 +270,10 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
         //        payable(sellerAddress).transfer(userPayout);
         //        payable(feeAddress).transfer(feePayout);
 
-        (bool success, ) = payable(sellerAddress).call{value: userPayout}("");
+        (bool success,) = payable(sellerAddress).call{value : userPayout}("");
         require(success, "Transfer failed.");
 
-        (success, ) = payable(feeAddress).call{value: feePayout}("");
+        (success,) = payable(feeAddress).call{value : feePayout}("");
         require(success, "Transfer failed.");
 
         MarketItem memory item = idToMarketItem[itemId];
@@ -304,15 +307,16 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
     }
 
     // For TNT20 token (WrapedTFuel)
-    function createMarketItemOfferTNT20(address nftContract, uint256 itemId, uint256 offerPrice) public nonReentrant {
-        require(idToMarketItem[itemId].isSold == false,"Item is already sold");
+    function createMarketItemOfferTNT20(address nftContract, uint256 itemId, uint256 offerPrice)
+    public nonReentrant {
+        require(idToMarketItem[itemId].isSold == false, "Item is already sold");
         require(idToMarketItem[itemId].nftContract == nftContract, "Not correct NFT address");
 
         uint256 allowance = IERC20(WTFuel).allowance(msg.sender, address(this));
         uint256 highestOffer = idToMarketItem[itemId].highestOffer;
 
         require(allowance >= offerPrice, "Allowance of TNT20 token is not big enough");
-        if(IERC20(WTFuel).allowance(idToMarketItem[itemId].bidder, address(this)) >= highestOffer){
+        if (IERC20(WTFuel).allowance(idToMarketItem[itemId].bidder, address(this)) >= highestOffer) {
             require(highestOffer < offerPrice, "Not highest offer");
         }
 
@@ -323,16 +327,17 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
         emit OfferPlaced(itemId, nftContract, idToMarketItem[itemId].tokenId, idToMarketItem[itemId].seller, offerPrice, idToMarketItem[itemId].bidder, idToMarketItem[itemId].category, idToMarketItem[itemId].price);
     }
 
-    function acceptMarketItemOfferTNT20(address nftContract, uint256 itemId, uint256 price) public payable nonReentrant {
+    function acceptMarketItemOfferTNT20(address nftContract, uint256 itemId, uint256 price)
+    public payable nonReentrant {
         require(msg.sender == idToMarketItem[itemId].seller, "You have to be the seller to cancel");
-        require(idToMarketItem[itemId].isSold == false,"Item is already sold");
+        require(idToMarketItem[itemId].isSold == false, "Item is already sold");
 
         uint256 offer = idToMarketItem[itemId].highestOffer;
-        require(offer >= price,"offer is smaller as expected");
+        require(offer >= price, "offer is smaller as expected");
 
         address bidder = idToMarketItem[itemId].bidder;
 
-        if(IERC20(WTFuel).allowance(bidder, address(this)) < idToMarketItem[itemId].highestOffer) {
+        if (IERC20(WTFuel).allowance(bidder, address(this)) < idToMarketItem[itemId].highestOffer) {
             // delete offer, bidder has not enough TNT20 tokens
             //        // set in marketItem
             idToMarketItem[itemId].highestOffer = 0;
@@ -352,7 +357,7 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
         // Read data from mappings
         uint256 creatorPayout = 0;
         address creator = AddressToCreatorFeeItem[addressNFT].creator;
-        if(creator != address(0x0)) {
+        if (creator != address(0x0)) {
             // if creator is set
             creatorPayout = (offer / 10000) * AddressToCreatorFeeItem[addressNFT].feeBasisPoints * creatorFeeMultiplier / 100;
             IERC20(WTFuel).transferFrom(bidder, creator, creatorPayout);
@@ -383,12 +388,12 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
 
     function cancelMarketItemOfferTNT20(uint256 itemId) public nonReentrant {
         require(msg.sender == idToMarketItem[itemId].bidder, "You have to be the bidder to cancel");
-        require(idToMarketItem[itemId].isSold == false,"Item is already sold");
+        require(idToMarketItem[itemId].isSold == false, "Item is already sold");
 
         idToMarketItem[itemId].highestOffer = 0;
         idToMarketItem[itemId].bidder = address(0x0);
 
-        emit OfferCanceled(itemId, idToMarketItem[itemId].nftContract, idToMarketItem[itemId].tokenId, idToMarketItem[itemId].seller, msg.sender,  idToMarketItem[itemId].price);
+        emit OfferCanceled(itemId, idToMarketItem[itemId].nftContract, idToMarketItem[itemId].tokenId, idToMarketItem[itemId].seller, msg.sender, idToMarketItem[itemId].price);
     }
 
     /*
@@ -399,7 +404,8 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
     }
 
     // set creator fee
-    function setCreatorFeeBasisPoints(uint256 feeBasisPoints, address creatorAddress, address NFTAddress) public onlyAdmin{
+    function setCreatorFeeBasisPoints(uint256 feeBasisPoints, address creatorAddress, address NFTAddress)
+    public onlyAdmin {
         require(feeBasisPoints <= 1000, "Sales Fee cant be higher than 10%");
         AddressToCreatorFeeItem[NFTAddress].feeBasisPoints = feeBasisPoints;
         AddressToCreatorFeeItem[NFTAddress].creator = payable(creatorAddress);
@@ -412,7 +418,7 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
     }
 
     // get creator fee
-    function getCreatorFeeBasisPoints(address NFTAddress) public view returns(Creator memory){
+    function getCreatorFeeBasisPoints(address NFTAddress) public view returns (Creator memory){
         return AddressToCreatorFeeItem[NFTAddress];
     }
 
@@ -431,32 +437,32 @@ contract OpenThetaNFTMarket is ReentrancyGuard {
     }
 
     // Set Tiers and get internal fee multiplier
-    function getFeeMultiplier(address seller, bool offer) internal view returns(uint, uint) {
-        if(tiersAreActive && openThetaToken != address(0x0)) {
+    function getFeeMultiplier(address seller, bool offer) internal view returns (uint, uint) {
+        if (tiersAreActive && openThetaToken != address(0x0)) {
             uint256 userTokenBalance = IERC20(openThetaToken).balanceOf(seller);
-            if(offer) {
-                if(userTokenBalance >= sellerTiers[2].tokenBalance) {
-                    return (sellerTiers[2].marketFeeMultiplierOffer,sellerTiers[2].creatorFeeMultiplierOffer);
-                } else if(userTokenBalance >= sellerTiers[1].tokenBalance) {
-                    return (sellerTiers[1].marketFeeMultiplierOffer,sellerTiers[1].creatorFeeMultiplierOffer);
-                } else if(userTokenBalance >= sellerTiers[0].tokenBalance) {
-                    return (sellerTiers[0].marketFeeMultiplierOffer,sellerTiers[0].creatorFeeMultiplierOffer);
+            if (offer) {
+                if (userTokenBalance >= sellerTiers[2].tokenBalance) {
+                    return (sellerTiers[2].marketFeeMultiplierOffer, sellerTiers[2].creatorFeeMultiplierOffer);
+                } else if (userTokenBalance >= sellerTiers[1].tokenBalance) {
+                    return (sellerTiers[1].marketFeeMultiplierOffer, sellerTiers[1].creatorFeeMultiplierOffer);
+                } else if (userTokenBalance >= sellerTiers[0].tokenBalance) {
+                    return (sellerTiers[0].marketFeeMultiplierOffer, sellerTiers[0].creatorFeeMultiplierOffer);
                 } else {
-                    return (100,100);
+                    return (100, 100);
                 }
             } else {
-                if(userTokenBalance >= sellerTiers[2].tokenBalance) {
-                    return (sellerTiers[2].marketFeeMultiplierSale,sellerTiers[2].creatorFeeMultiplierSale);
-                } else if(userTokenBalance >= sellerTiers[1].tokenBalance) {
-                    return (sellerTiers[1].marketFeeMultiplierSale,sellerTiers[1].creatorFeeMultiplierSale);
-                } else if(userTokenBalance >= sellerTiers[0].tokenBalance) {
-                    return (sellerTiers[0].marketFeeMultiplierSale,sellerTiers[0].creatorFeeMultiplierSale);
+                if (userTokenBalance >= sellerTiers[2].tokenBalance) {
+                    return (sellerTiers[2].marketFeeMultiplierSale, sellerTiers[2].creatorFeeMultiplierSale);
+                } else if (userTokenBalance >= sellerTiers[1].tokenBalance) {
+                    return (sellerTiers[1].marketFeeMultiplierSale, sellerTiers[1].creatorFeeMultiplierSale);
+                } else if (userTokenBalance >= sellerTiers[0].tokenBalance) {
+                    return (sellerTiers[0].marketFeeMultiplierSale, sellerTiers[0].creatorFeeMultiplierSale);
                 } else {
-                    return (100,100);
+                    return (100, 100);
                 }
             }
         } else {
-            return (100,100);
+            return (100, 100);
         }
     }
 }

@@ -553,13 +553,23 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
-const GreekGodZilla = {
-    contract: '0x4e91be87a48f3c37e0f862021d0e24e501f50327',
-    name: 'Greek God Zilla',
-    creator: 'Barrizan',
-    tokenNumber: 11,
-    description: 'Only the most devoted Zilla-Mania holders will be able to possess Greek-God-Zilla and his powers. Collect all 5 Zilla-Mania NFT’s in order to receive the Greek-God-Zilla as an airdrop from Barrizan.',
-    imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/GreekGodZilla.jpg',
+// const GreekGodZilla = {
+//     contract: '0x4e91be87a48f3c37e0f862021d0e24e501f50327',
+//     name: 'Greek God Zilla',
+//     creator: 'Barrizan',
+//     tokenNumber: 11,
+//     description: 'Only the most devoted Zilla-Mania holders will be able to possess Greek-God-Zilla and his powers. Collect all 5 Zilla-Mania NFT’s in order to receive the Greek-God-Zilla as an airdrop from Barrizan.',
+//     imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/GreekGodZilla.jpg',
+//     hasMetadata: true,
+// }
+
+const LiquidPulse = {
+    contract: '0x6ec41908f00f7a0b7bb94da2e4a08335abc25554',
+    name: 'LiquidPulse',
+    creator: 'ThetaDiamond',
+    tokenNumber: 100000,
+    description: 'I drop, you drop, we all drop for TDROP! Collect this one of a kind limited edition piece dedicated to NFT Liquidity mining on our favourite blockchain..',
+    imgUrl:'https://arweave.net/9BiZqGh0sfDMfVPnwkUm_4upzk3t-O2Dqbv9CT7z_To',
     hasMetadata: true,
 }
 
@@ -607,8 +617,8 @@ const GreekGodZilla = {
 // addProject(ThetaTime)
 // addProject(THETANET)
 // addProject(GojiraIsland)
-addProject(GreekGodZilla)
-
+// addProject(GreekGodZilla)
+addProject(LiquidPulse)
 
 // const p2 = {
 //     contract: '2222',
