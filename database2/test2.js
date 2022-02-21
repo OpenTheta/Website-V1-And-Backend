@@ -1,4 +1,604 @@
-const projects = require("./models/dbHelpers");
+const projects = require("./models/dbHelpers2");
+const ethers = require("ethers");
+
+// jsonAbi = `[
+//     {
+//         "inputs": [],
+//         "stateMutability": "nonpayable",
+//         "type": "constructor"
+//     },
+//     {
+//         "anonymous": false,
+//         "inputs": [
+//             {
+//                 "indexed": false,
+//                 "internalType": "uint256",
+//                 "name": "userPayout",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "address",
+//                 "name": "userAddress",
+//                 "type": "address"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "uint256",
+//                 "name": "ownerPayout",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "address",
+//                 "name": "ownerAddress",
+//                 "type": "address"
+//             }
+//         ],
+//         "name": "FeeSplit",
+//         "type": "event"
+//     },
+//     {
+//         "anonymous": false,
+//         "inputs": [
+//             {
+//                 "indexed": true,
+//                 "internalType": "uint256",
+//                 "name": "itemId",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "indexed": true,
+//                 "internalType": "address",
+//                 "name": "nftContract",
+//                 "type": "address"
+//             },
+//             {
+//                 "indexed": true,
+//                 "internalType": "uint256",
+//                 "name": "tokenId",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "address",
+//                 "name": "seller",
+//                 "type": "address"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "address",
+//                 "name": "owner",
+//                 "type": "address"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "string",
+//                 "name": "category",
+//                 "type": "string"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "uint256",
+//                 "name": "price",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "bool",
+//                 "name": "isSold",
+//                 "type": "bool"
+//             }
+//         ],
+//         "name": "MarketItemCreated",
+//         "type": "event"
+//     },
+//     {
+//         "anonymous": false,
+//         "inputs": [
+//             {
+//                 "indexed": true,
+//                 "internalType": "uint256",
+//                 "name": "itemId",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "indexed": true,
+//                 "internalType": "address",
+//                 "name": "nftContract",
+//                 "type": "address"
+//             },
+//             {
+//                 "indexed": true,
+//                 "internalType": "uint256",
+//                 "name": "tokenId",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "address",
+//                 "name": "seller",
+//                 "type": "address"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "address",
+//                 "name": "owner",
+//                 "type": "address"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "string",
+//                 "name": "category",
+//                 "type": "string"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "uint256",
+//                 "name": "price",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "indexed": false,
+//                 "internalType": "bool",
+//                 "name": "isSold",
+//                 "type": "bool"
+//             }
+//         ],
+//         "name": "MarketItemSale",
+//         "type": "event"
+//     },
+//     {
+//         "stateMutability": "payable",
+//         "type": "fallback"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "address",
+//                 "name": "nftContract",
+//                 "type": "address"
+//             },
+//             {
+//                 "internalType": "uint256",
+//                 "name": "itemId",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "createMarketCancel",
+//         "outputs": [],
+//         "stateMutability": "payable",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "address",
+//                 "name": "nftContract",
+//                 "type": "address"
+//             },
+//             {
+//                 "internalType": "uint256",
+//                 "name": "tokenId",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "internalType": "uint256",
+//                 "name": "price",
+//                 "type": "uint256"
+//             },
+//             {
+//                 "internalType": "string",
+//                 "name": "category",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "createMarketItem",
+//         "outputs": [],
+//         "stateMutability": "payable",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "address",
+//                 "name": "nftContract",
+//                 "type": "address"
+//             },
+//             {
+//                 "internalType": "uint256",
+//                 "name": "itemId",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "createMarketSale",
+//         "outputs": [],
+//         "stateMutability": "payable",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [],
+//         "name": "fetchCreateNFTs",
+//         "outputs": [
+//             {
+//                 "components": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "itemId",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address",
+//                         "name": "nftContract",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "tokenId",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address payable",
+//                         "name": "seller",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "address payable",
+//                         "name": "owner",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "string",
+//                         "name": "category",
+//                         "type": "string"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "price",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "bool",
+//                         "name": "isSold",
+//                         "type": "bool"
+//                     }
+//                 ],
+//                 "internalType": "struct NFTMarket.MarketItem[]",
+//                 "name": "",
+//                 "type": "tuple[]"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [],
+//         "name": "fetchPurchasedNFTs",
+//         "outputs": [
+//             {
+//                 "components": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "itemId",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address",
+//                         "name": "nftContract",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "tokenId",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address payable",
+//                         "name": "seller",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "address payable",
+//                         "name": "owner",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "string",
+//                         "name": "category",
+//                         "type": "string"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "price",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "bool",
+//                         "name": "isSold",
+//                         "type": "bool"
+//                     }
+//                 ],
+//                 "internalType": "struct NFTMarket.MarketItem[]",
+//                 "name": "",
+//                 "type": "tuple[]"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "uint256",
+//                 "name": "id",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "getByMarketId",
+//         "outputs": [
+//             {
+//                 "components": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "itemId",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address",
+//                         "name": "nftContract",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "tokenId",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address payable",
+//                         "name": "seller",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "address payable",
+//                         "name": "owner",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "string",
+//                         "name": "category",
+//                         "type": "string"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "price",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "bool",
+//                         "name": "isSold",
+//                         "type": "bool"
+//                     }
+//                 ],
+//                 "internalType": "struct NFTMarket.MarketItem",
+//                 "name": "",
+//                 "type": "tuple"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "string",
+//                 "name": "category",
+//                 "type": "string"
+//             }
+//         ],
+//         "name": "getItemsByCategory",
+//         "outputs": [
+//             {
+//                 "components": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "itemId",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address",
+//                         "name": "nftContract",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "tokenId",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address payable",
+//                         "name": "seller",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "address payable",
+//                         "name": "owner",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "string",
+//                         "name": "category",
+//                         "type": "string"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "price",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "bool",
+//                         "name": "isSold",
+//                         "type": "bool"
+//                     }
+//                 ],
+//                 "internalType": "struct NFTMarket.MarketItem[]",
+//                 "name": "",
+//                 "type": "tuple[]"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [],
+//         "name": "getListingPrice",
+//         "outputs": [
+//             {
+//                 "internalType": "uint256",
+//                 "name": "",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [],
+//         "name": "getMarketItems",
+//         "outputs": [
+//             {
+//                 "components": [
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "itemId",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address",
+//                         "name": "nftContract",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "tokenId",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "address payable",
+//                         "name": "seller",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "address payable",
+//                         "name": "owner",
+//                         "type": "address"
+//                     },
+//                     {
+//                         "internalType": "string",
+//                         "name": "category",
+//                         "type": "string"
+//                     },
+//                     {
+//                         "internalType": "uint256",
+//                         "name": "price",
+//                         "type": "uint256"
+//                     },
+//                     {
+//                         "internalType": "bool",
+//                         "name": "isSold",
+//                         "type": "bool"
+//                     }
+//                 ],
+//                 "internalType": "struct NFTMarket.MarketItem[]",
+//                 "name": "",
+//                 "type": "tuple[]"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [],
+//         "name": "getSalesFee",
+//         "outputs": [
+//             {
+//                 "internalType": "uint256",
+//                 "name": "",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "stateMutability": "view",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "uint256",
+//                 "name": "amount",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "retrieveMoney",
+//         "outputs": [],
+//         "stateMutability": "nonpayable",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "uint256",
+//                 "name": "amount",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "setListingPrice",
+//         "outputs": [],
+//         "stateMutability": "nonpayable",
+//         "type": "function"
+//     },
+//     {
+//         "inputs": [
+//             {
+//                 "internalType": "uint256",
+//                 "name": "fee",
+//                 "type": "uint256"
+//             }
+//         ],
+//         "name": "setSalesFee",
+//         "outputs": [],
+//         "stateMutability": "nonpayable",
+//         "type": "function"
+//     },
+//     {
+//         "stateMutability": "payable",
+//         "type": "receive"
+//     }
+// ]`
+
+// let data = "0x0000000000000000000000000000000000000000000000053444835ec580000000000000000000000000000007c16eeb5afe9f1feb8dddcf56f33ba54182a28a0000000000000000000000000000000000000000000000003782dace9d900000000000000000000000000000d52bbebce2052f77c0fda982ea7071f9326cc005"
+//
+// let [userPayout, userAddress, ownerPayout, ownerAddress] = ethers.utils.defaultAbiCoder.decode(["uint256","address","uint256","address"], data);
+//
+// console.log((ethers.BigNumber.from(userPayout).div(ethers.BigNumber.from("10000000000000000"))).toNumber()/100, userAddress, (ethers.BigNumber.from(ownerPayout).div(ethers.BigNumber.from("10000000000000000"))).toNumber()/100, ownerAddress)
+
+// const iface = new ethers.utils.Interface(JSON.parse(jsonAbi));
+// iface.format(ethers.utils.FormatTypes.minimal);
+
+// console.log('Formatted ABI', iface.format(ethers.utils.FormatTypes.full));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //
 // function addNFT (nft) {
 //     projects.addNFT(nft).then(res => {
@@ -311,7 +911,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/GEVHOyPMhoBdRfi7pDJB9RzFVi2ZlIbujGEGuBtDOFA',
 //     hasMetadata: true,
 // }
-
+//
 // const MysticGurus2021 = {
 //     contract: '0xe48f6e05c119bae8e2a30f7637264c29255b061c',
 //     name: 'MysticGurus2021',
@@ -321,7 +921,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/AVsye9uQBGdmecHlkKkPIYWHt3KL5h1TZIppNVM2rGE',
 //     hasMetadata: true,
 // }
-
+//
 // const ThetaTeeth = {
 //     contract: '0x23a185f6cf673d74f3dd69086f20136ee30e7129',
 //     name: 'ThetaTeeth',
@@ -331,7 +931,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/biEkrXgvMtlumPZvFRGnTj4-E6dWTo2MTQpBufqYFqs',
 //     hasMetadata: true,
 // }
-
+//
 // const ThetaBetFirstEdition = {
 //     contract: '0x875b7e0042629966eb73eff2e5e876229612d502',
 //     name: 'ThetaBetFirstEdition',
@@ -371,7 +971,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/yonsYmu_7RQl-02dypNoAjUen9erHNnIDfyxymiYkZs',
 //     hasMetadata: true,
 // }
-
+//
 // const SantaBull = {
 //     contract: '0x61ce58995a0aefb9e788a696ab302ebaffb03cb6',
 //     name: 'SantaBull',
@@ -381,7 +981,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/vENF6V6wewbVytZcSfbRxNMFRmvm5XtD2mACtL5Ss4k',
 //     hasMetadata: true,
 // }
-
+//
 // const Goldzilla = {
 //     contract: '0xb8a427267d54c56d6e3763a068d83f6cfd43981e',
 //     name: 'Goldzilla',
@@ -431,7 +1031,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/Zillarina.jpg',
 //     hasMetadata: true,
 // }
-
+//
 // const WarmedByTFuel2021 = {
 //     contract: '0x056651a953143236fdc2025b8e195ce61f286482',
 //     name: 'WarmedByTFuel2021',
@@ -441,7 +1041,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/2IyAhsicHzyOu1__7AES7bYqFGs98ZaOKoEq3HJo3jE',
 //     hasMetadata: true,
 // }
-
+//
 // const ThetiansGalaxyII = {
 //     contract: '0x2860c2e82967c2a79aa9d8b1a79421478843cc46',
 //     name: 'Thetians Galaxy II.',
@@ -451,7 +1051,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/TZSux8CJcgY-ImBIooaWWNn5mRewtSFdkSDvZjWsvCQ',
 //     hasMetadata: true,
 // }
-
+//
 // const EVENT_PROXIMA = {
 //     contract: '0xc357a28c0285f6c45a7ff7e8c4cc92fad0b34114',
 //     name: 'EVENT PROXIMA',
@@ -461,7 +1061,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/FhYtnmPVr6KGrVz3NXweKdPluiH7WV9eE_wWhkwvhz4',
 //     hasMetadata: true,
 // }
-
+//
 // const BarrizanCustom = {
 //     contract: '0x23b8b352ba1eb43fed713f4c718cc840669cdb5f',
 //     name: 'BarrizanCustom',
@@ -471,8 +1071,7 @@ function addProject (project) {
 //     imgUrl:'https://open-theta.de/api/images/creators/Barrizan.jpg',
 //     hasMetadata: true,
 // }
-
-
+//
 // const ThetaManSpacewalk = {
 //     contract: '0xfcbb9f1962b9ae8a28ba38feffaa0a047ee97cd4',
 //     name: 'ThetaManSpacewalk',
@@ -502,7 +1101,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/WF-P3NCzr60K5a5hAVFnH2bpoqimRkCn-f94NPsAX5o/Theta-Man-Space-Adventures-03-Iapetus.jpg',
 //     hasMetadata: true,
 // }
-
+//
 // const PugGames = {
 //     contract: '0x81e034a9dc071d1261631d8a21fb6144218f14b1',
 //     name: 'PugGames',
@@ -512,7 +1111,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/WxCfM90J-Kc1tQYiKHa4drcMZhPUlhrXqi26wVE12ew',
 //     hasMetadata: true,
 // }
-
+//
 // const WarmedByTFuelBigDog = {
 //     contract: '0x761f48c0cbc57323cd57cbc939131e5a1a56718f',
 //     name: 'WarmedByTFuelWithBigDog1111',
@@ -522,7 +1121,7 @@ function addProject (project) {
 //     imgUrl:'https://arweave.net/1NLp_JO0gIwyyRjrPoVEBkc2i1PKv_74W8ATUwKbQmk',
 //     hasMetadata: true,
 // }
-
+//
 // const ThetaTime = {
 //     contract: '0x0015bc623bc3020f36de90dc112c2c79e1a3f912',
 //     name: 'ThetaTime',
@@ -733,6 +1332,7 @@ const DailyDiamond = {
     hasMetadata: true,
 }
 
+
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
 // addProject(JieyiApe)
@@ -753,8 +1353,8 @@ const DailyDiamond = {
 // addProject(ThetaBulls);
 // addProject(MeemopMania);
 // addProject(TRSBulls);
-// addProject(MysticGurus2021)
-// addProject(ThetaTeeth)
+// addProject(MysticGurus2021);
+// addProject(ThetaTeeth);
 // addProject(ThetaBetFirstEdition);
 // addProject(ThetaSnow);
 // addProject(XMAS);
@@ -765,7 +1365,7 @@ const DailyDiamond = {
 // addProject(Astrozilla)
 // addProject(Firezilla)
 // addProject(Zillarina)
-// addProject(WarmedByTFuel2021)d
+// addProject(WarmedByTFuel2021)
 // addProject(ThetiansGalaxyII)
 // addProject(EVENT_PROXIMA)
 // addProject(BarrizanCustom)
@@ -797,10 +1397,10 @@ addProject(TBILLMultiplier)
 addProject(DailyDiamond)
 
 // const NYZ = {
-//     tokenNumber: 116,
+//     imgUrl:'https://arweave.net/hZ-DVKo3YKb8cSNrTH9E9NYQUaFWaZJQb0XOnpCzeQs',
 // }
 //
-// projects.updateProject('0x358087474325ac1ffa13935c90f468e9fdc31044', NYZ).then(res => {
+// projects.updateProject('0xcf8e4a8d4081c4eba6835c339eb5428889f164f9', NYZ).then(res => {
 //     console.log("updateProject");
 //     console.log(res);
 // }).catch(error => {
@@ -989,26 +1589,6 @@ addProject(DailyDiamond)
 //     contract: "0x371a0a0c9aad38c2d5dd33a679aea4b5fb521089",
 // }
 //
-// const updateGODS = {
-//     contract: "0xe42ac9ff693d32e03732f1a4a96a916e792e39d9",
-// }
-//
-// const WBT2021 = {
-//     tokenNumber: 130,
-// }
-// //
-// projects.updateProject('0x056651a953143236fdc2025b8e195ce61f286482', WBT2021).then(res => {
-//     console.log("updateProject");
-//     console.log(res);
-// }).catch(error => {
-//     console.log('failed to update project');
-// });
-// projects.updateProject('0xE42AC9Ff693d32e03732F1A4A96a916E792e39d9', updateGODS).then(res => {
-//     console.log("updateProject");
-//     console.log(res);
-// }).catch(error => {
-//     console.log('failed to update project');
-// });
 //
 // projects.updateProject('0xf610fb0063c7fee8d5caae7e26d67c32dbc7d2d4', updateThetaZilla).then(res => {
 //     console.log("updateProject");
@@ -1045,11 +1625,18 @@ addProject(DailyDiamond)
 // });
 //
 //
+
+// projects.getAllNFTs().then(res => {
+//     console.log("getAllProjects");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to get all projects');
+// });
+//
 // projects.getAllProjects().then(res => {
 //     console.log("getAllProjects");
 //     console.log(res);
 // }).catch(error => {
-//     console.log(error)
 //     console.log('failed to get all projects');
 // });
 //

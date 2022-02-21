@@ -1,0 +1,11 @@
+{
+  "contract": "0xf20687fc0a0c6e6bb20cfb7334bc2bac20ff57c0",
+  "name": "Beam My Line",
+  "imgUrl": "https://open-theta.de/api/images/launches/BeamMyLine.mp4",
+  "creator": "Guardians Of Theta",
+  "creatorUrl": "https://open-theta.de/api/images/creators/GuardiansOfTheta.png",
+  "mint": true,
+  "maxSupply": 160,
+  "video": true,
+  "videoUrl": "https://open-theta.de/api/images/launches/BeamMyLine.mp4"
+}

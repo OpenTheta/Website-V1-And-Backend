@@ -2,20 +2,80 @@
 const express = require("express");
 const projects = require("../models/dbHelpers");
 const projects2 = require("../../database2/models/dbHelpers2");
+const projects3 = require("../../database3/models/dbHelpers3");
 
 const router = express.Router();
 
+async function getAllNFTs() {
+    let nfts1 = await projects.getAllNFTs();
+    let nfts2 = await projects2.getAllNFTs();
+    let nfts3 = await projects3.getAllNFTs();
+
+    let nfts = nfts1.concat(nfts2);
+    nfts = nfts.concat(nfts3);
+
+    return nfts;
+}
+
+async function getNFTsOnMarket(){
+    let nfts1 = await projects.getNFTsOnMarket();
+    let nfts2 = await projects2.getNFTsOnMarket();
+    let nfts3 = await projects3.getNFTsOnMarket();
+
+    let nfts = nfts1.concat(nfts2);
+    nfts = nfts.concat(nfts3);
+
+    return nfts;
+}
+
+async function getNFTsOnMarketByAddress(address) {
+    let nfts1 = await projects.getNFTsOnMarketByAddress(address);
+    let nfts2 = await projects2.getNFTsOnMarketByAddress(address);
+    let nfts3 = await projects3.getNFTsOnMarketByAddress(address);
+
+    let nfts = nfts1.concat(nfts2);
+    nfts = nfts.concat(nfts3);
+
+    return nfts;
+}
+
+async function getSoldNFTs() {
+    let nfts1 = await projects.getSoldNFTs();
+    let nfts2 = await projects2.getSoldNFTs();
+    let nfts3 = await projects3.getSoldNFTs();
+
+    let nfts = nfts1.concat(nfts2);
+    nfts = nfts.concat(nfts3);
+
+    return nfts;
+}
+
+async function getSoldNFTsByAddress(address) {
+    let nfts1 = await projects.getSoldNFTsByAddress(address);
+    let nfts2 = await projects2.getSoldNFTsByAddress(address);
+    let nfts3 = await projects3.getSoldNFTsByAddress(address);
+
+    let nfts = nfts1.concat(nfts2);
+    nfts = nfts.concat(nfts3);
+
+    return nfts;
+}
+
+async function getSoldNFTsByUserAddress(address) {
+    let nfts1 = await projects.getSoldNFTsByUserAddress(address);
+    let nfts2 = await projects2.getSoldNFTsByUserAddress(address);
+    let nfts3 = await projects3.getSoldNFTsByUserAddress(address);
+
+    let nfts = nfts1.concat(nfts2);
+    nfts = nfts.concat(nfts3);
+
+    return nfts;
+}
+
 // Returns all NFTs in database
 router.get('/', (req, res) => {
-
-    projects.getAllNFTs().then(nfts => {
-        projects2.getAllNFTs().then(nfts2 => {
-            nfts = nfts.concat(nfts2)
-            res.status(200).json(nfts);
-        }).catch(error => {
-            console.log(error)
-            res.status(500).json({message: "Error retrieving NFTs2"});
-        });
+    getAllNFTs().then(nfts => {
+        res.status(200).json(nfts);
     }).catch(error => {
         res.status(500).json({message: "Error retrieving NFTs"});
     });
@@ -46,13 +106,8 @@ router.get('/', (req, res) => {
 
 //Returns all NFTs currently on the marketplace
 router.get('/onMarket', (req, res) => {
-    projects.getNFTsOnMarket().then(nfts => {
-        projects2.getNFTsOnMarket().then(nfts2 => {
-            nfts = nfts.concat(nfts2)
-            res.status(200).json(nfts);
-        }).catch(error => {
-            res.status(500).json({message: "Error retrieving NFTs on market2"});
-        });
+    getNFTsOnMarket().then(nfts => {
+        res.status(200).json(nfts);
     }).catch(error => {
         res.status(500).json({message: "Error retrieving NFTs on market"});
     });
@@ -61,13 +116,8 @@ router.get('/onMarket', (req, res) => {
 //Returns all NFTs of seller address currently on the marketplace
 router.get('/onMarket/:address', (req, res) => {
     const {address} = req.params;
-    projects.getNFTsOnMarketByAddress(address).then(nfts => {
-        projects2.getNFTsOnMarketByAddress(address).then(nfts2 => {
-            nfts = nfts.concat(nfts2)
-            res.status(200).json(nfts);
-        }).catch(error => {
-            res.status(500).json({message: "Error retrieving NFTs on market2"});
-        });
+    getNFTsOnMarketByAddress(address).then(nfts => {
+        res.status(200).json(nfts);
     }).catch(error => {
         res.status(500).json({message: "Error retrieving NFTs on market"});
     });
@@ -75,13 +125,8 @@ router.get('/onMarket/:address', (req, res) => {
 
 // Returns all NFTs sold on marketplace
 router.get('/sold', (req, res) => {
-    projects.getSoldNFTs().then(nfts => {
-        projects2.getSoldNFTs().then(nfts2 => {
-            nfts = nfts.concat(nfts2)
-            res.status(200).json(nfts);
-        }).catch(error => {
-            res.status(500).json({message: "Error retrieving NFTs sold2"});
-        });
+    getSoldNFTs().then(nfts => {
+        res.status(200).json(nfts);
     }).catch(error => {
         res.status(500).json({message: "Error retrieving NFTs sold"});
     });
@@ -90,19 +135,14 @@ router.get('/sold', (req, res) => {
 //Returns the most recent sold NFTs (number = number of NFTs)
 router.get('/sold/recent/:number', (req, res) => {
     const {number} = req.params;
-    projects.getSoldNFTs().then(nfts => {
-        projects2.getSoldNFTs().then(nfts2 => {
-            nfts = nfts.concat(nfts2)
-            nfts.sort((a, b) => {
-                return (b.soldTimestamp - a.soldTimestamp); // descending
-            })
-            if(nfts.length > number){
-                nfts = nfts.slice(0,number);
-            }
-            res.status(200).json(nfts);
-        }).catch(error => {
-            res.status(500).json({message: "Error retrieving NFTs sold"});
-        });
+    getSoldNFTs().then(nfts => {
+        nfts.sort((a, b) => {
+            return (b.soldTimestamp - a.soldTimestamp); // descending
+        })
+        if(nfts.length > number){
+            nfts = nfts.slice(0,number);
+        }
+        res.status(200).json(nfts);
     }).catch(error => {
         res.status(500).json({message: "Error retrieving NFTs sold"});
     });
@@ -111,19 +151,14 @@ router.get('/sold/recent/:number', (req, res) => {
 //Returns the most recent sold NFTs (number = number of NFTs)
 router.get('/sold/recent/:number/:contract', (req, res) => {
     const {number, contract} = req.params;
-    projects.getSoldNFTsByAddress(contract).then(nfts => {
-        projects2.getSoldNFTsByAddress(contract).then(nfts2 => {
-            nfts = nfts.concat(nfts2)
-            nfts.sort((a, b) => {
-                return (b.soldTimestamp - a.soldTimestamp); // descending
-            })
-            if(nfts.length > number){
-                nfts = nfts.slice(0,number);
-            }
-            res.status(200).json(nfts);
-        }).catch(error => {
-            res.status(500).json({message: "Error retrieving NFTs sold by contract address"});
-        });
+    getSoldNFTsByAddress(contract).then(nfts => {
+        nfts.sort((a, b) => {
+            return (b.soldTimestamp - a.soldTimestamp); // descending
+        })
+        if(nfts.length > number){
+            nfts = nfts.slice(0,number);
+        }
+        res.status(200).json(nfts);
     }).catch(error => {
         res.status(500).json({message: "Error retrieving NFTs sold by contract address"});
     });
@@ -132,19 +167,14 @@ router.get('/sold/recent/:number/:contract', (req, res) => {
 //Returns the most recent sold NFTs by user address (number = number of NFTs)
 router.get('/sold/my/:number/:contract', (req, res) => {
     const {number, contract} = req.params;
-    projects.getSoldNFTsByUserAddress(contract).then(nfts => {
-        projects2.getSoldNFTsByUserAddress(contract).then(nfts2 => {
-            nfts = nfts.concat(nfts2)
-            nfts.sort((a, b) => {
-                return (b.soldTimestamp - a.soldTimestamp); // descending
-            })
-            if(nfts.length > number){
-                nfts = nfts.slice(0,number);
-            }
-            res.status(200).json(nfts);
-        }).catch(error => {
-            res.status(500).json({message: "Error retrieving NFTs sold by user address"});
-        });
+    getSoldNFTsByUserAddress(contract).then(nfts => {
+        nfts.sort((a, b) => {
+            return (b.soldTimestamp - a.soldTimestamp); // descending
+        })
+        if(nfts.length > number){
+            nfts = nfts.slice(0,number);
+        }
+        res.status(200).json(nfts);
     }).catch(error => {
         res.status(500).json({message: "Error retrieving NFTs sold by user address"});
     });
@@ -153,23 +183,18 @@ router.get('/sold/my/:number/:contract', (req, res) => {
 // Returns newly listed NFTs on the marketplace (number = number of NFTs)
 router.get('/new/:number', (req, res)=> {
     const {number} = req.params;
-    projects.getNFTsOnMarket().then(nfts => {
-        projects2.getNFTsOnMarket().then(nfts2 => {
-            nfts = nfts.concat(nfts2)
-            if(nfts) {
-                nfts.sort((a, b) => {
-                    return (b.createdTimestamp - a.createdTimestamp); // descending
-                })
-                if(nfts.length > number){
-                    nfts = nfts.slice(0,number);
-                }
-                res.status(200).json(nfts);
-            } else {
-                res.status(404).json({message:'No new NFTs on market'})
+    getNFTsOnMarket().then(nfts => {
+        if(nfts) {
+            nfts.sort((a, b) => {
+                return (b.createdTimestamp - a.createdTimestamp); // descending
+            })
+            if(nfts.length > number){
+                nfts = nfts.slice(0,number);
             }
-        }).catch(error => {
-            res.status(500).json({message: "Error retrieving new NFTs on market"});
-        });
+            res.status(200).json(nfts);
+        } else {
+            res.status(404).json({message:'No new NFTs on market'})
+        }
     }).catch(error => {
         res.status(500).json({message: "Error retrieving new NFTs on market"});
     });

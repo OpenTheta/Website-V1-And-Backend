@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 
-const baseURL = 'https://arweave.net/_v1YcZj6Doq-tGMIm0MOPQ48i7Wb0TokPW8zA9hzGm4/'; // JSON
+const baseURL = 'https://arweave.net/KKLJ6-ouhAo4NDr00JnuXKBW2T5SAAiGG0m-4FebT-M/'; // JSON
 const hasNumbering = true
 
 async function check () {
@@ -24,8 +24,9 @@ async function check () {
             failed: []
         }
     }
-    for (let i = 0; i <= 9999; i++) {
-        if(i%10 === 0)console.log("Checking " + i)
+    process.stdout.write("Checking:")
+    for (let i = 1; i <=310; i++) {
+        if(i%10 === 0)process.stdout.write(" " + i)
         finalReport.metadata.checked.push(i)
         let count = 0
         let timeout = true
@@ -50,8 +51,10 @@ async function check () {
             });
         }
         if(metadata !== undefined) {
-            let imageNumber = metadata.data.image.slice(-8,-4).replace( /^\D+/g, '')
-            finalReport.images.checked.push(parseInt(imageNumber))
+            // let imageNumber = metadata.data.image.slice(-8,-4).replace( /^\D+/g, '')
+            // finalReport.images.checked.push(parseInt(imageNumber))
+            let imageNumber = metadata.data.image.slice(-5,-1)
+            finalReport.images.checked.push(imageNumber)
             count = 0
             timeout = true
             while(timeout){
@@ -103,16 +106,16 @@ async function check () {
         }
     }
     console.log(finalReport)
-    fs.writeFile("./logs/DeployedJSONReport.json", JSON.stringify(finalReport), function(err) {
+    fs.writeFile("./logs/DeployedJSONReport.json", JSON.stringify(finalReport, null, 2), function(err) {
         if (err) {
             console.log(err);
         }
     });
-    const toFindDuplicates = tokenIds => tokenIds.filter((item, index) => tokenIds.indexOf(item) !== index)
-    let duplicateElements = toFindDuplicates(finalReport.metadata.checked);
-    if(duplicateElements.length > 0) console.log(duplicateElements);
-    duplicateElements = toFindDuplicates(finalReport.images.checked);
-    if(duplicateElements.length > 0) console.log(duplicateElements);
+    // const toFindDuplicates = tokenIds => tokenIds.filter((item, index) => tokenIds.indexOf(item) !== index)
+    // let duplicateElements = toFindDuplicates(finalReport.metadata.checked);
+    // if(duplicateElements.length > 0) console.log(duplicateElements);
+    // duplicateElements = toFindDuplicates(finalReport.images.checked);
+    // if(duplicateElements.length > 0) console.log(duplicateElements);
 }
 
 check().then(() => {

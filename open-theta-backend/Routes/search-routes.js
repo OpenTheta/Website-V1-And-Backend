@@ -2,6 +2,7 @@
 const express = require("express");
 const dataProvider = require("../models/dbHelpers");
 const dataProvider2 = require("../../database2/models/dbHelpers2");
+const dataProvider3 = require("../../database3/models/dbHelpers3");
 const ethers =  require("ethers")
 
 const router = express.Router();
@@ -48,110 +49,135 @@ function filterNFTs(nfts, minimum, maximum, sorting, number, search) {
     return results;
 }
 
+async function getNFTsOnMarketByCreatorsAndProjects(creators, projects) {
+    let nfts1 = await dataProvider.getNFTsOnMarketByCreatorsAndProjects(creators, projects);
+    let nfts2 = await dataProvider2.getNFTsOnMarketByCreatorsAndProjects(creators, projects);
+    let nfts3 = await dataProvider3.getNFTsOnMarketByCreatorsAndProjects(creators, projects);
+
+    let nfts = nfts1.concat(nfts2);
+    nfts = nfts.concat(nfts3);
+
+    return nfts;
+}
+
+async function getNFTsOnMarketByCreators(creators) {
+    let nfts1 = await dataProvider.getNFTsOnMarketByCreators(creators);
+    let nfts2 = await dataProvider2.getNFTsOnMarketByCreators(creators);
+    let nfts3 = await dataProvider3.getNFTsOnMarketByCreators(creators);
+
+    let nfts = nfts1.concat(nfts2);
+    nfts = nfts.concat(nfts3);
+
+    return nfts;
+}
+
+async function getNFTsOnMarketByProjects(projects) {
+    let nfts1 = await dataProvider.getNFTsOnMarketByProjects(projects);
+    let nfts2 = await dataProvider2.getNFTsOnMarketByProjects(projects);
+    let nfts3 = await dataProvider3.getNFTsOnMarketByProjects(projects);
+
+    let nfts = nfts1.concat(nfts2);
+    nfts = nfts.concat(nfts3);
+
+    return nfts;
+}
+
+async function getNFTsOnMarket() {
+    let nfts1 = await dataProvider.getNFTsOnMarket();
+    let nfts2 = await dataProvider2.getNFTsOnMarket();
+    let nfts3 = await dataProvider3.getNFTsOnMarket();
+
+    let nfts = nfts1.concat(nfts2);
+    nfts = nfts.concat(nfts3);
+
+    return nfts;
+}
+
 // Returns newly listed Creators
 router.get('/:search', (req, res)=> {
     const {search} = req.params;
     if(req.query.creators && req.query.projects){
         const projects = JSON.parse(req.query.projects);
         const creators = JSON.parse(req.query.creators);
-        dataProvider.getNFTsOnMarketByCreatorsAndProjects(creators, projects).then(nfts => {
-            dataProvider2.getNFTsOnMarketByCreatorsAndProjects(creators, projects).then(nfts2 => {
-                nfts = nfts.concat(nfts2)
-                let results = [];
-                if(nfts) {
-                    if (search === 'ALL'){
-                        res.status(200).json(nfts);
-                    } else {
-                        nfts.forEach( function (nft) {
-                            if(nft.projectName.indexOf(search) !== -1 || nft.creator.indexOf(search) !== -1 || nft.category.indexOf(search) !== -1) {
-                                results.push(nft);
-                            }
-                        });
-                        res.status(200).json(results);
-                    }
+        getNFTsOnMarketByCreatorsAndProjects(creators, projects).then(nfts => {
+            let results = [];
+            if(nfts) {
+                if (search === 'ALL'){
+                    res.status(200).json(nfts);
                 } else {
-                    res.status(404).json({message:'Search found no NFTs on market by creators and projects'});
+                    nfts.forEach( function (nft) {
+                        if(nft.projectName.indexOf(search) !== -1 || nft.creator.indexOf(search) !== -1 || nft.category.indexOf(search) !== -1) {
+                            results.push(nft);
+                        }
+                    });
+                    res.status(200).json(results);
                 }
-            }).catch(error => {
-                res.status(500).json({message: "Error searching NFTs on market2 by creators and projects"});
-            });
+            } else {
+                res.status(404).json({message:'Search found no NFTs on market by creators and projects'});
+            }
         }).catch(error => {
             res.status(500).json({message: "Error searching NFTs on market by creators and projects"});
         });
     } else if(req.query.creators) {
         const creators = JSON.parse(req.query.creators);
-        dataProvider.getNFTsOnMarketByCreators(creators).then(nfts => {
-            dataProvider2.getNFTsOnMarketByCreators(creators).then(nfts2 => {
-                nfts = nfts.concat(nfts2)
-                let results = [];
-                if(nfts) {
-                    if (search === 'ALL'){
-                        res.status(200).json(nfts);
-                    } else {
-                        nfts.forEach( function (nft) {
-                            if(nft.projectName.indexOf(search) !== -1 || nft.creator.indexOf(search) !== -1 || nft.category.indexOf(search) !== -1) {
-                                results.push(nft);
-                            }
-                        });
-                        res.status(200).json(results);
-                    }
+        getNFTsOnMarketByCreators(creators).then(nfts => {
+            let results = [];
+            if(nfts) {
+                if (search === 'ALL'){
+                    res.status(200).json(nfts);
                 } else {
-                    res.status(404).json({message:'Search found no NFTs on market by creators'});
+                    nfts.forEach( function (nft) {
+                        if(nft.projectName.indexOf(search) !== -1 || nft.creator.indexOf(search) !== -1 || nft.category.indexOf(search) !== -1) {
+                            results.push(nft);
+                        }
+                    });
+                    res.status(200).json(results);
                 }
-            }).catch(error => {
-                res.status(500).json({message: "Error searching NFTs on market2 by creators"});
-            });
+            } else {
+                res.status(404).json({message:'Search found no NFTs on market by creators'});
+            }
+
         }).catch(error => {
             res.status(500).json({message: "Error searching NFTs on market by creators"});
         });
     } else if(req.query.projects) {
         const projects = JSON.parse(req.query.projects);
-        dataProvider.getNFTsOnMarketByProjects(projects).then(nfts => {
-            dataProvider2.getNFTsOnMarketByProjects(projects).then(nfts2 => {
-                nfts = nfts.concat(nfts2)
-                let results = [];
-                if(nfts) {
-                    if (search === 'ALL'){
-                        res.status(200).json(nfts);
-                    } else {
-                        nfts.forEach( function (nft) {
-                            if(nft.projectName.indexOf(search) !== -1 || nft.creator.indexOf(search) !== -1 || nft.category.indexOf(search) !== -1) {
-                                results.push(nft);
-                            }
-                        });
-                        res.status(200).json(results);
-                    }
+        getNFTsOnMarketByProjects(projects).then(nfts => {
+            let results = [];
+            if(nfts) {
+                if (search === 'ALL'){
+                    res.status(200).json(nfts);
                 } else {
-                    res.status(404).json({message:'Search found no NFTs on market by projects'});
+                    nfts.forEach( function (nft) {
+                        if(nft.projectName.indexOf(search) !== -1 || nft.creator.indexOf(search) !== -1 || nft.category.indexOf(search) !== -1) {
+                            results.push(nft);
+                        }
+                    });
+                    res.status(200).json(results);
                 }
-            }).catch(error => {
-                res.status(500).json({message: "Error searching NFTs on market2 by projects"});
-            });
+            } else {
+                res.status(404).json({message:'Search found no NFTs on market by projects'});
+            }
         }).catch(error => {
             res.status(500).json({message: "Error searching NFTs on market by projects"});
         });
     } else {
-        dataProvider.getNFTsOnMarket().then(nfts => {
-            dataProvider2.getNFTsOnMarket().then(nfts2 => {
-                nfts = nfts.concat(nfts2)
-                let results = [];
-                if(nfts) {
-                    if (search === 'ALL'){
-                        res.status(200).json(nfts);
-                    } else {
-                        nfts.forEach( function (nft) {
-                            if(nft.projectName.indexOf(search) !== -1 || nft.creator.indexOf(search) !== -1 || nft.category.indexOf(search) !== -1) {
-                                results.push(nft);
-                            }
-                        });
-                        res.status(200).json(results);
-                    }
+        getNFTsOnMarket().then(nfts => {
+            let results = [];
+            if(nfts) {
+                if (search === 'ALL'){
+                    res.status(200).json(nfts);
                 } else {
-                    res.status(404).json({message:'Search found no NFTs on market'})
+                    nfts.forEach( function (nft) {
+                        if(nft.projectName.indexOf(search) !== -1 || nft.creator.indexOf(search) !== -1 || nft.category.indexOf(search) !== -1) {
+                            results.push(nft);
+                        }
+                    });
+                    res.status(200).json(results);
                 }
-            }).catch(error => {
-                res.status(500).json({message: "Error searching NFTs on market2"});
-            });
+            } else {
+                res.status(404).json({message:'Search found no NFTs on market'})
+            }
         }).catch(error => {
             res.status(500).json({message: "Error searching NFTs on market"});
         });
@@ -165,68 +191,48 @@ router.get('/:search/:number/:sorting/:min/:max', (req, res)=> {
     if(req.query.creators && req.query.projects){
         const projects = JSON.parse(req.query.projects);
         const creators = JSON.parse(req.query.creators);
-        dataProvider.getNFTsOnMarketByCreatorsAndProjects(creators, projects).then(nfts => {
-            dataProvider2.getNFTsOnMarketByCreatorsAndProjects(creators, projects).then(nfts2 => {
-                nfts = nfts.concat(nfts2)
-                if(nfts) {
-                    let results = filterNFTs(nfts, min, max, sorting, number, search);
-                    res.status(200).json(results);
-                } else {
-                    res.status(404).json({message:'Search found no NFTs on market by creators and projects'});
-                }
-            }).catch(error => {
-                res.status(500).json({message: "Error searching NFTs on market2 by creators and projects"});
-            });
+        getNFTsOnMarketByCreatorsAndProjects(creators, projects).then(nfts => {
+            if(nfts) {
+                let results = filterNFTs(nfts, min, max, sorting, number, search);
+                res.status(200).json(results);
+            } else {
+                res.status(404).json({message:'Search found no NFTs on market by creators and projects'});
+            }
         }).catch(error => {
             res.status(500).json({message: "Error searching NFTs on market by creators and projects"});
         });
     } else if(req.query.creators) {
         const creators = JSON.parse(req.query.creators);
-        dataProvider.getNFTsOnMarketByCreators(creators).then(nfts => {
-            dataProvider2.getNFTsOnMarketByCreators(creators).then(nfts2 => {
-                nfts = nfts.concat(nfts2)
-                if(nfts) {
-                    let results = filterNFTs(nfts, min, max, sorting, number, search);
-                    res.status(200).json(results);
-                } else {
-                    res.status(404).json({message:'Search found no NFTs on market by creators'});
-                }
-            }).catch(error => {
-                res.status(500).json({message: "Error searching NFTs on market2 by creators"});
-            });
+        getNFTsOnMarketByCreators(creators).then(nfts => {
+            if(nfts) {
+                let results = filterNFTs(nfts, min, max, sorting, number, search);
+                res.status(200).json(results);
+            } else {
+                res.status(404).json({message:'Search found no NFTs on market by creators'});
+            }
         }).catch(error => {
             res.status(500).json({message: "Error searching NFTs on market by creators"});
         });
     } else if(req.query.projects) {
         const projects = JSON.parse(req.query.projects);
-        dataProvider.getNFTsOnMarketByProjects(projects).then(nfts => {
-            dataProvider2.getNFTsOnMarketByProjects(projects).then(nfts2 => {
-                nfts = nfts.concat(nfts2)
-                if(nfts) {
-                    let results = filterNFTs(nfts, min, max, sorting, number, search);
-                    res.status(200).json(results);
-                } else {
-                    res.status(404).json({message:'Search found no NFTs on market by projects'});
-                }
-            }).catch(error => {
-                res.status(500).json({message: "Error searching NFTs on market2 by projects"});
-            });
+        getNFTsOnMarketByProjects(projects).then(nfts => {
+            if(nfts) {
+                let results = filterNFTs(nfts, min, max, sorting, number, search);
+                res.status(200).json(results);
+            } else {
+                res.status(404).json({message:'Search found no NFTs on market by projects'});
+            }
         }).catch(error => {
             res.status(500).json({message: "Error searching NFTs on market by projects"});
         });
     } else {
-        dataProvider.getNFTsOnMarket().then(nfts => {
-            dataProvider2.getNFTsOnMarket().then(nfts2 => {
-                nfts = nfts.concat(nfts2)
-                if(nfts) {
-                    let results = filterNFTs(nfts, min, max, sorting, number, search);
-                    res.status(200).json(results);
-                } else {
-                    res.status(404).json({message:'Search found no NFTs on market'})
-                }
-            }).catch(error => {
-                res.status(500).json({message: "Error searching NFTs on market2"});
-            });
+        getNFTsOnMarket().then(nfts => {
+            if(nfts) {
+                let results = filterNFTs(nfts, min, max, sorting, number, search);
+                res.status(200).json(results);
+            } else {
+                res.status(404).json({message:'Search found no NFTs on market'})
+            }
         }).catch(error => {
             res.status(500).json({message: "Error searching NFTs on market"});
         });

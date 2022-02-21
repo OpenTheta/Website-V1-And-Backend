@@ -25,7 +25,7 @@ owners = [];
 
 
 async function getAddressToTokenId() {
-    for(let i = 0; i < 159; i++) {
+    for(let i = 1; i < 116; i++) {
         let address = await contractNFTObject.ownerOf(i);
         if (address.toString().toLowerCase() === '0x059377c014cfc12DD2612EbfE9cFD1A6FC1A8883') {
             owners.push("marketplace");

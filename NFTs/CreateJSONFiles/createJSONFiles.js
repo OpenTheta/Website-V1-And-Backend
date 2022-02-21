@@ -10,18 +10,24 @@ const fs = require('fs');
 // }
 
 const baseImageURI = [
-    "https://arweave.net/RS42khqGKBTQfibQnLhElImn8co-005UROuLSRF4HyM/GreekGodZilla.jpg", // 55
+    "https://arweave.net/IH-1nnPT30dRZEbIgQb_gtHF0rw3qyRu7oHtgGCwUWc", // 55
 ]
 
-const baseName = "Greek God Zilla #";
-const description = "Only the most devoted Zilla-Mania holders will be able to possess Greek-God-Zilla and his powers. Collect all 5 Zilla-Mania NFT’s in order to receive the Greek-God-Zilla as an airdrop from Barrizan."
-// const external_url = "https://thetabetnft.com"
-const twitter = "https://twitter.com/Barrizan";
-const tokenNumber = 15;
+const baseName = "Healthy Meemop #";
+const description = 'Yay! Meemop is cured thanks to you! Now back to his usual self, Meemop is now back in action with Cyko KO and Peachy Keen---just one happy SuperEarth family!!'
+const external_url = "https://www.meemopmania.com"
+const twitter = "https://twitter.com/itsfeldman";
+const tokenNumber = 73;
+// const attributes = [
+//     {
+//         "trait_type": "Tier",
+//         "value": "2"
+//     }
+// ]
 
 
-const creator = "Barrizan"
-const collection = "Zilla-Mania"
+const creator = "Cyko KO"
+const collection = ""
 
 async function writeFile(jsonId, extension) {
     // fs.readFile('./../../../OpenThetaProjects/ThetaTeeth/json/'+ (jsonId) + '.json', 'utf8' , (err, data) => {
@@ -39,10 +45,11 @@ async function writeFile(jsonId, extension) {
         // image: baseImageURI[0] + jsonId + "." + extension,
         image: baseImageURI[0],
         description: description,
-        // external_url: external_url,
+        // attributes:attributes,
+        external_url: external_url,
         creator: creator,
         twitter: twitter,
-        collection: collection
+        // collection: collection
     }
         // data.description = description;
         // data["external_url"] = external_url;
@@ -51,7 +58,7 @@ async function writeFile(jsonId, extension) {
         // data["image"] = image;
         // data["creator"] = creator;
         // delete data.compiler;
-        fs.writeFile("./../../../../OpenThetaProjects/Barrizan/Zilla-Mania/Metadata/GreekGodZilla/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
+        fs.writeFile("./../../../../OpenThetaProjects/CykoKo/Meemop/MeemopFinal/metadata/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
             if (err) {
                 console.log(err);
             }

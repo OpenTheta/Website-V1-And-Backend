@@ -7,39 +7,39 @@ let provider = new ethers.providers.Web3Provider(currentProvider);
 let marketplaceAddress = "0x059377c014cfc12DD2612EbfE9cFD1A6FC1A8883";
 let projects = [
     {
-        name: "Goldzilla",
-        address: "0xb8a427267d54c56d6e3763a068d83f6cfd43981e",
-        tokenNumber: 26
+        name: "TFuel Tonic",
+        address: "0x358087474325ac1ffa13935c90f468e9fdc31044",
+        tokenNumber: 116
     },
     {
-        name: "Astrozilla",
-        address: "0x9e2e3025a26a001d1d3857c70b36dcee82e7608d",
-        tokenNumber: 33
+        name: "MeemopMania",
+        address: "0x38af6ddf4f3f3b044bd0ae1106d6726a011eefd1",
+        tokenNumber: 888
     },
-    {
-        name: "Bobzilla",
-        address: "0x74ae2ad6b214bec1a42d3ccd57204c8f9da59924",
-        tokenNumber: 33
-    },
-    {
-        name: "Zillarina",
-        address: "0xcb58da80df801f000f59cebd9d51f4d50a9bb952",
-        tokenNumber: 55
-    },
-    {
-        name: "Firezilla",
-        address: "0xb63a79d06ecbf137002832c7bb14266e25446982",
-        tokenNumber: 55
-    }
+    // {
+    //     name: "Bobzilla",
+    //     address: "0x74ae2ad6b214bec1a42d3ccd57204c8f9da59924",
+    //     tokenNumber: 33
+    // },
+    // {
+    //     name: "Zillarina",
+    //     address: "0xcb58da80df801f000f59cebd9d51f4d50a9bb952",
+    //     tokenNumber: 55
+    // },
+    // {
+    //     name: "Firezilla",
+    //     address: "0xb63a79d06ecbf137002832c7bb14266e25446982",
+    //     tokenNumber: 55
+    // }
 ];
 
 let baseConfig = {
     address: "",
-    "0xb8a427267d54c56d6e3763a068d83f6cfd43981e": 0,
-    "0x9e2e3025a26a001d1d3857c70b36dcee82e7608d": 0,
-    "0x74ae2ad6b214bec1a42d3ccd57204c8f9da59924": 0,
-    "0xcb58da80df801f000f59cebd9d51f4d50a9bb952": 0,
-    "0xb63a79d06ecbf137002832c7bb14266e25446982": 0,
+    "0x358087474325ac1ffa13935c90f468e9fdc31044": 0,
+    "0x38af6ddf4f3f3b044bd0ae1106d6726a011eefd1": 0,
+    // "0x74ae2ad6b214bec1a42d3ccd57204c8f9da59924": 0,
+    // "0xcb58da80df801f000f59cebd9d51f4d50a9bb952": 0,
+    // "0xb63a79d06ecbf137002832c7bb14266e25446982": 0,
 }
 
 const contractThetaPunksABI = [
@@ -146,8 +146,8 @@ let airdrop = []
             let holding = true;
             for(let p=1; p<projects.length; p++){
                 if(owners[o][projects[p].address] > 0){
-                    // owners[o][projects[p].address] = 0;
-                    owners[o][projects[p].address] -= 1;
+                    owners[o][projects[p].address] = 0;
+                    // owners[o][projects[p].address] -= 1;
                 } else{
                     holding = false;
                 }

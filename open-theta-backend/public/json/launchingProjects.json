@@ -1,0 +1,239 @@
+[
+  {
+    "name": "Guardian",
+    "contract": "0xcd8ee3078fa8565135f1e17974e04a6fbabedd66",
+    "imgUrl": "https://open-theta.de/api/images/launches/Guardian.mp4",
+    "creator": "Guardians Of Theta",
+    "creatorUrl": "https://open-theta.de/api/images/creators/GuardiansOfTheta.png",
+    "domain": "",
+    "TotalAmount": 110,
+    "maxMint": 110,
+    "video": true
+  },
+  {
+    "name": "Fly N High",
+    "contract": "0x1a54ff4a92daf67eafb9a790d596b9794e2d27a8",
+    "imgUrl": "https://open-theta.de/api/images/launches/FlyNHigh.mp4",
+    "creator": "Guardians Of Theta",
+    "creatorUrl": "https://open-theta.de/api/images/creators/GuardiansOfTheta.png",
+    "domain": "",
+    "TotalAmount": 250,
+    "maxMint": 250,
+    "video": true
+  },
+  {
+    "name": "Down with Me",
+    "contract": "0xa07965551c88df408594139ac23c778cf54e25f4",
+    "imgUrl": "https://open-theta.de/api/images/launches/DownWithMe.mp4",
+    "creator": "Guardians Of Theta",
+    "creatorUrl": "https://open-theta.de/api/images/creators/GuardiansOfTheta.png",
+    "domain": "",
+    "TotalAmount": 250,
+    "maxMint": 250,
+    "video": true
+  },
+  {
+    "name": "Dreamland",
+    "contract": "0x4c7d0a83d59bd47219cd5ca980047d38de07686c",
+    "imgUrl": "https://open-theta.de/api/images/launches/Dreamland.mp4",
+    "creator": "Guardians Of Theta",
+    "creatorUrl": "https://open-theta.de/api/images/creators/GuardiansOfTheta.png",
+    "domain": "",
+    "TotalAmount": 60,
+    "maxMint": 60,
+    "video": true
+  },
+  {
+    "name": "Beam My Line",
+    "contract": "0xf20687fc0a0c6e6bb20cfb7334bc2bac20ff57c0",
+    "imgUrl": "https://open-theta.de/api/images/launches/BeamMyLine.mp4",
+    "creator": "Guardians Of Theta",
+    "creatorUrl": "https://open-theta.de/api/images/creators/GuardiansOfTheta.png",
+    "domain": "",
+    "TotalAmount": 160,
+    "maxMint": 160,
+    "video": true
+  },
+  {
+    "name": "Gimme the TFuel",
+    "contract": "0x2b1dc7c56d17702a53a8adbc158b073b60dd9be1",
+    "imgUrl": "https://open-theta.de/api/images/launches/GimmeTheTFuel.mp4",
+    "creator": "Guardians Of Theta",
+    "creatorUrl": "https://open-theta.de/api/images/creators/GuardiansOfTheta.png",
+    "domain": "Guardians Of Theta",
+    "TotalAmount": 310,
+    "maxMint": 310,
+    "video": true
+  },
+  {
+    "name": "ThetaWords",
+    "contract": "0xcf8e4a8d4081c4eba6835c339eb5428889f164f9",
+    "imgUrl": "https://open-theta.de/api/images/launches/WordsEdition.mp4",
+    "creator": "ThetaBet",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaBet.jpg",
+    "domain": "https://www.thetabetnft.com/",
+    "TotalAmount": 610,
+    "maxMint": 610,
+    "video": true
+  },
+  {
+    "name": "PixZilla",
+    "contract": "0xc98c4cf17156d022fcc908779f360c86fe086753",
+    "imgUrl": "https://open-theta.de/api/images/launches/PixZilla.gif",
+    "creator": "ThetaZillaClub",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaZillaClub.png",
+    "domain": "https://twitter.com/ThetaZillaClub",
+    "TotalAmount": 10000,
+    "maxMint": 10000
+  },
+  {
+    "name": "Theta Man - Spacewalk",
+    "contract": "0xfcbb9f1962b9ae8a28ba38feffaa0a047ee97cd4",
+    "imgUrl": "https://open-theta.de/api/images/launches/ThetaManSpacewalk.jpg",
+    "creator": "tStake.io",
+    "creatorUrl": "https://open-theta.de/api/images/creators/tStake.png",
+    "domain": "tStake.io",
+    "TotalAmount": 1000,
+    "maxMint": 1000
+  },
+  {
+    "name": "Theta Man - Asteroid Belt",
+    "contract": "0xc4b85cfaa74d6a107358932cf73fbfdc277106b2",
+    "imgUrl": "https://open-theta.de/api/images/launches/ThetaManAsteroidBelt.jpg",
+    "creator": "tStake.io",
+    "creatorUrl": "https://open-theta.de/api/images/creators/tStake.png",
+    "domain": "tStake.io",
+    "TotalAmount": 1000,
+    "maxMint": 1000
+  },
+  {
+    "name": "Theta Man - Iapetus",
+    "contract": "0xb64f92b841615ccc55b7d16a5fe1035323b5d775",
+    "imgUrl": "https://open-theta.de/api/images/launches/ThetaManIapetus.jpg ",
+    "creator": "tStake.io",
+    "creatorUrl": "https://open-theta.de/api/images/creators/tStake.png",
+    "domain": "tStake.io",
+    "TotalAmount": 1000,
+    "maxMint": 1000
+  },
+  {
+    "name": "EVENT PROXIMA",
+    "contract": "0xc357a28c0285f6c45a7ff7e8c4cc92fad0b34114",
+    "imgUrl": "https://open-theta.de/api/images/launches/EVENTPROXIMA.jpeg",
+    "creator": "ThetaDiamond",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaDiamond.jpg",
+    "domain": "thetadiamond.com",
+    "TotalAmount": 1202,
+    "maxMint": 1202
+  },
+  {
+    "name": "Thetians Galaxy II.",
+    "contract": "0x2860c2e82967c2a79aa9d8b1a79421478843cc46",
+    "imgUrl": "https://open-theta.de/api/images/launches/ThetiansGalaxyII.jpg",
+    "creator": "ThetaNostra",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaNostra.jpg",
+    "domain": "https://twitter.com/ThetaNostra",
+    "TotalAmount": 222,
+    "maxMint": 222
+  },
+  {
+    "name": "Zillarina",
+    "contract": "0xcb58da80df801f000f59cebd9d51f4d50a9bb952",
+    "imgUrl": "https://open-theta.de/api/images/launches/Zillarina.jpg",
+    "creator": "Barrizan",
+    "creatorUrl": "https://open-theta.de/api/images/creators/Barrizan.jpg",
+    "domain": "https://twitter.com/Barrizan",
+    "TotalAmount": 55,
+    "maxMint": 55
+  },
+  {
+    "name": "ThetaBetFirstEdition",
+    "contract": "0x875b7e0042629966eb73eff2e5e876229612d502",
+    "imgUrl": "https://open-theta.de/api/images/launches/ThetaBetLetters.png",
+    "creator": "ThetaBet",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaBet.jpg",
+    "domain": "https://www.thetabetnft.com/",
+    "TotalAmount": 1380,
+    "maxMint": 1380
+  },
+  {
+    "name": "ThetaTeeth",
+    "contract": "0x23a185f6cf673d74f3dd69086f20136ee30e7129",
+    "imgUrl": "https://open-theta.de/api/images/launches/ThetaTeeth.jpg",
+    "creator": "ThetaTeeth",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaTeeth.jpg",
+    "domain": "https://www.ThetaTeeth.com/",
+    "TotalAmount": 3232,
+    "maxMint": 3232
+  },
+  {
+    "name": "ThetaBull",
+    "contract": "0xcb8f0b07ab79118014c8d6fa2ab2e2d88477305f",
+    "imgUrl": "https://open-theta.de/api/images/launches/ThetaBull.png",
+    "creator": "ThetaBulls",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaBulls.png",
+    "domain": "https://www.bullsontheta.io/",
+    "TotalAmount": 10000,
+    "maxMint": 10000
+  },
+  {
+    "name": "Plugged In",
+    "contract": "0x5bfcf20d4f141f03ffbbe009b193040cd63083b0",
+    "imgUrl": "https://open-theta.de/api/images/launches/PluggedIn.jpg",
+    "creator": "ThetaDiamond",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaDiamond.jpg",
+    "domain": "thetadiamond.com",
+    "TotalAmount": 500,
+    "maxMint": 500
+  },
+  {
+    "name": "Cleanup Crew",
+    "contract": "0x44c9239b1d9562aae04574c97710207e68f74816",
+    "imgUrl": "https://open-theta.de/api/images/launches/CleanupCrew.jpg",
+    "creator": "ThetaDiamond",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaDiamond.jpg",
+    "domain": "thetadiamond.com",
+    "TotalAmount": 350,
+    "maxMint": 350
+  },
+  {
+    "name": "TFuel Dreams",
+    "contract": "0x58bbda670702b8217c7428fe25c28c95a6e3963c",
+    "imgUrl": "https://open-theta.de/api/images/launches/TFUELDreams.jpg",
+    "creator": "ThetaDiamond",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaDiamond.jpg",
+    "domain": "thetadiamond.com",
+    "TotalAmount": 250,
+    "maxMint": 250
+  },
+  {
+    "name": "Theta Permabull",
+    "contract": "0xadc8fdca07ba7066c6e2d0efd7fe8cc35846ff3c",
+    "imgUrl": "https://open-theta.de/api/images/launches/Permabull.jpeg",
+    "creator": "Fr0zenfir3",
+    "creatorUrl": "https://open-theta.de/api/images/creators/Fr0zenfir3.jpg",
+    "domain": "https://twitter.com/R3tt2",
+    "TotalAmount": 444,
+    "maxMint": 444
+  },
+  {
+    "name": "ThetaZilla",
+    "contract": "0x371a0a0c9aad38c2d5dd33a679aea4b5fb521089",
+    "imgUrl": "https://open-theta.de/api/images/launches/ThetaZilla.png",
+    "creator": "ThetaZillaClub",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaZillaClub.png",
+    "domain": "https://twitter.com/ThetaZillaClub",
+    "TotalAmount": 10000,
+    "maxMint": 10000
+  },
+  {
+    "name": "ThetaPugs",
+    "contract": "0x9791ddfefadb0b1bed5f35604de262506c6ee45c",
+    "imgUrl": "https://open-theta.de/api/images/launches/ThetaPugs.png",
+    "creator": "ThetaPugs",
+    "creatorUrl": "https://open-theta.de/api/images/creators/ThetaPugs.png",
+    "domain": "https://thetapugs.com",
+    "TotalAmount": 2500,
+    "maxMint": 2450
+  }
+]
