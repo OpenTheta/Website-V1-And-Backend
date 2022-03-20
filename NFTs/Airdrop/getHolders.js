@@ -27,12 +27,12 @@ owners = [];
 async function getAddressToTokenId() {
     for(let i = 1; i < 116; i++) {
         let address = await contractNFTObject.ownerOf(i);
-        if (address.toString().toLowerCase() === '0x059377c014cfc12DD2612EbfE9cFD1A6FC1A8883') {
+        if (address.toString().toLowerCase() === '0xbb5f35d40132a0478f6aa91e79962e9f752167ea') {
             owners.push("marketplace");
             // owners.push({tokenID: i, address: "marketplace"});
             // console.log(i, "marketplace");
         } else if (address.toString().toLowerCase() === '0x0c4dc2ec9dee0a294c07abe622636f4b76b50a57') {
-
+            owners.push(address);
         } else {
             // owners.push({tokenID: i, address: address});
             // console.log(i, address);

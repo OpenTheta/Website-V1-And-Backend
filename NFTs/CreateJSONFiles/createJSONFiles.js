@@ -10,11 +10,11 @@ const fs = require('fs');
 // }
 
 const baseImageURI = [
-    "https://arweave.net/IH-1nnPT30dRZEbIgQb_gtHF0rw3qyRu7oHtgGCwUWc", // 55
+    "https://arweave.net/ZLYjT_UcF4J0TKkepDJ8SvPla8KPqYVjiAR7xhDKbiU", // 55
 ]
 
-const baseName = "Healthy Meemop #";
-const description = 'Yay! Meemop is cured thanks to you! Now back to his usual self, Meemop is now back in action with Cyko KO and Peachy Keen---just one happy SuperEarth family!!'
+const baseName = "Mega Meemop! #";
+const description = 'This Theta-fueled little guy is ready for some blockchain action! Meep!!!!'
 const external_url = "https://www.meemopmania.com"
 const twitter = "https://twitter.com/itsfeldman";
 const tokenNumber = 73;
@@ -58,28 +58,36 @@ async function writeFile(jsonId, extension) {
         // data["image"] = image;
         // data["creator"] = creator;
         // delete data.compiler;
-        fs.writeFile("./../../../../OpenThetaProjects/CykoKo/Meemop/MeemopFinal/metadata/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
+        fs.writeFile("./../../../../OpenThetaProjects/CykoKo/Meemop/MegaMeemop/metadata/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
             if (err) {
                 console.log(err);
             }
         });
     // });
 }
-// const baseID = 7000;
-// for(let i=1; i<=tokenNumber; i++) {
-//     writeFile( baseID+i);
-// }
+const baseID = 0;
+for(let i=1; i<=tokenNumber; i++) {
+    writeFile( baseID+i);
+}
 
 // Create a array with numbers from 0 to 9999
 // let a = [];
-for (let i=1;i<=tokenNumber;++i){
-    writeFile(i,)
-}
+// for (let i=1;i<=tokenNumber;++i){
+//     writeFile(i,)
+// }
 
-// fs.readdirSync("./../../../../OpenThetaProjects/ThetaDiamond/EVENTPROXIMA/images/").forEach(file => {
+// let counter = 1
+// fs.readdirSync("./../../../../OpenThetaProjects/Zenba/indientz/FullDiscs/").forEach(file => {
 //     let arr = file.split(".")
+//     if(arr[1] === "jpg") {
+//         fs.copyFile(`./../../../../OpenThetaProjects/Zenba/indientz/FullDiscs/${file}`, `./../../../../OpenThetaProjects/Zenba/indientz/FullDiscs/test/${counter}.jpg`, (err) => {
+//             if (err) throw err;
+//             console.log('File was copied to destination');
+//         });
+//         counter ++
+//     }
 //     // let extension = arr.pop()
 //     // let newName = file.replace(/(^\d+)(.+$)/i,'$1') + "." + extension;
 //     // console.log(arr[0], arr[1])
-//     writeFile(arr[0], arr[1])
+//     // writeFile(arr[0], arr[1])
 // });

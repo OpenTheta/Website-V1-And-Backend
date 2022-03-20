@@ -1082,11 +1082,14 @@ const contractMarketObject = new ethers.Contract(
     provider
 );
 
+let maxItemId = 0;
+let minItemId = 0;
+
 async function getMarketItem(max) {
     let finalData = []
     let promiseCount = 100
     let itemPromises = []
-    for(let i=0; i<=max; i++){
+    for(let i=minItemId; i<=max; i++){
         itemPromises.push(contractMarketObject.getByMarketId(i))
         if(i === max || promiseCount === 0){
             let res = await Promise.all(itemPromises).catch(e =>{
@@ -1126,7 +1129,7 @@ async function getCheckData() {
     }
     console.log(secondMarketData.length)
     let final = []
-    let blockchainData = await getMarketItem(775) //4277
+    let blockchainData = await getMarketItem(maxItemId) //2248
     // console.log(blockchainData)
     for(let i=0; i<blockchainData.length; i++){
         if(!secondMarketData.includes(blockchainData[i].itemId.toNumber())){
@@ -1152,6 +1155,66 @@ function getBlockData(block) {
 }
 
 async function creatItem(itemId, contract, tokenId, seller, owner, category, price, timestamp){
+
+    if(contract.toLowerCase() === "0xbb4d339a7517c81c32a01221ba51cbd5d3461a94"){
+        // let labelHash = ethers.BigNumber.from(tokenId).toHexString()
+        // const url = 'https://api.thegraph.com/subgraphs/name/ensdomains/ens'
+        // const GET_LABEL_NAME = gql`
+        //     query{
+        //         domains(first:1, where:{labelhash:"${labelHash}"}){
+        //             labelName
+        //         }
+        //     }`
+        let count = 0
+        let timeout = true
+        let tnsName
+        while(timeout){
+            timeout = false
+            let tnsResponse
+            let url = 'https://opentheta.de/tns/' + tokenId.toString()
+            tnsResponse = await axios.get(url).catch(error => {
+                count += 1
+                if(count < 30){
+                    timeout = true
+                } else {
+                    return;
+                }
+                console.log("Error with getting TNS name of Token from OpenTheta.de");
+            });
+            if(!tnsResponse) {
+                tnsResponse = await axios.get("https://thetaboard.io/tns-token-ids/" + tokenId.toString()).catch(() => {
+                    console.log("Error with getting TNS from Thetaboard")
+                });
+                if(tnsResponse) {
+                    tnsName = tnsResponse.data.data.attributes.name
+                }
+                if(tnsName) timeout = false
+            } else {
+                tnsName = tnsResponse.data
+            }
+        }
+        console.log("Add item:",  itemId);
+        // console.log(tnsName.domains[0].labelName)
+        if(!tnsName) return;
+        let nft = {
+            itemId: itemId,
+            nftContract: contract.toLowerCase(),
+            tokenId: -1,
+            seller: seller.toLowerCase(),
+            owner: owner,
+            category: category,
+            price: price.toString(),
+            isSold: false,
+            createdTimestamp: timestamp*1000,
+            name: tnsName,
+            imgUrl: "https://open-theta.de/api/images/creators/TNS.jpg",
+            description: tokenId.toString(),
+            marketAddress: address,
+        };
+        return nft
+    }
+
+
     // console.log("Add item:",  itemId[0].toNumber());
     const contractNFTObject = new ethers.Contract(
         contract,
@@ -1218,7 +1281,7 @@ async function searchMissingData(totalPageNumber) {
             for (const item of missingData) {
                 if(item.itemId.toNumber() === itemId){
                     let nft = await creatItem(itemId, item.nftContract, item.tokenId, item.seller, item.owner, item.category, item.price, response.data.body[i].timestamp)
-                    await addNFT(nft);
+                    // await addNFT(nft);
                     missingData = missingData.filter(function (item, index, arr) {
                         if (item.itemId.toNumber() !== itemId) {
                             return item
@@ -1243,18 +1306,25 @@ async function getHighestId(startId) {
         await contractMarketObject.getByMarketId(id).catch(e => {
             available = false
         })
-        console.log(id)
+        if(available) console.log(id)
         id++
     }
     return id - 1
 }
 // 768
-// getHighestId(350)
+minItemId = 3743
+// maxItemId = 3534
 
-axios.get(baseUrl+"1"+addUrl, {timeout: 2000}).then(response => {
-    searchMissingData(response.data.totalPageNumber)
+getHighestId(minItemId).then(res => {
+    maxItemId = res - 1
+    axios.get(baseUrl+"1"+addUrl, {timeout: 2000}).then(response => {
+        searchMissingData(response.data.totalPageNumber)
+    });
+})
 
-});
+// axios.get(baseUrl+"1"+addUrl, {timeout: 2000}).then(response => {
+//     searchMissingData(response.data.totalPageNumber)
+// });
 
 
 //

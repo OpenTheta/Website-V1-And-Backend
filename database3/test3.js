@@ -1252,27 +1252,176 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
-const TBILLMultiplier = {
-    contract: '0x172d0bd953566538f050aabfeef5e2e8143e09f4',
-    name: 'TBILL Multiplier',
-    creator: 'Gworld',
-    tokenNumber: 10000,
-    description: 'TIBILL Multiplier',
-    imgUrl:'https://arweave.net/B04aLg0WL99-GJ188x7qG32Yfx4Yh6YXncJIhELvFs8',
-    hasMetadata: true,
-}
+// const TBILLMultiplier = {
+//     contract: '0x172d0bd953566538f050aabfeef5e2e8143e09f4',
+//     name: 'TBILL Multiplier',
+//     creator: 'Gworld',
+//     tokenNumber: 10000,
+//     description: 'TIBILL Multiplier',
+//     imgUrl:'https://arweave.net/B04aLg0WL99-GJ188x7qG32Yfx4Yh6YXncJIhELvFs8',
+//     hasMetadata: true,
+// }
 
-const DailyDiamond = {
-    contract: '0x66e93c5ebef7ebcc2fdf1b9a0da2b32e9a8730d2',
-    name: 'Daily Diamond',
-    creator: 'ThetaDiamond',
-    tokenNumber: 0,
-    description: 'Follow me on the DailyDiamond journey! 1/1 unique designs every day!',
-    imgUrl:'https://arweave.net/fAoWWPaO3BgCQARbLygE6FdKKJXicFj1U0RfYGwKu60',
-    hasMetadata: true,
-}
+// const DailyDiamond = {
+//     contract: '0x66e93c5ebef7ebcc2fdf1b9a0da2b32e9a8730d2',
+//     name: 'Daily Diamond',
+//     creator: 'ThetaDiamond',
+//     tokenNumber: 0,
+//     description: 'Follow me on the DailyDiamond journey! 1/1 unique designs every day!',
+//     imgUrl:'https://arweave.net/fAoWWPaO3BgCQARbLygE6FdKKJXicFj1U0RfYGwKu60',
+//     hasMetadata: true,
+// }
 
+// const EVENTPROXIMAPostEvent = {
+//     contract: '0xc45b3d5267a480a8aacea5b943e690d5ec097df0',
+//     name: 'EVENT PROXIMA Post Event',
+//     creator: 'ThetaDiamond',
+//     tokenNumber: 111,
+//     description: 'Humanity has all but been wiped out by the massive Supernova known as EVENT PROXIMA, you are our only hope!',
+//     imgUrl:'https://arweave.net/wKtQqHTjbQKiRFJ7uMFne6rkFvPy8Zfg9a66zkgBmdg',
+//     hasMetadata: true,
+// }
 
+// const OrbZilla = {
+//     contract: '0xd5566b294050538370431f36a610798abb040626',
+//     name: 'OrbZilla',
+//     creator: 'ThetaZillaClub',
+//     tokenNumber: 21,
+//     description: 'ThetaZilla February 2022 Collection.',
+//     imgUrl:'https://arweave.net/DxgjfQ3zCixc_F09UyZY8uNfkE5JljvFpzqlHofcnqo',
+//     hasMetadata: true,
+// }
+
+// const CommunitySupport = {
+//     contract: '0x4121dcc6eda2e8785a5cde3a830a3652082694a5',
+//     name: 'Community support',
+//     creator: 'Ukraine Relief',
+//     tokenNumber: 0,
+//     description: 'OpenTheta Community support for Ukraine. 100% of the initial sale goes to NGOs that support the Ukrainian people in these difficult times.',
+//     imgUrl:'https://arweave.net/4oWnJ-MzCz87aNWy7kn36Jz5R_l7Vs_FgWkswekU5g0',
+//     hasMetadata: true,
+// }
+//
+// const Gurus4Ukraine = {
+//     contract: '0x006eb841a7b036119d02ec1a06a1756f37decaab',
+//     name: 'Gurus4Ukraine',
+//     creator: 'Ukraine Relief',
+//     tokenNumber: 0,
+//     description: 'This Ukraine Angel Guru represents the blessings and protection the Mystic Gurus Community sends to our brethren in Ukraine. Each NFT carries with it blessings for those who support the cause, as well as for those we are supporting. 100% of the initial sale goes to NGOs that support the Ukrainian people in these difficult times.',
+//     imgUrl:'https://arweave.net/Q8ewICC0S1YOG98OmUaG2IuhL89HCQsrNQozU6S8soY',
+//     hasMetadata: true,
+// }
+//
+// const WeStandWithUkraine = {
+//     contract: '0xd32326e850218a7dc5842bf3657b55d2921177fa',
+//     name: 'We stand with Ukraine',
+//     creator: 'Ukraine Relief',
+//     tokenNumber: 0,
+//     description: 'We stand with Ukraine by ThetaDiamond, to promote peace not war. 100% of the initial sale goes to NGOs that support the Ukrainian people in these difficult times.',
+//     imgUrl:'https://arweave.net/xYdiWEoxUzc4Ojai1b5poSD0-sk01GwlNq-aavST79s',
+//     hasMetadata: true,
+// }
+
+// const HighFlyerClub = {
+//     contract: '0x81fcd77c59cc469026e3bb8eef46a495581a495e',
+//     name: 'High Flyer Club',
+//     creator: 'ThetaPunks',
+//     tokenNumber: 250,
+//     description: 'Ownership of this Token grants membership to the "High Flyer Club!" Airdropped in Q1 2022 to all who owned twelve or more Thetapunks from the original collection on Theta Blockchain.',
+//     imgUrl:'https://arweave.net/79b835EJBeBBP2Gl7wnbFOt1XAJR2lLZxb8JC7JOlfk',
+//     hasMetadata: true,
+// }
+
+// const Metapass = {
+//     contract: '0xa042fc0e5bd72d02c99b49ca8ca2bf7fa2ab3156',
+//     name: 'TKETS x METAPASS',
+//     creator: 'TKETS',
+//     tokenNumber: 110,
+//     description: 'The commemorative airdrop for our rebranding into Metapass. Airdrop only, not for direct mints.',
+//     imgUrl:'https://ipfs.io/ipfs/QmWF7p5awoxWufvJdJyySXeTBwoUc7JXoAhqApFZgbAPsz',
+//     hasMetadata: true,
+// }
+
+// const indientz = {
+//     contract: '0x40f81be7f2f90961a7f9e53ff81de8bc37b1e227',
+//     name: 'indientz',
+//     creator: 'zenba',
+//     tokenNumber: 111,
+//     description: 'A collection of captures of interdimensional entities caught manifesting in satellite data of the sun. Catch a glimpse into the real metaverse across time, space, and dimensionality. This is not a generative project, it is a collision of scientific data and artistic flare.',
+//     imgUrl:'https://arweave.net/hwscJlz4ATowkJXjd5Rzaiwbmy4uREMfClyU5OKRaCs',
+//     hasMetadata: true,
+// }
+
+// const TrophyRoomxAirJordan1 = {
+//     contract: '0xb3bce1f2fc49300825a4071d80dd921075dc78fa',
+//     name: 'Trophy Room x Air Jordan 1',
+//     creator: 'One Less Entertainment',
+//     tokenNumber: 200,
+//     description: 'These rare sneakers are mired in controversy. So WE BLEW THEM UP. All NFT holders will gain access to our full behind the scenes explosion video and receive a vote on future destruction events.',
+//     imgUrl:'https://arweave.net/Cu-oLsstVKE8430rHcfkJkWvUNK_FjXd-CFqLAIxv6U',
+//     hasMetadata: true,
+// }
+
+// const VideoEvidenceCards = {
+//     contract: '0x6a568444675d6d6a096b083915196006552fc7f0',
+//     name: 'Video Evidence Cards',
+//     creator: 'One Less Entertainment',
+//     tokenNumber: 10,
+//     description: 'An upgraded version of the Trophy Room x Air Jordan 1\'s with original music from DEAR KITTY, holders receive five votes for future destruction events.',
+//     imgUrl:'https://arweave.net/C-2tim9TncuyU5YFTQ01HWFcMlbvO-zu7SgHL7hPnOA',
+//     hasMetadata: true,
+// }
+//
+// const TheExplosion = {
+//     contract: '0x9e04458e5585d94a09fb773b8be01b92a96cdf4a',
+//     name: 'The Explosion',
+//     creator: 'One Less Entertainment',
+//     tokenNumber: 1,
+//     description: 'These rare sneakers are mired in controversy. So WE BLEW THEM UP. All NFT holders will gain access to our full behind the scenes explosion video and receive a vote on future destruction events.',
+//     imgUrl:'https://arweave.net/d3Qk6Rljy8tgg5fM6eNfnC48ZjJpels2t_xwi9Y1U-0',
+//     hasMetadata: true,
+// }
+//
+//
+// const UkraineReliefAid = {
+//     contract: '0xf484a4232944f31d2915ea7b37a8eb4735ae8646',
+//     name: 'Ukraine Relief Aid',
+//     creator: 'Ukraine Relief',
+//     tokenNumber: 5,
+//     description: 'Various one of one NFTs from different creators to support the Ukraine Relief aid OpenTheta fundraiser.  100% of the initial sale goes to NGOs that support the Ukrainian people in these difficult times.',
+//     imgUrl:'https://arweave.net/ucDGcX8H38PWgHwFr-QiOQpkzOQ0O2ZmufxbKAtbFqo',
+//     hasMetadata: true,
+// }
+
+// const MegaMeemop = {
+//     contract: '0x441c01707404d61391fbbf69cb64e89389d842ae',
+//     name: 'Mega Meemop',
+//     creator: 'CykoKO',
+//     tokenNumber: 72,
+//     description: 'This Theta-fueled little guy is ready for some blockchain action! Meep!!!!',
+//     imgUrl:'https://arweave.net/iFjj3AEvAMYjAG3OdOA30aPdhAXcr0DwmbOy9xWRg3s',
+//     hasMetadata: true,
+// }
+
+// const TNS = {
+//     contract: '0xbb4d339a7517c81c32a01221ba51cbd5d3461a94',
+//     name: 'TNS',
+//     creator: 'Thetaboard',
+//     tokenNumber: 0,
+//     description: 'This is a Theta Name Service (TNS) domain',
+//     imgUrl:'https://open-theta.de/api/images/creators/TNS.jpg',
+//     hasMetadata: false,
+// }
+
+// const ThRune = {
+//     contract: '0x8dd63546c9d88d3822e3446ddecc3cca628f2768',
+//     name: "Th'Rune",
+//     creator: 'TSports',
+//     tokenNumber: 50,
+//     description: 'Theta Rune NFT in the character of Starry Night by Cesar Milan.',
+//     imgUrl:'https://arweave.net/aITmrwR97llqB81h2iPtRESokVpURVlPmkf4eYl8jVE',
+//     hasMetadata: true,
+// }
 
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
@@ -1328,20 +1477,79 @@ const DailyDiamond = {
 // addProject(TFuelTonic)
 // addProject(HealthyMeemop)
 // addProject(ThetaWords)
-addProject(TBILLMultiplier)
-addProject(DailyDiamond)
+// addProject(TBILLMultiplier)
+// addProject(DailyDiamond)
+// addProject(EVENTPROXIMAPostEvent)
+// addProject(OrbZilla)
+// addProject(CommunitySupport)
+// addProject(Gurus4Ukraine)
+// addProject(WeStandWithUkraine)
+// addProject(HighFlyerClub)
+// addProject(Metapass)
+// addProject(indientz)
+// addProject(TrophyRoomxAirJordan1)
+// addProject(VideoEvidenceCards)
+// addProject(TheExplosion)
+// addProject(UkraineReliefAid)
+// addProject(MegaMeemop)
+// addProject(TNS)
+// addProject(ThRune)
 
-// const NYZ = {
-//     tokenNumber: 116,
+// const URA = {
+//     tokenNumber: 4,
 // }
 //
-// projects.updateProject('0x358087474325ac1ffa13935c90f468e9fdc31044', NYZ).then(res => {
+// projects.updateProject('0xf484a4232944f31d2915ea7b37a8eb4735ae8646', URA).then(res => {
 //     console.log("updateProject");
 //     console.log(res);
 // }).catch(error => {
 //     console.log('failed to update project');
 // });
-
+//
+// const CS = {
+//     tokenNumber: 56,
+// }
+//
+// projects.updateProject('0x4121dcc6eda2e8785a5cde3a830a3652082694a5', CS).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
+//
+//
+// const G4U = {
+//     tokenNumber: 17,
+// }
+//
+// projects.updateProject('0x006eb841a7b036119d02ec1a06a1756f37decaab', G4U).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
+//
+// const WSU = {
+//     tokenNumber: 2,
+// }
+//
+// projects.updateProject('0xd32326e850218a7dc5842bf3657b55d2921177fa', WSU).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
+//
+// const TRxAJ = {
+//     imgUrl: "https://arweave.net/-iuKaSm7W1vxXz7XH6HvnDssmX9zRXDxbDj_Ob-LwIw",
+// }
+//
+// projects.updateProject('0xb3bce1f2fc49300825a4071d80dd921075dc78fa', TRxAJ).then(res => {
+//     console.log("updateProject");
+//     console.log(res);
+// }).catch(error => {
+//     console.log('failed to update project');
+// });
 // const p2 = {
 //     contract: '2222',
 //     name: 'hi',
@@ -1471,12 +1679,12 @@ addProject(DailyDiamond)
 // });
 //
 
-// projects.deleteNFT(2615).then(res => {
-//     console.log(res);
-// }).catch(error => {
-//     console.log("deleteNFT");
-//     console.log('failed to delete nft');
-// });
+projects.deleteNFT(1098).then(res => {
+    console.log(res);
+}).catch(error => {
+    console.log("deleteNFT");
+    console.log('failed to delete nft');
+});
 //
 // projects.deleteNFT(2982).then(res => {
 //     console.log(res);

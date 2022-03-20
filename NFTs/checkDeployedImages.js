@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const baseURL = 'https://arweave.net/FdCla1lcQUi3pBhsIoBT2H8S-ojDpaemIC82dXVLaW4/'; // JSON
+const baseURL = 'https://arweave.net/eTvO1T9tljJK60wLbQvFaEowmfJUpv1ZVk4wuk0CaNI/'; // JSON
 
 
 function sleep(ms) {
@@ -10,11 +10,11 @@ function sleep(ms) {
 }
 
 async function check () {
-    for (let i = 817; i <= 876; i++) {
-        axios.get(baseURL+i+'.png').then(() => {
+    for (let i = 1; i <= 10000; i++) {
+        axios.get(baseURL+i+'.jpg').then(() => {
             console.log("Checked:", i);
         }).catch(() => {
-            axios.get(baseURL+i+'.png').then(() => {
+            axios.get(baseURL+i+'.jpg').then(() => {
                 console.log("Checked:", i);
             }).catch(() => {
                 console.log("Error image", i);

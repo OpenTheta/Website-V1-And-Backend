@@ -4,8 +4,13 @@ const axios = require('axios');
 
 let currentProvider = new Web3.providers.HttpProvider('https://eth-rpc-api.thetatoken.org/rpc');
 let provider = new ethers.providers.Web3Provider(currentProvider);
-let marketplaceAddress = "0x059377c014cfc12DD2612EbfE9cFD1A6FC1A8883";
+let marketplaceAddress = ["0x059377c014cfc12DD2612EbfE9cFD1A6FC1A8883", "0xbb5f35d40132a0478f6aa91e79962e9f752167ea"];
 let projects = [
+    {
+        name: "Healthy Meemop",
+        address: "0x06b656c87f98ec1aadb2c6ad2fb68a748befc71e",
+        tokenNumber: 73
+    },
     {
         name: "TFuel Tonic",
         address: "0x358087474325ac1ffa13935c90f468e9fdc31044",
@@ -14,30 +19,15 @@ let projects = [
     {
         name: "MeemopMania",
         address: "0x38af6ddf4f3f3b044bd0ae1106d6726a011eefd1",
-        tokenNumber: 888
-    },
-    // {
-    //     name: "Bobzilla",
-    //     address: "0x74ae2ad6b214bec1a42d3ccd57204c8f9da59924",
-    //     tokenNumber: 33
-    // },
-    // {
-    //     name: "Zillarina",
-    //     address: "0xcb58da80df801f000f59cebd9d51f4d50a9bb952",
-    //     tokenNumber: 55
-    // },
-    // {
-    //     name: "Firezilla",
-    //     address: "0xb63a79d06ecbf137002832c7bb14266e25446982",
-    //     tokenNumber: 55
-    // }
+        tokenNumber: 888,
+    }
 ];
 
 let baseConfig = {
     address: "",
+    "0x06b656c87f98ec1aadb2c6ad2fb68a748befc71e": 0,
     "0x358087474325ac1ffa13935c90f468e9fdc31044": 0,
     "0x38af6ddf4f3f3b044bd0ae1106d6726a011eefd1": 0,
-    // "0x74ae2ad6b214bec1a42d3ccd57204c8f9da59924": 0,
     // "0xcb58da80df801f000f59cebd9d51f4d50a9bb952": 0,
     // "0xb63a79d06ecbf137002832c7bb14266e25446982": 0,
 }
@@ -62,7 +52,7 @@ let owners = [];
 // ]
 let airdrop = []
 
-    async function getAddress() {
+async function getAddress() {
     const contractNFTObject = new ethers.Contract(
         projects[0].address,
         contractThetaPunksABI,
@@ -78,7 +68,7 @@ let airdrop = []
                 inOwners = true
             }
         }
-        if(!inOwners && address.toLowerCase()!==marketplaceAddress.toLowerCase()) {
+        if(!inOwners && (address.toLowerCase()!==marketplaceAddress[0].toLowerCase() && address.toLowerCase()!==marketplaceAddress[1].toLowerCase())) {
             let owner = JSON.parse(JSON.stringify(baseConfig));
             owner.address = address.toLowerCase();
             owner[projects[0].address.toLowerCase()] += 1
@@ -92,18 +82,19 @@ let airdrop = []
     let marketplaceData = response.data;
     for(let m=0; m<marketplaceData.length; m++) {
         let inOwners = false;
-
-        for(let o=0; o<owners.length; o++){
-            if(owners[o].address.toLowerCase() === marketplaceData[m].seller.toLowerCase()){
-                owners[o][projects[0].address.toLowerCase()] += 1;
-                inOwners = true
+        if(marketplaceData[m].marketAddress && marketplaceData[m].marketAddress.toLowerCase() === marketplaceAddress[1].toLowerCase()) {
+            for(let o=0; o<owners.length; o++){
+                if(owners[o].address.toLowerCase() === marketplaceData[m].seller.toLowerCase()){
+                    owners[o][projects[0].address.toLowerCase()] += 1;
+                    inOwners = true
+                }
             }
-        }
-        if(!inOwners) {
-            let owner = JSON.parse(JSON.stringify(baseConfig));
-            owner.address = marketplaceData[m].seller.toLowerCase();
-            owner[projects[0].address.toLowerCase()] += 1
-            owners.push(owner)
+            if(!inOwners) {
+                let owner = JSON.parse(JSON.stringify(baseConfig));
+                owner.address = marketplaceData[m].seller.toLowerCase();
+                owner[projects[0].address.toLowerCase()] += 1
+                owners.push(owner)
+            }
         }
     }
 
@@ -127,17 +118,19 @@ let airdrop = []
         response = await axios.get(`https://open-theta.de/api/projects/${projects[p].address}/nft/on-market/`);
         marketplaceData = response.data;
         for(let m=0; m<marketplaceData.length; m++) {
+            if (marketplaceData[m].marketAddress && marketplaceData[m].marketAddress.toLowerCase() === marketplaceAddress[1].toLowerCase()) {
 
-            for(let o=0; o<owners.length; o++){
-                if(owners[o].address.toLowerCase() === marketplaceData[m].seller.toLowerCase()){
-                    owners[o][projects[p].address.toLowerCase()] += 1;
+                for (let o = 0; o < owners.length; o++) {
+                    if (owners[o].address.toLowerCase() === marketplaceData[m].seller.toLowerCase()) {
+                        owners[o][projects[p].address.toLowerCase()] += 1;
+                    }
                 }
             }
         }
     }
 
-    console.log(owners);
-    // console.log(owners.length);
+    // console.log(owners);
+    console.log(owners.length);
 
     let totalAmount = 0;
     for(let o=0; o<owners.length;o++){

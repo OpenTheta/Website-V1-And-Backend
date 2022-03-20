@@ -1,5 +1,25 @@
 [
   {
+    "name": "Trophy Room x Air Jordan 1",
+    "contract": "0xb3bce1f2fc49300825a4071d80dd921075dc78fa",
+    "imgUrl": "https://open-theta.de/api/images/launches/Cards.jpg",
+    "creator": "One Less Entertainment",
+    "creatorUrl": "https://open-theta.de/api/images/creators/OneLessEntertainment.png",
+    "domain": "",
+    "TotalAmount": 200,
+    "maxMint": 200
+  },
+  {
+    "name": "indientz",
+    "contract": "0x40f81be7f2f90961a7f9e53ff81de8bc37b1e227",
+    "imgUrl": "https://open-theta.de/api/images/launches/indientz.jpg",
+    "creator": "zenba",
+    "creatorUrl": "https://open-theta.de/api/images/creators/Zenba.jpg",
+    "domain": "",
+    "TotalAmount": 111,
+    "maxMint": 111
+  },
+  {
     "name": "Guardian",
     "contract": "0xcd8ee3078fa8565135f1e17974e04a6fbabedd66",
     "imgUrl": "https://open-theta.de/api/images/launches/Guardian.mp4",

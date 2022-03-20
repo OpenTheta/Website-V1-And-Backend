@@ -10,31 +10,34 @@ const fs = require('fs');
 // const tokenNumber = 444
 
 // ThetaDiamond
-const baseName = "Xmas Greetings TB#";
+const baseName = "indientz";
 // const symbol = "TG";
-const description = 'Seasons Greetings from Thetabet, to all the Theta community.';
-let baseImageURI = "https://arweave.net/7qyaWKfGvLswrmMAngjHeTxYrm3tvyia-9CKmjnxK4Y/XMAS.png";
-const twitter = "https://twitter.com/ThetaBets";
-const external_url = "https://thetabetnft.com";
-const animation_url = "https://arweave.net/k7i4crpNeFcuEkVnFmDaBEv3mUZlHJHizQcoEO6FbnE/XMAS.mp4";
-const creator = "ThetaBet";
+const description = 'A collection of captures of interdimensional entities caught manifesting in satellite data of the sun. Catch a glimpse into the real metaverse across time, space, and dimensionality. This is not a generative project, it is a collision of scientific data and artistic flare.';
+let baseImageURI = "https://arweave.net/YulI6YgGzw17HQudNatqMAhE34t3XXvSW6dIvs_HokY/";
+const twitter = "https://twitter.com/zenba_nft";
+const external_url = "zenba.net";
+// const animation_url = "https://arweave.net/k7i4crpNeFcuEkVnFmDaBEv3mUZlHJHizQcoEO6FbnE/XMAS.mp4";
+const creator = "zenba";
 // const collection = "Zilla-Mania";
-const tokenNumber = 100;
+const tokenNumber = 6;
+const attributes = [{"trait_type": "Type", "value": "Redeemable"}]
 
 
 async function writeFile(id) {
     let data = {
-        name: baseName+(id).toString(),
+        // name: baseName+(id).toString(),
+        name: baseName,
         // symbol: symbol,
         description: description,
-        image: baseImageURI,
-        animation_url: animation_url,
-        twitter: twitter,
+        image: baseImageURI + (id).toString() + ".png",
+        // animation_url: animation_url,
         external_url: external_url,
-        // collection: collection,
         creator: creator,
+        twitter: twitter,
+        attributes: attributes
+        // collection: collection
     }
-    fs.writeFile("./../../../OpenThetaProjects/ThetaBet/AnimatedNFTs/MetadataXMAS/"+id.toString()+".json", JSON.stringify(data), function(err) {
+    fs.writeFile("./../../../OpenThetaProjects/Zenba/indientz/metadata/redeemable/"+id.toString()+".json", JSON.stringify(data), function(err) {
         if (err) {
             console.log(err);
         }

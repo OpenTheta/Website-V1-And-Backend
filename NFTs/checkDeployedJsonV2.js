@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 
-const baseURL = 'https://arweave.net/KKLJ6-ouhAo4NDr00JnuXKBW2T5SAAiGG0m-4FebT-M/'; // JSON
+const baseURL = 'https://arweave.net/FGFO-6NI9PP2fI0EJW38ksX2cyjHzST4taZoid266GY/'; // JSON
 const hasNumbering = true
 
 async function check () {
@@ -25,7 +25,7 @@ async function check () {
         }
     }
     process.stdout.write("Checking:")
-    for (let i = 1; i <=310; i++) {
+    for (let i = 1; i <=520; i++) {
         if(i%10 === 0)process.stdout.write(" " + i)
         finalReport.metadata.checked.push(i)
         let count = 0
@@ -53,7 +53,7 @@ async function check () {
         if(metadata !== undefined) {
             // let imageNumber = metadata.data.image.slice(-8,-4).replace( /^\D+/g, '')
             // finalReport.images.checked.push(parseInt(imageNumber))
-            let imageNumber = metadata.data.image.slice(-5,-1)
+            let imageNumber = metadata.data.image.slice(-18,-1)
             finalReport.images.checked.push(imageNumber)
             count = 0
             timeout = true
@@ -111,11 +111,12 @@ async function check () {
             console.log(err);
         }
     });
-    // const toFindDuplicates = tokenIds => tokenIds.filter((item, index) => tokenIds.indexOf(item) !== index)
-    // let duplicateElements = toFindDuplicates(finalReport.metadata.checked);
-    // if(duplicateElements.length > 0) console.log(duplicateElements);
-    // duplicateElements = toFindDuplicates(finalReport.images.checked);
-    // if(duplicateElements.length > 0) console.log(duplicateElements);
+    const toFindDuplicates = tokenIds => tokenIds.filter((item, index) => tokenIds.indexOf(item) !== index)
+    let duplicateElements = toFindDuplicates(finalReport.metadata.checked);
+    if(duplicateElements.length > 0) console.log(duplicateElements);
+    duplicateElements = toFindDuplicates(finalReport.images.checked);
+    if(duplicateElements.length > 0) console.log(duplicateElements);
+    console.log(duplicateElements.length)
 }
 
 check().then(() => {
