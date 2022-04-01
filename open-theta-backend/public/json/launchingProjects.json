@@ -1,5 +1,25 @@
 [
   {
+    "name": "Absolute Gosu",
+    "contract": "0x6b9ece0e02870098846b209bbe653ea1de00fc48",
+    "imgUrl": "https://open-theta.de/api/images/launches/AbsoluteGosu.jpg",
+    "creator": "Satoshi Speaks",
+    "creatorUrl": "https://open-theta.de/api/images/creators/SatoshiSpeaks.jpg",
+    "domain": "",
+    "TotalAmount": 520,
+    "maxMint": 520
+  },
+  {
+    "name": "Th'Eye",
+    "contract": "0x882161a50a95763a3ebd1cccd77b5ab04c0c1473",
+    "imgUrl": "https://open-theta.de/api/images/launches/ThEye.gif",
+    "creator": "TSports",
+    "creatorUrl": "https://open-theta.de/api/images/creators/TSports.gif",
+    "domain": "",
+    "TotalAmount": 50,
+    "maxMint": 50
+  },
+  {
     "name": "Trophy Room x Air Jordan 1",
     "contract": "0xb3bce1f2fc49300825a4071d80dd921075dc78fa",
     "imgUrl": "https://open-theta.de/api/images/launches/Cards.jpg",
@@ -230,7 +250,7 @@
     "name": "Theta Permabull",
     "contract": "0xadc8fdca07ba7066c6e2d0efd7fe8cc35846ff3c",
     "imgUrl": "https://open-theta.de/api/images/launches/Permabull.jpeg",
-    "creator": "Fr0zenfir3",
+    "creator": "Team Fr0zenfir3",
     "creatorUrl": "https://open-theta.de/api/images/creators/Fr0zenfir3.jpg",
     "domain": "https://twitter.com/R3tt2",
     "TotalAmount": 444,

@@ -1,2 +1,11 @@
 [
+  {
+    "itemId": 8,
+    "name": "Redeemable Spider NFT",
+    "nftContract": "0x31223391e591b5a06581c2191a77ad69328384e3",
+    "auctionContract": "0xb60189ea9de6701490f67f1e80621aceec985288",
+    "imgUrl": "https://arweave.net/7V0EsLjjQCY6-uGTeGZeHxTcIzrvbhIs1Vh3tSIGFBA",
+    "creatorImgUrl": "https://open-theta.de/api/images/creators/Fr0zenfir3.jpg",
+    "creatorName": "Team Fr0zenfir3"
+  }
 ]

@@ -1,11 +1,11 @@
 {
-  "contract": "0xb3bce1f2fc49300825a4071d80dd921075dc78fa",
-  "name": "Trophy Room x Air Jordan 1",
-  "imgUrl": "https://open-theta.de/api/images/launches/Cards.jpg",
-  "creator": "One Less Entertainment",
-  "creatorUrl": "https://open-theta.de/api/images/creators/OneLessEntertainment.png",
+  "contract": "0x6b9ece0e02870098846b209bbe653ea1de00fc48",
+  "name": "Absolute Gosu",
+  "imgUrl": "https://open-theta.de/api/images/launches/AbsoluteGosu.jpg",
+  "creator": "Satoshi Speaks",
+  "creatorUrl": "https://open-theta.de/api/images/creators/SatoshiSpeaks.jpg",
   "mint": true,
-  "maxSupply": 200,
+  "maxSupply": 520,
   "video": false,
   "videoUrl": "https://open-theta.de/api/images/launches/DownWithMe.mp4"
 }

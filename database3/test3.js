@@ -1423,6 +1423,47 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
+// const ThEye = {
+//     contract: '0x882161a50a95763a3ebd1cccd77b5ab04c0c1473',
+//     name: "Th'Eye",
+//     creator: 'TSports',
+//     tokenNumber: 50,
+//     description: 'A pro-peace NFT by Cesar Milan.',
+//     imgUrl:'https://arweave.net/SBDZ8bhCKERWZxan8AiFd0wbcWZhUWrhIIwF3domFRM',
+//     hasMetadata: true,
+// }
+
+// const AbsoluteGosu = {
+//     contract: '0x6b9ece0e02870098846b209bbe653ea1de00fc48',
+//     name: "Absolute Gosu",
+//     creator: 'Satoshi Speaks',
+//     tokenNumber: 520,
+//     description: '"The Pandora"s Box cracks light unto the world as the God\'s and Goddesses awake from their slumber"',
+//     imgUrl:'https://open-theta.de/api/images/launches/AbsoluteGosu.jpg',
+//     hasMetadata: true,
+// }
+
+
+// const ZillaPatch = {
+//     contract: '0xb690f33f586073e23bc4f368ac928ccffb51202b',
+//     name: 'ZillaPatch',
+//     creator: 'ThetaZillaClub',
+//     tokenNumber: 21,
+//     description: 'ThetaZilla March 2022 Collection.',
+//     imgUrl:'https://arweave.net/i6-uIASgZnYai3IwBQXeEtrikqNDjrrq11zh3Ix0c08',
+//     hasMetadata: true,
+// }
+
+const KingsArtwork = {
+    contract: '0x31223391e591b5a06581c2191a77ad69328384e3',
+    name: 'Kings Artwork',
+    creator: 'Team Fr0zenfir3',
+    tokenNumber: 1,
+    description: 'Redeemable NFTs by Team Fr0zenfir3',
+    imgUrl:'https://arweave.net/Du-RuMiX-hkLhK2TiKyVvXafW7oNx9Wwo0Kr_LPHgio',
+    hasMetadata: true,
+}
+
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
 // addProject(JieyiApe)
@@ -1494,17 +1535,21 @@ function addProject (project) {
 // addProject(MegaMeemop)
 // addProject(TNS)
 // addProject(ThRune)
+// addProject(ThEye)
+// addProject(AbsoluteGosu)
+// addProject(ZillaPatch)
+addProject(KingsArtwork)
 
-// const URA = {
-//     tokenNumber: 4,
-// }
-//
-// projects.updateProject('0xf484a4232944f31d2915ea7b37a8eb4735ae8646', URA).then(res => {
-//     console.log("updateProject");
-//     console.log(res);
-// }).catch(error => {
-//     console.log('failed to update project');
-// });
+const URA = {
+    creator:  'Team Fr0zenfir3',
+}
+
+projects.updateProject('0xadc8fdca07ba7066c6e2d0efd7fe8cc35846ff3c', URA).then(res => {
+    console.log("updateProject");
+    console.log(res);
+}).catch(error => {
+    console.log('failed to update project');
+});
 //
 // const CS = {
 //     tokenNumber: 56,
@@ -1665,9 +1710,9 @@ function addProject (project) {
 // });
 //
 //
-// let update = { isSold: true, soldTimestamp: '1635773132765' }
-//
-// projects.updateNFT(18, update).then(res => {
+// let update = { isSold: true, soldTimestamp: '1646126054000', owner: "0x1fa3d87e1c5e60055549a3135af15397d15d0448" }
+// //
+// projects.updateNFT(2133, update).then(res => {
 //     console.log("updateNFT");
 //     console.log(res);
 // });
@@ -1679,12 +1724,12 @@ function addProject (project) {
 // });
 //
 
-projects.deleteNFT(1098).then(res => {
-    console.log(res);
-}).catch(error => {
-    console.log("deleteNFT");
-    console.log('failed to delete nft');
-});
+// projects.deleteNFT(1098).then(res => {
+//     console.log(res);
+// }).catch(error => {
+//     console.log("deleteNFT");
+//     console.log('failed to delete nft');
+// });
 //
 // projects.deleteNFT(2982).then(res => {
 //     console.log(res);

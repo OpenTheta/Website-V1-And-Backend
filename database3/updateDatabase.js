@@ -1182,7 +1182,7 @@ async function creatItem(itemId, contract, tokenId, seller, owner, category, pri
                 console.log("Error with getting TNS name of Token from OpenTheta.de");
             });
             if(!tnsResponse) {
-                tnsResponse = await axios.get("https://thetaboard.io/tns-token-ids/" + tokenId.toString()).catch(() => {
+                tnsResponse = await axios.get("https://thetaboard.io/api/tns-token-ids/" + tokenId.toString()).catch(() => {
                     console.log("Error with getting TNS from Thetaboard")
                 });
                 if(tnsResponse) {
@@ -1281,7 +1281,7 @@ async function searchMissingData(totalPageNumber) {
             for (const item of missingData) {
                 if(item.itemId.toNumber() === itemId){
                     let nft = await creatItem(itemId, item.nftContract, item.tokenId, item.seller, item.owner, item.category, item.price, response.data.body[i].timestamp)
-                    // await addNFT(nft);
+                    await addNFT(nft);
                     missingData = missingData.filter(function (item, index, arr) {
                         if (item.itemId.toNumber() !== itemId) {
                             return item
@@ -1294,8 +1294,6 @@ async function searchMissingData(totalPageNumber) {
             }
         }
     }
-
-
 }
 
 
@@ -1312,8 +1310,9 @@ async function getHighestId(startId) {
     return id - 1
 }
 // 768
-minItemId = 3743
-// maxItemId = 3534
+minItemId = 4632
+// maxItemId = 4147
+
 
 getHighestId(minItemId).then(res => {
     maxItemId = res - 1

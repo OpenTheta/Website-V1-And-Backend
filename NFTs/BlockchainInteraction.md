@@ -125,7 +125,7 @@ try{
 }
 // Set topic for the filter
 let topic = ethers.utils.id("MarketItemSale(uint256,address,uint256,address,address,string,uint256,bool)");
-// create filter with address and event topic to lisen to.
+// create filter with address and event topic to listen to.
 let filter = {
     address: marketAddress,
     topics: [ topic ]
@@ -289,5 +289,58 @@ try{
     },6000)
 } catch (e) {
     console.log(e);
+}
+```
+
+### Check If mintable and get Data
+
+```javascript
+// this.project is the loaded json data
+this.provider  = new ethers.providers.Web3Provider(window.ethereum);
+if(this.provider) {
+// this.loading = true;
+    const contractMintObject = new ethers.Contract(
+        this.project.contract,
+        ABI_NFT,
+        this.provider
+    );
+    
+    // Max_NFT_Supply is a veriable to our smart contracts specific, so I now set it manually from the JSON data
+    // try{
+    //   this.maxSupply = await contractMintObject.MAX_NFT_SUPPLY();
+    // } catch{
+      this.maxSupply = this.project.TotalAmount
+    // }
+    
+    // total supply function returns the current supply
+    contractMintObject.totalSupply().then(res => {
+      this.currentSupply = res.toNumber();
+      if (this.currentSupply < this.maxSupply) {
+          // saleIsActive is again a function specific to our  smart contracts
+        contractMintObject.saleIsActive().then(res => {
+          this.saleIsActive = res;
+          if(this.saleIsActive) {
+              // getNFTPrice is again a function specific to our  smart contracts
+              contractMintObject.getNFTPrice().then(res => {
+              this.currentPrice = (ethers.BigNumber.from(res).div(ethers.BigNumber.from("1000000000000000000"))).toNumber();
+            }).catch((error) => {
+              console.log(error);
+              // this.loading =false;
+            });
+          }
+        }).catch((error) => {
+          console.log(error);
+          // this.loading =false;
+        });
+      } else {
+        this.saleIsActive = false;
+        // this.loading =false;
+      }
+    }).catch((error) => {
+      console.log(error);
+      // this.loading =false;
+    });
+// this.loading =false;
+// this.currentSupply = await contractObject.totalSupply();
 }
 ```
