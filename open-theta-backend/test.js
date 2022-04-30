@@ -914,13 +914,224 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
-const KingsArtwork = {
-    contract: '0x31223391e591b5a06581c2191a77ad69328384e3',
-    name: 'Kings Artwork',
-    creator: 'Team Fr0zenfir3',
-    tokenNumber: 1,
-    description: 'Redeemable NFTs by Team Fr0zenfir3',
-    imgUrl:'https://arweave.net/Du-RuMiX-hkLhK2TiKyVvXafW7oNx9Wwo0Kr_LPHgio',
+// const BigDog1111Sticker = {
+//     contract: '0x3a8246be5efc8660a3618aefd9d767ae47df3c77',
+//     name: 'BigDog1111 TBILL Sticker',
+//     creator: 'Gworld',
+//     tokenNumber: 0,
+//     description: 'De Great Merge: BigDog1111 04/04 - 04/08',
+//     imgUrl:'https://arweave.net/xo0RQHm4zJ4Yh4Dx2PiQEgbKrIxmTldVcB_TM3HcSF8',
+//     hasMetadata: true,
+// }
+
+// const THETARocket = {
+//     contract: '0x060572d097039ed40e23447d30957ff60d27d027',
+//     name: 'THETA Rocket',
+//     creator: 'Team Fr0zenfir3',
+//     tokenNumber: 246,
+//     description: 'The Foundation of Theta Blockchain',
+//     imgUrl:'https://arweave.net/antg3bcl9Jt6RImO092tTcmOmC0ckYYy0xDPYRa4o0o',
+//     hasMetadata: true,
+// }
+
+// const ThetaCon22 = {
+//     contract: '0x53ae8cdc2e60c81f4a1967dc381452a203dee836',
+//     name: 'ThetaCon 2022',
+//     creator: 'ThetaCon',
+//     tokenNumber: 2400,
+//     description: 'ThetaCon 2022 Collection.',
+//     imgUrl:'https://arweave.net/z5dFNIlpXj0YN6xwLM8rw-u9GbVy3Rv3UWb0xP1y3S8',
+//     hasMetadata: true,
+// }
+
+// const AlienlikeSticker = {
+//     contract: '0x4de555c77fddab5d40310e3cba254a41647c3af7',
+//     name: 'Alienlike TBILL Sticker',
+//     creator: 'Gworld',
+//     tokenNumber: 0,
+//     description: 'De Great Merge: Alienlike 04/11 - 04/15',
+//     imgUrl:'https://arweave.net/QpfylHZF8Toh3X1-yiW90TaBchrUsrY2bu0u8hvnS-g',
+//     hasMetadata: true,
+// }
+
+// const Thegon = {
+//     contract: '0xee4ad23c12ab827b35a6796bc04ced750b206f73',
+//     name: 'Thegon',
+//     creator: 'ThetaPunks',
+//     tokenNumber: 88,
+//     description: 'A legendary creature in Theta mythology, the mighty Thegon symbolizes the fierce, all-encompassing power of Theta and TFuel - a bold reminder that global adoption is just on the horizon. Thegon was created by Theta community artist “Visioneer.” The NFT was airdropped in April 2022 to the owners of the 88 Zombies NFTs in the original Thetapunks collection on Theta Blockchain.',
+//     imgUrl:'https://arweave.net/th-hyFDaTZjbNjshexe_XOQKmbSyOG0Td-ctiaAEv9Y',
+//     hasMetadata: true,
+// }
+
+// const Whitedove = {
+//     contract: '0x77a2d407363C2d68D8Cd1d71eC999667c2057c6a',
+//     name: 'Michelle Whitedove TBILL Sticker',
+//     creator: 'Gworld',
+//     tokenNumber: 0,
+//     description: 'De Great Merge: Michelle Whitedove 04/18 - 04/22',
+//     imgUrl:'https://arweave.net/XywppsCmX_uSXNGaD3k1Hag6A5husDubW8nhT78VHq4',
+//     hasMetadata: true,
+// }
+
+// const Wes = {
+//     contract: '0xd32b3d836498c256f9011acfee644fc7cd137893',
+//     name: 'Node Master: W3S',
+//     creator: 'The Koan Circle',
+//     tokenNumber: 20,
+//     description: 'Apart from spreading the code to the nodes, this Node Master controls the energy flow of the main network, making it almost impossible to control externally.',
+//     imgUrl:'https://arweave.net/P4UMjGLa1kzXsl1KbApduCweuee_zuK3R-YdTf40xxo',
+//     hasMetadata: true,
+// }
+//
+// const Mitch = {
+//     contract: '0x3626ea43a4ca7a4396d13af26ccd6e6657cabb7f',
+//     name: 'Node Master: M1TCH',
+//     creator: 'The Koan Circle',
+//     tokenNumber: 40,
+//     description: 'Apart from coordinating the nodes efforts, this Node Master controls the refrigeration and cooling of the system, making it safe and stable to operate',
+//     imgUrl:'https://arweave.net/rFc6-1wI_l4Hf_iWaMFkFF_VhI0E_UgWr2v023oxNFE',
+//     hasMetadata: true,
+// }
+//
+// const JieYi = {
+//     contract: '0x8ff39c1c650bbbb59f75d1e8ffca0f8f87a07571',
+//     name: 'Node Master: J13 Y1',
+//     creator: 'The Koan Circle',
+//     tokenNumber: 60,
+//     description: 'Apart from securing the channels for node communication, this Node Master has the ability to start off or break the information code process and access the Dyson Sphere functions.',
+//     imgUrl:'https://arweave.net/S-Kp1rS-ps6b0n7B5DrcyCOe6GbJsxbX4YcxHgICpU8',
+//     hasMetadata: true,
+// }
+//
+// const CargoShip = {
+//     contract: '0x97f25c2ba702a93030fb64b31acd8a26c79d8c8f',
+//     name: 'heta Cargo Ship',
+//     creator: 'The Koan Circle',
+//     tokenNumber: 100,
+//     description: 'This automated and autosufficient cargo ship is designed to host up to 25 workfoce-cyborgs, who dig the minerals in the exo-colonies and recharge in the base-station deployed after landing. After the work is done, one of the cyborgs will drive the ship straight to the Dyson Sphere.',
+//     imgUrl:'https://arweave.net/Iw5-RmS3BFxZUdFU0ViJdyhgh9HZJKUgnEPaDTGBimY',
+//     hasMetadata: true,
+// }
+//
+// const DysonSphere = {
+//     contract: '0x054f16e2fc75fd6e187f8728f140b0db2c0fecbb',
+//     name: 'Dyson Sphere',
+//     creator: 'The Koan Circle',
+//     tokenNumber: 100,
+//     description: 'With this technological advance, designed upon information received long ago by the Theta Council, humanity will know a new era where energy scarcity will not longer be an issue. The different concentric rings are synchronised by the Node Masters to harness the energy provided by the sun, to later on send it in the shape of controlled solar flares to Earth.',
+//     imgUrl:'https://arweave.net/I2mEtXQJKQPPMq3NlzR3e_CGCpqt6nPaXcELYvDHeA0',
+//     hasMetadata: true,
+// }
+
+// const SUBCHAIN = {
+//     contract: '0x98437d5f329d46282aaa075c7686cd1a2a1d7384',
+//     name: 'SUBCHAIN INFERNO',
+//     creator: 'Hinse',
+//     tokenNumber: 1,
+//     description: 'Theta Mainnet 4.0 brings a network of interconnected subchains.',
+//     imgUrl:'https://arweave.net/dvOHddbpn0nbVPNbpHbUD4147LmmmR2gDRww8CQ7CrA',
+//     hasMetadata: true,
+// }
+//
+// const OvergrownThetahead = {
+//     contract: '0x39d7ab633a7b2457241894b8b9a80ea9267b4298',
+//     name: 'Overgrown Thetahead',
+//     creator: 'Hinse',
+//     tokenNumber: 11,
+//     description: '',
+//     imgUrl:'https://arweave.net/ZEJaPoJ0jxkyAYo9CqJMRqfU4YdGrXsika0en2pNq5w/Overgrown.jpg',
+//     hasMetadata: true,
+// }
+//
+// const BloomingThetahead = {
+//     contract: '0x78d06aadf688cdc15578bdbd37580743af5176ad',
+//     name: 'Blooming Thetahead',
+//     creator: 'Hinse',
+//     tokenNumber: 11,
+//     description: '',
+//     imgUrl:'https://arweave.net/ZEJaPoJ0jxkyAYo9CqJMRqfU4YdGrXsika0en2pNq5w/Blooming.jpg',
+//     hasMetadata: true,
+// }
+//
+// const FrozenThetahead = {
+//     contract: '0x6d7354975376034feb11d218ba1ce6bf950adca6',
+//     name: 'Frozen Thetahead',
+//     creator: 'Hinse',
+//     tokenNumber: 18,
+//     description: '',
+//     imgUrl:'https://arweave.net/ZEJaPoJ0jxkyAYo9CqJMRqfU4YdGrXsika0en2pNq5w/Frozen.jpg',
+//     hasMetadata: true,
+// }
+//
+// const ChaoticThetahead = {
+//     contract: '0x52d6063db78758700e5158664ba843a44ada4b38',
+//     name: 'Chaotic Thetahead',
+//     creator: 'Hinse',
+//     tokenNumber: 2,
+//     description: '',
+//     imgUrl:'https://arweave.net/ZEJaPoJ0jxkyAYo9CqJMRqfU4YdGrXsika0en2pNq5w/Chaotic.jpg',
+//     hasMetadata: true,
+// }
+//
+//
+// const ValidatingThetahead = {
+//     contract: '0xbb03a953cf475a05b0d428fd9a4a8e5549dd2b1a',
+//     name: 'Validating Thetahead',
+//     creator: 'Hinse',
+//     tokenNumber: 6,
+//     description: '',
+//     imgUrl:'https://arweave.net/ZEJaPoJ0jxkyAYo9CqJMRqfU4YdGrXsika0en2pNq5w/Validating.jpg',
+//     hasMetadata: true,
+// }
+//
+// const GuardianThetahead = {
+//     contract: '0x501dbc08b61bcf71154fc67a347cd118f7869f51',
+//     name: 'Guardian Thetahead',
+//     creator: 'Hinse',
+//     tokenNumber: 1,
+//     description: '',
+//     imgUrl:'https://arweave.net/ZEJaPoJ0jxkyAYo9CqJMRqfU4YdGrXsika0en2pNq5w/Guardian.jpg',
+//     hasMetadata: true,
+// }
+//
+// const EdgyThetahead = {
+//     contract: '0xdeba6df323b988bd1ad3fb5f9f5d4e00740beb48',
+//     name: 'Edgy Thetahead',
+//     creator: 'Hinse',
+//     tokenNumber: 1,
+//     description: '',
+//     imgUrl:'https://arweave.net/ZEJaPoJ0jxkyAYo9CqJMRqfU4YdGrXsika0en2pNq5w/Edgy.jpg',
+//     hasMetadata: true,
+// }
+//
+// const WinterThetaboard2022 = {
+//     contract: '0x956156267de1de8896e9cbe14bf59c1bca0b1938',
+//     name: 'Thetaboard 2022 Winter Badge',
+//     creator: 'Thetaboard',
+//     tokenNumber: 0,
+//     description: 'Thetaboard 2022 Winter Badge in collaboration with Hinse',
+//     imgUrl:'https://arweave.net/ZEJaPoJ0jxkyAYo9CqJMRqfU4YdGrXsika0en2pNq5w/winter2022.jpg',
+//     hasMetadata: true,
+// }
+//
+// const ThetaNameServiceBadge = {
+//     contract: '0x44a1bafa96b8b92785576f0dd7f6c88fd24e7d5c',
+//     name: 'Theta Name Service Badge',
+//     creator: 'Thetaboard',
+//     tokenNumber: 10,
+//     description: 'This collection of only 10 editions, designed by digital artist Hinse as part of a collaboration with Thetaboard, celebrates the launch of the blockchain based domains TNS. The NFTs were not for public sale, being awarded only to the winners of the TNS Caption Contest run by Thetaboard in March 2022.',
+//     imgUrl:'https://arweave.net/ZEJaPoJ0jxkyAYo9CqJMRqfU4YdGrXsika0en2pNq5w/TNSBadge.jpg',
+//     hasMetadata: true,
+// }
+
+const TeddyB = {
+    contract: '0x7ed33985d23d39310c01d2becd934991dcedaf03',
+    name: 'TeddyB TBILL Sticker',
+    creator: 'Gworld',
+    tokenNumber: 0,
+    description: 'De Great Merge: TeddyB 04/25 - 04/29',
+    imgUrl:'https://open-theta.de/api/images/launches/TeddyB.jpg',
     hasMetadata: true,
 }
 
@@ -1004,7 +1215,30 @@ const KingsArtwork = {
 // addProject(ThEye)
 // addProject(AbsoluteGosu)
 // addProject(ZillaPatch)
-addProject(KingsArtwork)
+// addProject(KingsArtwork)
+// addProject(BigDog1111Sticker)
+// addProject(THETARocket)
+// addProject(ThetaCon22)
+// addProject(AlienlikeSticker)
+// addProject(Thegon)
+// addProject(Whitedove)
+// addProject(Wes)
+// addProject(Mitch)
+// addProject(JieYi)
+// addProject(CargoShip)
+// addProject(DysonSphere)
+// addProject(SUBCHAIN)
+// addProject(OvergrownThetahead)
+// addProject(BloomingThetahead)
+// addProject(FrozenThetahead)
+// addProject(ChaoticThetahead)
+// addProject(ValidatingThetahead)
+// addProject(GuardianThetahead)
+// addProject(EdgyThetahead)
+// addProject(WinterThetaboard2022)
+// addProject(ThetaNameServiceBadge)
+addProject(TeddyB)
+
 
 // const NYZ = {
 //     tokenNumber: 116,
@@ -1264,7 +1498,7 @@ addProject(KingsArtwork)
 // });
 //
 //
-// projects.deleteProject('2222').then(res => {
+// projects.deleteProject('0x31223391e591b5a06581c2191a77ad69328384e3').then(res => {
 //     console.log("deleteProject");
 //     console.log(res);
 // }).catch(error => {

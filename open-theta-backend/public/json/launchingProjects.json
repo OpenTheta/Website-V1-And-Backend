@@ -1,5 +1,25 @@
 [
   {
+    "name": "Theta Cargo Ship",
+    "contract": "0x97f25c2ba702a93030fb64b31acd8a26c79d8c8f",
+    "imgUrl": "https://arweave.net/Iw5-RmS3BFxZUdFU0ViJdyhgh9HZJKUgnEPaDTGBimY",
+    "creator": "The Koan Circle",
+    "creatorUrl": "https://open-theta.de/api/images/creators/TheKoanCircle.jpg",
+    "domain": "",
+    "TotalAmount": 100,
+    "maxMint": 100
+  },
+  {
+    "name": "Dyson Sphere",
+    "contract": "0x054f16e2fc75fd6e187f8728f140b0db2c0fecbb",
+    "imgUrl": "https://arweave.net/I2mEtXQJKQPPMq3NlzR3e_CGCpqt6nPaXcELYvDHeA0",
+    "creator": "The Koan Circle",
+    "creatorUrl": "https://open-theta.de/api/images/creators/TheKoanCircle.jpg",
+    "domain": "",
+    "TotalAmount": 100,
+    "maxMint": 100
+  },
+  {
     "name": "Absolute Gosu",
     "contract": "0x6b9ece0e02870098846b209bbe653ea1de00fc48",
     "imgUrl": "https://open-theta.de/api/images/launches/AbsoluteGosu.jpg",
@@ -8,16 +28,6 @@
     "domain": "",
     "TotalAmount": 520,
     "maxMint": 520
-  },
-  {
-    "name": "Th'Eye",
-    "contract": "0x882161a50a95763a3ebd1cccd77b5ab04c0c1473",
-    "imgUrl": "https://open-theta.de/api/images/launches/ThEye.gif",
-    "creator": "TSports",
-    "creatorUrl": "https://open-theta.de/api/images/creators/TSports.gif",
-    "domain": "",
-    "TotalAmount": 50,
-    "maxMint": 50
   },
   {
     "name": "Trophy Room x Air Jordan 1",
@@ -177,16 +187,6 @@
     "maxMint": 222
   },
   {
-    "name": "Zillarina",
-    "contract": "0xcb58da80df801f000f59cebd9d51f4d50a9bb952",
-    "imgUrl": "https://open-theta.de/api/images/launches/Zillarina.jpg",
-    "creator": "Barrizan",
-    "creatorUrl": "https://open-theta.de/api/images/creators/Barrizan.jpg",
-    "domain": "https://twitter.com/Barrizan",
-    "TotalAmount": 55,
-    "maxMint": 55
-  },
-  {
     "name": "ThetaBetFirstEdition",
     "contract": "0x875b7e0042629966eb73eff2e5e876229612d502",
     "imgUrl": "https://open-theta.de/api/images/launches/ThetaBetLetters.png",
@@ -245,16 +245,6 @@
     "domain": "thetadiamond.com",
     "TotalAmount": 250,
     "maxMint": 250
-  },
-  {
-    "name": "Theta Permabull",
-    "contract": "0xadc8fdca07ba7066c6e2d0efd7fe8cc35846ff3c",
-    "imgUrl": "https://open-theta.de/api/images/launches/Permabull.jpeg",
-    "creator": "Team Fr0zenfir3",
-    "creatorUrl": "https://open-theta.de/api/images/creators/Fr0zenfir3.jpg",
-    "domain": "https://twitter.com/R3tt2",
-    "TotalAmount": 444,
-    "maxMint": 444
   },
   {
     "name": "ThetaZilla",

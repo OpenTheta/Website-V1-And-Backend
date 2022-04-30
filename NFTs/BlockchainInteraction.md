@@ -266,7 +266,8 @@ this.provider.on(filter, () => {
 ### Mint NFT
 
 ```javascript
-const signer = this.provider.getSigner();
+// selectedAmount is the quantity of NFTs to mint at ones.
+const signer = provider.getSigner();
 const contractMintObject = new ethers.Contract(
     project.contract,
     ABI_NFT,
@@ -277,14 +278,15 @@ const contractMintObject = new ethers.Contract(
 let price = contractMintObject.getNFTPrice();
 // set price to pay in Wei
 let overrides = {
-    value: price,
+    value: price.mul(selectedAmount),
 };
 
 try{
-    await contractMintObject.safeMint(accounts[0], overrides);
+    if(parseInt(selectedAmount) === 1) await contractMintObject.safeMint(accounts[0], overrides);
+    if(parseInt(selectedAmount) > 1) await contractMintObject.safeMintQuantity(accounts[0], selectedAmount, overrides);
+    // await contractMintObject.safeMint(accounts[0], overrides);
     // here we could wait till transfer event into the user wallet. Currently it justs waits for 6sec
     setTimeout(() => {
-        this.getData();
         this.loading = false;
     },6000)
 } catch (e) {
@@ -292,6 +294,30 @@ try{
 }
 ```
 
+```json
+  {
+  "name": "Name",
+  "contract": "ContractToBuy",
+  "imgUrl": "ProjectImageLink",
+  "creator": "zenba",
+  "creatorUrl": "CreatorImageLink",
+  "domain": "DomainToProjectWebsiteOrTwitter",
+  "TotalAmount": 111,
+  //  Maximum amount to be minted on OpenTheta
+  "maxMint": 111,
+  //  Only needed if limited by time
+  "endDate": "April 17, 2022 03:00:00",
+  //  Only needed if batchMint is possible
+  "batchMint": true,
+  "batchSize": 50,
+  //  Only needed if NFT price is attatched to dollar price
+  "priceDollar": 10,
+  //  Maybe add start date, so we can already upload everything, but minting is unabled at that time
+  "startDate": "April 10, 2022 02:00:00",
+  // Maybe add a description
+  "description": "test mint her"
+},
+```
 ### Check If mintable and get Data
 
 ```javascript
@@ -342,5 +368,30 @@ if(this.provider) {
     });
 // this.loading =false;
 // this.currentSupply = await contractObject.totalSupply();
+}
+```
+
+### Check if address owns one or more tokens
+
+```javascript
+// this.project is the loaded json data
+let userAddress = ""
+let tokenAddress = ""
+let provider  = new ethers.providers.Web3Provider(window.ethereum);
+if(provider) {
+// this.loading = true;
+    const contractNFTObject = new ethers.Contract(
+        tokenAddress,
+        ABI_NFT,
+        this.provider
+    );
+    
+    let balance = await contractNFTObject.balanceOf(userAddress).catch((error) => {
+        console.log(error);
+    });
+    
+    if(balance > 0) {
+        // show website
+    }
 }
 ```

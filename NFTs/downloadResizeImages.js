@@ -4,10 +4,11 @@ const path = require('path');
 const sharp = require("sharp");
 
 async function imageWorker(data) {
-    for(let i=0;i<data.length; i++){
-        console.log(typeof data[i].imgUrl)
-        await downloadImage(data[i].imgUrl, data[i].contract)
-        scaleImage(data[i].contract)
+    for(let i=data.length - 1;i>=0; i--){
+        // console.log(typeof data[i].imgUrl)
+        await downloadImage(data[i].imgUrl, data[i].contract,".jpg")
+        scaleImage(data[i].contract, ".jpg",".jpg")
+        console.log(data[i].contract)
     }
 }
 
@@ -24,20 +25,20 @@ async function scaleImage(name, fromType, toType) {
     let fromName = name+fromType
     let toName = name+toType
     // console.log(name+fromType, name+toType)
-    const originalImage = path.resolve(__dirname, "./../../../OpenThetaProjects/AllProjectImages/Creators/"+fromName);
+    const originalImage = path.resolve(__dirname, "./../../../OpenThetaProjects/AllProjectImages/Projects/"+fromName);
 
     await sharp(originalImage)
         .resize({
             width: 400,
             height: null,
         })
-        .toFile(path.resolve(__dirname, "./../../../OpenThetaProjects/AllProjectImages/Creators/rescaledImages/"+toName));
+        .toFile(path.resolve(__dirname, "./../../../OpenThetaProjects/AllProjectImages/Projects/rescaledImages/"+toName));
 
-    console.log("Successfully resized an image!");
+    // console.log("Successfully resized an image!");
 }
 
 async function downloadImage (image, name, type) {
-    const writer = fs.createWriteStream(`./../../../OpenThetaProjects/AllProjectImages/Creators/${name}${type}`)
+    const writer = fs.createWriteStream(`./../../../OpenThetaProjects/AllProjectImages/Projects/${name}${type}`)
     const response = await axios.get(image,{
         responseType: 'stream'
     })
@@ -66,25 +67,31 @@ async function downloadImage (image, name, type) {
 //     });
 // }
 
-// axios.get("https://open-theta.de/api/projects").then(res => {
+// axios.get("https://open-theta.de/api/static/creators.json").then(res => {
 //     let data = res.data
 //     creatorImageWorker(data).then(() => {
 //         console.log("Finished")
 //     })
 // })
 
+// axios.get("https://open-theta.de/api/projects").then(res => {
+//     let data = res.data
+//     imageWorker(data).then(() => {
+//         console.log("Finished")
+//     })
+// })
+
 async function scaleImageLocal() {
     // console.log(name+fromType, name+toType)
-    const originalImage = path.resolve(__dirname, "./../../../OpenThetaProjects/AllProjectImages/Creators/TC22.png");
+    const originalImage = path.resolve(__dirname, "./../../../OpenThetaProjects/ThetaDiamond/DailyDiamond/DailyDiamondPerks.jpg");
 
     await sharp(originalImage)
         .resize({
             width: 400,
             height: 400,
             fit: sharp.fit.contain,
-
         })
-        .toFile(path.resolve(__dirname, "./../../../OpenThetaProjects/AllProjectImages/Creators/rescaledImages/TC22.jpg"));
+        .toFile(path.resolve(__dirname, "./../../../OpenThetaProjects/ThetaDiamond/DailyDiamond/DailyDiamondPerks1.jpg"));
 
     console.log("Successfully resized an image!");
 }

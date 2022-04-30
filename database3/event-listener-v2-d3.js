@@ -205,6 +205,7 @@ async function dataProcessing(eventData, event) {
             description: metadata.data.description,
             marketAddress: address,
         };
+        console.log(nft)
         addNFT(nft);
     }
     else if(event === events.sale) {

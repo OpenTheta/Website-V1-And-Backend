@@ -1096,7 +1096,7 @@ async function getMarketItem(max) {
                 console.log("Error getting MarketItem", e);
             });
             for(let j=0; j<res.length;j++){
-                if(!res[j].price.isZero() && res[j].isSold === false) {
+                if(!res[j].price.isZero() && res[j].isSold === false && res[j].nftContract.toLowerCase() !== '0xe45610e578d4eb626121f55a61ab346a619b7d99') {
                     finalData.push({
                         itemId: res[j].itemId,
                         nftContract: res[j].nftContract,
@@ -1310,7 +1310,7 @@ async function getHighestId(startId) {
     return id - 1
 }
 // 768
-minItemId = 4632
+minItemId = 12172
 // maxItemId = 4147
 
 

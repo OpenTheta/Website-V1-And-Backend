@@ -16,11 +16,11 @@ const server = express();
 const baseURL = "open-theta.de"
 
 server.use(express.json());
-// server.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
+server.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 server.get("/", (req, res,next) => {
     res.json({message: "this is the api of OpenTheta"})
