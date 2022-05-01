@@ -83,7 +83,7 @@ async function downloadImage (image, name, type) {
 
 async function scaleImageLocal() {
     // console.log(name+fromType, name+toType)
-    const originalImage = path.resolve(__dirname, "./../../../OpenThetaProjects/ThetaDiamond/DailyDiamond/DailyDiamondPerks.jpg");
+    const originalImage = path.resolve(__dirname, "./../../../OpenThetaProjects/JoeyTV/Kittens/VixenKittens.png");
 
     await sharp(originalImage)
         .resize({
@@ -91,7 +91,7 @@ async function scaleImageLocal() {
             height: 400,
             fit: sharp.fit.contain,
         })
-        .toFile(path.resolve(__dirname, "./../../../OpenThetaProjects/ThetaDiamond/DailyDiamond/DailyDiamondPerks1.jpg"));
+        .toFile(path.resolve(__dirname, "./../../../OpenThetaProjects/JoeyTV/Kittens/VixensKittens.jpg"));
 
     console.log("Successfully resized an image!");
 }

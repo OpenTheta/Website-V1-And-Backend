@@ -76,6 +76,7 @@ const ABI_NFT = [
     "function MAX_NFT_SUPPLY() view returns (uint256)",
     "function saleIsActive() view returns (bool)",
     "function getNFTPrice() view returns (uint256)",
+    "function safeMintQuantity(address to, uint8 quantity) payable"
 ];
 
 const ABI_MARKET = [
