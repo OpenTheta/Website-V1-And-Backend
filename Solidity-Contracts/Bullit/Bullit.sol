@@ -1365,7 +1365,7 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/access/Ownable.sol";
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract Bullit is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract BullitCollectionV1 is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
@@ -1379,14 +1379,14 @@ contract Bullit is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     uint16 public numberOfDiscounts = 0;
 
-    constructor(address fee, string memory uri) ERC721("Bullit", "BULLIT") {
+    constructor(address fee, string memory uri) ERC721("Bullit Collection V1", "BC-V1") {
         feeAddress = fee;
         baseURI = uri;
     }
 
     /**
     * @dev Gets current Price
-     */
+    */
     function getNFTPrice() public view returns (uint256) {
         require(totalSupply() < MAX_NFT_SUPPLY-numberOfDiscounts, "Purchase would exceed max supply");
         return 600000000000000000000; // 1 - 1000 600 TFUEL
@@ -1426,19 +1426,20 @@ contract Bullit is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     }
 
     function setDiscountAddress(address _discountAddress, bool _discount) public onlyOwner {
-        if (totalSupply()+numberOfDiscounts < MAX_NFT_SUPPLY) {
-            if(_discount) {
+        if(_discount) {
+            if (totalSupply()+numberOfDiscounts < MAX_NFT_SUPPLY) {
                 if(!addressHasDiscount[_discountAddress]) {
                     numberOfDiscounts++;
                     addressHasDiscount[_discountAddress] = _discount;
                 }
-            } else {
-                if(addressHasDiscount[_discountAddress]) {
-                    numberOfDiscounts--;
-                    addressHasDiscount[_discountAddress] = _discount;
-                }
+            }
+        } else {
+            if(addressHasDiscount[_discountAddress]) {
+                numberOfDiscounts--;
+                addressHasDiscount[_discountAddress] = _discount;
             }
         }
+
     }
 
     /*
@@ -1454,7 +1455,7 @@ contract Bullit is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
             numberOfDiscounts -= 1;
         } else {
             require(totalSupply() < MAX_NFT_SUPPLY-numberOfDiscounts, "Purchase would exceed max supply");
-            uint256 ownerPayout = (msg.value / 100) * 80;
+            uint256 ownerPayout = (msg.value / 100) * 20;
             uint256 feePayout = msg.value - ownerPayout;
             payable(owner()).transfer(ownerPayout);
             payable(feeAddress).transfer(feePayout);
@@ -1477,8 +1478,7 @@ contract Bullit is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     /*
     * Change fee address
     */
-    function changeFeeAddress(address newAddress) public {
-        require(feeAddress == msg.sender, 'Only current feeAddress can change it');
+    function changeFeeAddress(address newAddress) public onlyOwner {
         feeAddress = newAddress;
     }
 

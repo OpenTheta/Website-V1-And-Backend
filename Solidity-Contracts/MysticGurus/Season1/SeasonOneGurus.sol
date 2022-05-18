@@ -1367,15 +1367,36 @@ pragma solidity ^0.8.2;
 
 contract SeasonOneGurus is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
-    string private baseURI;
+    string private baseURIMain;
 
-    uint256 public MAX_NFT_SUPPLY = 5555;
+    uint256 public MAX_NFT_SUPPLY = 60000;
+    uint256 public CUSTOMS = 823;
+    uint256 public RESERVE = 96;
+    uint256 RESERVED = 0;
 
     address container;
 
     constructor(string memory uri, address containerAddress) ERC721("Season 1 Gurus", "S1G") {
-        baseURI = uri;
+        baseURIMain = uri;
         container = containerAddress;
+    }
+
+    /**
+    * Set some NFTs aside
+    */
+    function reserveNFTS(uint256 numberOfNfts, address _receiverAddress) public onlyOwner {
+        require(RESERVED<=RESERVE, "All NFTs Reserved");
+        for (uint i = 0; i < numberOfNfts; i++) {
+
+            if (RESERVED < RESERVE )
+            {
+                RESERVED = RESERVED+1;
+                uint256 tokenId = CUSTOMS+RESERVED;
+                _safeMint(_receiverAddress, tokenId);
+                string memory id = Strings.toString(tokenId);
+                _setTokenURI(tokenId, string(abi.encodePacked(baseURIMain, id, ".json")));
+            }
+        }
     }
 
     /*
@@ -1387,19 +1408,20 @@ contract SeasonOneGurus is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         require(!_exists(tokenId), "token already exists");
         _safeMint(to, tokenId);
         string memory id = Strings.toString(tokenId);
-        _setTokenURI(tokenId, string(abi.encodePacked(baseURI, id, ".json")));
+        _setTokenURI(tokenId, string(abi.encodePacked(baseURIMain, id, ".json")));
     }
 
     function safeMintCustom(address _to, uint _tokenId, string memory _uri) onlyOwner external {
-        require(_tokenId <= 444 && _tokenId > 0, "TokenId to wrong");
+        require(_tokenId <= CUSTOMS && _tokenId > 0, "TokenId wrong");
+        require(!_exists(_tokenId), "token already exists");
         _safeMint(_to, _tokenId);
-        string memory id = Strings.toString(_tokenId);
         _setTokenURI(_tokenId, _uri);
     }
 
-    //    function _baseURI() internal view virtual override returns (string memory) {
-    //        return baseURI;
-    //    }
+    function burn(uint _tokenId) onlyOwner external {
+        require(ERC721.ownerOf(_tokenId) == msg.sender, "Not owner of token");
+        _burn(_tokenId);
+    }
 
 
 

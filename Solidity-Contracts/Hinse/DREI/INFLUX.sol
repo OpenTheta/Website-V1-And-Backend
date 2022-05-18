@@ -1357,10 +1357,6 @@ library Counters {
     }
 }
 
-interface ICustomERC721 {
-    function safeMintTokenId(address to, uint tokenId) external;
-}
-
 pragma solidity ^0.8.2;
 
 //import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -1369,114 +1365,44 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/access/Ownable.sol";
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract MysticGurusVessel is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract INFLUX is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
-    uint public mintedAmount = 0;
-    uint256 public MAX_NFT_SUPPLY = 5081;
     string private baseURI;
-    uint16[5081] private order;
-    uint private start;
-    uint private end;
-    uint private stepSize;
-    bool private orderIsCreated;
-    bool private orderIsShuffled;
-    address public mintableNFT;
-    uint startTokenId = 919;
-    uint price;
-    address public GuruPass = 0x82CCdCd7F2E9Da3A1a70277d22EB3a247850fAE0;
+
+    uint256 public MAX_NFT_SUPPLY = 50;
 
     bool public saleIsActive = false;
+
     address public feeAddress;
 
-    constructor(address fee, string memory _uri) ERC721("Mystic Gurus Vessel", "MGV") {
-        baseURI = _uri;
+    constructor(address fee, string memory uri) ERC721("INFLUX", "INFLUX") {
         feeAddress = fee;
-        uint _stepSize = MAX_NFT_SUPPLY;
-        if(_stepSize < 1000) {
-            stepSize = _stepSize;
-        } else {
-            stepSize = 1000;
-        }
-        if(stepSize > MAX_NFT_SUPPLY) {
-            stepSize = MAX_NFT_SUPPLY;
-        }
-        end = stepSize;
-    }
-
-    function shuffle(uint seed) external {
-        require(orderIsCreated, "Order was not created");
-        require(!orderIsShuffled, "Already shuffled");
-        for (uint256 i = start; i < end; i++) {
-            uint256 n = i + uint256(keccak256(abi.encodePacked(block.timestamp + seed))) % (order.length - i);
-            uint16 temp = order[n];
-            order[n] = order[i];
-            order[i] = temp;
-        }
-        start = end;
-        end += stepSize;
-        if(end> MAX_NFT_SUPPLY) end = MAX_NFT_SUPPLY;
-        if(start == end) orderIsShuffled = true;
-    }
-
-    function createOrder() external {
-        require(!orderIsCreated, "Order was already created");
-        for (uint256 i = start; i < end; i++) {
-            order[i] = uint16(i+1);
-        }
-        start = end;
-        end += stepSize;
-        if(end> MAX_NFT_SUPPLY) end = MAX_NFT_SUPPLY;
-        if(start == end) {
-            orderIsCreated = true;
-            start = 0;
-            end = stepSize;
-            if(stepSize > 500) {
-                stepSize = 500;
-                end = stepSize;
-            }
-        }
-    }
-
-    function setMintable(address _mintableNFT) onlyOwner external {
-        mintableNFT = _mintableNFT;
-    }
-
-    /**
-    * @dev Gets current Price
-    */
-    function getDiscountedNFTPrice(address buyer) public view returns (uint256) {
-        require(mintedAmount < MAX_NFT_SUPPLY, "Sale has already ended");
-        if(ERC721(GuruPass).balanceOf(buyer) > 0) {
-            return price*80/100;
-        } else {
-            return price;
-        }
-    }
-
-    function hasDiscount(address buyer) public view returns(bool) {
-        return ERC721(GuruPass).balanceOf(buyer) > 0;
+        baseURI = uri;
     }
 
     /**
     * @dev Gets current Price
      */
     function getNFTPrice() public view returns (uint256) {
-        require(mintedAmount < MAX_NFT_SUPPLY, "Sale has already ended");
+        require(totalSupply() < MAX_NFT_SUPPLY, "Sale has already ended");
 
-        return price; // 1 - 5111 price TFUEL
+        return 200000000000000000000; // 1 - 50 200 TFUEL
     }
 
     /**
     * Set some NFTs aside
     */
-    function reserveNFTS(uint256 numberOfNfts, address _receiverAddress) public onlyOwner {
-        for (uint i = 0; i < numberOfNfts; i++) {
+    function reserveNFTS(uint256 numberOfNfts, address _senderAddress) public onlyOwner {
 
-            if (mintedAmount < MAX_NFT_SUPPLY )
+        for (uint i = 0; i < numberOfNfts; i++) {
+            uint256 supply = totalSupply();
+
+            if (supply < MAX_NFT_SUPPLY )
             {
-                mintedAmount += 1;
-                uint256 tokenId = mintedAmount;
-                _safeMint(_receiverAddress, tokenId);
+                uint256 tokenId = supply+1;
+                _safeMint(_senderAddress, tokenId);
+                string memory id = Strings.toString(tokenId);
+                _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
             }
         }
     }
@@ -1486,52 +1412,34 @@ contract MysticGurusVessel is ERC721, ERC721Enumerable, ERC721URIStorage, Ownabl
     */
     function safeMint(address to) public payable {
         require(saleIsActive, "Sale must be active to mint");
-        require(mintedAmount < MAX_NFT_SUPPLY, "Purchase would exceed max supply");
-        require(getDiscountedNFTPrice(to) == msg.value, "TFuel value sent is not correct");
+        require(totalSupply() < MAX_NFT_SUPPLY, "Purchase would exceed max supply");
+        require(getNFTPrice() == msg.value, "TFuel value sent is not correct");
 
-        uint256 ownerPayout = (msg.value / 100) * 70;
-        uint256 feePayout = msg.value - ownerPayout;
+        uint256 ownerPayout = (msg.value / 100) * 20;
+        uint256 creatorPayout = msg.value - ownerPayout;
         payable(owner()).transfer(ownerPayout);
-        payable(feeAddress).transfer(feePayout);
+        payable(feeAddress).transfer(creatorPayout);
 
-        mintedAmount += 1;
-        uint256 tokenId = mintedAmount;
+        uint256 tokenId = totalSupply() + 1;
+
         _safeMint(to, tokenId);
-    }
-
-    function openContainer(uint _tokenId) external {
-        require(orderIsShuffled, "Order needs to be shuffled");
-        require(mintableNFT != address(0), "NFT address not set");
-        require(ERC721.ownerOf(_tokenId) == msg.sender, "Not owner of token");
-        _burn(_tokenId);
-        uint256 newTokenId = uint256(order[_tokenId-1]) + startTokenId;
-        ICustomERC721(mintableNFT).safeMintTokenId(msg.sender, newTokenId);
+        string memory id = Strings.toString(tokenId);
+        _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
     }
 
     /*
     * Pause sale if active, make active if paused
     */
     function flipSaleState() public onlyOwner {
-        require(orderIsShuffled, "Not yet shuffled");
         saleIsActive = !saleIsActive;
-    }
-
-    function setPrice(uint256 _price) public onlyOwner {
-        price = _price;
     }
 
     /*
     * Change fee address
     */
-    function changeFeeAddress(address newAddress) public {
-        require(feeAddress == msg.sender, 'Only current feeAddress can change it');
+    function changeFeeAddress(address newAddress) public onlyOwner {
         feeAddress = newAddress;
     }
-
-    // only for testing
-//    function getOrder(uint i) external view returns(uint16){
-//        return order[i];
-//    }
 
     function _baseURI() internal view virtual override returns (string memory) {
         return baseURI;
@@ -1556,8 +1464,7 @@ contract MysticGurusVessel is ERC721, ERC721Enumerable, ERC721URIStorage, Ownabl
     override(ERC721, ERC721URIStorage)
     returns (string memory)
     {
-        require(_exists(tokenId), "URI query for nonexistent token");
-        return _baseURI();
+        return super.tokenURI(tokenId);
     }
 
     function supportsInterface(bytes4 interfaceId)
