@@ -1,5 +1,26 @@
 [
   {
+    "name": "Bullit collection v1",
+    "contract": "0x141046b84c57d1219fd7778777effbf51da7bf99",
+    "imgUrl": "https://open-theta.de/api/images/launches/BullitCollectionV1.png",
+    "creator": "Bullit",
+    "creatorUrl": "https://open-theta.de/api/images/creators/Bullit.png",
+    "domain": "",
+    "TotalAmount": 1000,
+    "maxMint": 1000,
+    "hasDiscount": true
+  },
+  {
+    "name": "Vixen's Kittens",
+    "contract": "0x36797b29403c5d527f03e5cefded355236afc652",
+    "imgUrl": "https://open-theta.de/api/images/creators/VintageVixen.png",
+    "creator": "Vintage Vixen",
+    "creatorUrl": "https://open-theta.de/api/images/creators/VintageVixen.png",
+    "domain": "",
+    "TotalAmount": 555,
+    "maxMint": 555
+  },
+  {
     "name": "Theta Cargo Ship",
     "contract": "0x97f25c2ba702a93030fb64b31acd8a26c79d8c8f",
     "imgUrl": "https://arweave.net/Iw5-RmS3BFxZUdFU0ViJdyhgh9HZJKUgnEPaDTGBimY",

@@ -618,10 +618,19 @@ function addProject (project) {
     })
 }
 //
-// async function updateNFT(nft) {
-//     await projects.updateNFT(nft.itemId, nft);
-//     console.log(nft.itemId)
+async function updateNFT(nft) {
+    await projects.updateNFT(nft.itemId, nft);
+    console.log(nft.itemId)
+}
+
+// const update = {
+//     itemId: 7798,
+//     owner: "0x21dd9dae02e81b33329be0e62d78f392ab0d635e",
+//     soldTimestamp: "1650813120000",
+//     isSold: true
 // }
+// updateNFT(update)
+
 //
 //
 // async function checkNFT(itemId) {
@@ -1705,6 +1714,522 @@ function addProject (project) {
 //     hasMetadata: true,
 // }
 
+// const ThetaSkies = {
+//     contract: '0x206149a3cce16bc3e36b9d332627ef1b35a67330',
+//     name: 'ThetaSkies',
+//     creator: 'ThetaZillaClub',
+//     tokenNumber: 21,
+//     description: 'ThetaZilla April 2022 Collection.',
+//     imgUrl:'https://arweave.net/bShdYzRBw-cTijQ-7TQl3xygeAkZHZe699aIatwnJQs',
+//     hasMetadata: true,
+// }
+//
+// const VixensKittens = {
+//     contract: '0x36797b29403c5d527f03e5cefded355236afc652',
+//     name: "Vixen's Kittens",
+//     creator: 'Vintage Vixen',
+//     tokenNumber: 555,
+//     description: "A Portal has opened into the Thetaverse.. And I see Cats?! Wait a second these aren't ordinary cats.. These are VIXENS KITTENS!  We must collect these interdimensional Kittens and somehow get them back to the rift. Are you willing to help?!",
+//     imgUrl:'https://open-theta.de/api/images/launches/VixensKittens.jpg',
+//     hasMetadata: true,
+// }
+
+// const C4C = {
+//     contract: '0x44edcfd52ea180c91d6ffb340b0bc2a8acb999c8',
+//     name: 'C4C TBILL Sticker',
+//     creator: 'Gworld',
+//     tokenNumber: 0,
+//     description: 'De Great Merge: C4C 05/02 - 05/06',
+//     imgUrl:'https://open-theta.de/api/images/launches/C4C.jpg',
+//     hasMetadata: true,
+// }
+
+// const Bullit = {
+//     contract: '0x141046b84c57d1219fd7778777effbf51da7bf99',
+//     name: 'Bullit collection v1',
+//     creator: 'Bullit',
+//     tokenNumber: 1000,
+//     description: 'The first collection of Bullit NFTs.',
+//     imgUrl:'https://open-theta.de/api/images/launches/BullitCollectionV1.png',
+//     hasMetadata: true,
+// }
+
+// const QA = {
+//     contract: '0xda05058a12541a18f45123e4f0475f93422445e1',
+//     name: 'Q&A ThetaLabs x OpenTheta',
+//     creator: 'ThetaLabs x OpenTheta',
+//     tokenNumber: 0,
+//     description: 'This NFT unlocks the prerecorded Q&A with ThetaLabs and OpenTheta. Its the first-ever use of Theta\'s NFT DRM technology.',
+//     imgUrl:'https://arweave.net/dEVje-CfbWLgieedFfuXd5P1eoX6QvQAAkGiXqtkh1Q',
+//     hasMetadata: true,
+// }
+
+// const INFLUX = {
+//     contract: '0xbc366933abd429cbfea50c6ae21b001c0a2e871d',
+//     name: 'INFLUX',
+//     creator: 'Hinse',
+//     tokenNumber: 50,
+//     description: 'Random theta-phone, updating his guardian stake.',
+//     imgUrl:'https://arweave.net/c8WlSXmw0iCLcWi8f_B4005GwDukt4_skH4RFxQvTRo',
+//     hasMetadata: true,
+// }
+//
+// const INFLOW = {
+//     contract: '0xcdfd5b29ac62ebd458a21e83d3cf3ea7f3e9ef0d',
+//     name: 'INFLOW',
+//     creator: 'Hinse',
+//     tokenNumber: 50,
+//     description: 'Let Tfuel flow.',
+//     imgUrl:'https://arweave.net/k0wOFK9uK_1uPsgcfmxS4PkVI1LKPbOFnXnCcom9sjo',
+//     hasMetadata: true,
+// }
+//
+// const COMPOUND = {
+//     contract: '0x5e34a6c8c037e05fbb22163e78f8d0b3147c45ad',
+//     name: 'COMPOUND',
+//     creator: 'Hinse',
+//     tokenNumber: 25,
+//     description: 'Pepe Frog approves and stands with the OGs.',
+//     imgUrl:'https://arweave.net/7HgmDOV3U3gY-6acKOCU6SmfR_P6puZ0IA1WmWBr7M0',
+//     hasMetadata: true,
+// }
+//
+// const PREBURNER = {
+//     contract: '0x75fa996d64140730013e56034816cd43a4ef12a8',
+//     name: 'PREBURNER',
+//     creator: 'Hinse',
+//     tokenNumber: 5,
+//     description: 'The journey is the reward.',
+//     imgUrl:'https://arweave.net/poKfzEecNXKuumijVEfCd45Nyo68jQ01FEbDtDtRbfg',
+//     hasMetadata: true,
+// }
+//
+// const DISMANTLE = {
+//     contract: '0x84ef2b5e5753bd0015df6f5a276d6593fd070268',
+//     name: 'DISMANTLE',
+//     creator: 'Hinse',
+//     tokenNumber: 20,
+//     description: 'Luminous Tfuel of highest purity lies beneath ailing rocks.',
+//     imgUrl:'https://arweave.net/LIbKz7ZwREnPOxSB7S-_sE2lpQyRLC2RH161u0udxHI',
+//     hasMetadata: true,
+// }
+//
+// const REBASE = {
+//     contract: '0x2b3bad1d70a7ef63dabdbfcc121b66dc4470318c',
+//     name: 'REBASE',
+//     creator: 'Hinse',
+//     tokenNumber: 1,
+//     description: 'Under constant observation, we are keeping balance.',
+//     imgUrl:'https://arweave.net/mrPLPjGe7J_EzNahZ4DG3PKvGf5JHletu2bViZ4SPlM',
+//     hasMetadata: true,
+// }
+
+// const GuruPass = {
+//     contract: '0x82ccdcd7f2e9da3a1a70277d22eb3a247850fae0',
+//     name: 'GuruPass by Mystic Gurus',
+//     creator: 'MysticGurus',
+//     tokenNumber: 77,
+//     description: 'A highly saught after way to get discounts on all things Mystic Gurus',
+//     imgUrl:'https://arweave.net/33Wm119MtOf71zEnM3pzYJi0s53GZCrPSQn9IWhJ3H8',
+//     hasMetadata: true,
+// }
+
+// const BangkokBuddhaBar = {
+//     contract: '0x48ec2bac71c7035df3027d1fa703f5660154c52c',
+//     name: 'Bangkok Buddha Bar',
+//     creator: 'Micha',
+//     tokenNumber: 444,
+//     description: 'Bangkok Buddha Bar is the first generative profile picture collection made from acrylic paintings on the Theta blockchain. 444 Buddhas have been created from over 40 physical fine art paintings to illuminate the blockchain. Bangkok Buddha Bar can be seen as a bridge between traditional fine art and recent generative NFT art. The goal of our community is to support traditional artists and raise human consciousness.',
+//     imgUrl:'https://open-theta.de/api/images/launches/BangkokBuddhaBar.jpg',
+//     hasMetadata: true,
+// }
+
+// const MysticGurusVessel = {
+//     contract: '0xb410e03f31c1a3bf944847c1a32775b6aab3c244',
+//     name: 'THE CORE SET: Mystic Vessels',
+//     creator: 'MysticGurus',
+//     tokenNumber: 5081,
+//     description: 'Come One, Come All, Take part in the Greatest Sale in Montavera! Mystic Gurus has ONCE AGAIN achieved a 1st in Theta History by giving the community TRUE NFT-Staking, and now you can get in on the Magic! Get your hands on the Mystic Vessel Container and use it to enter The Shrine. Unlock one of the 5000+ Generative Manifestations. Learn your Guru\'s Unique Name and Famed Reputation, and never forget to gleam from your Guru a bit of timeless philosophical wisdom. Perhaps you\'ll be one of the lucky few who unlocks a Rare Custom! To open your Mystic Vessel head to www.mysticgurus.club. On June 4th a snapshot will be taken and every 10 Gurus a wallet has will earn you a Personalized Custom Guru (PCG) to be included in the set.',
+//     imgUrl:'https://open-theta.de/api/images/launches/MysticGurusVessel.jpg',
+//     hasMetadata: true,
+// }
+//
+// const MysticGurusCoreSet = {
+//     contract: '0x8131c534c4cbed1b9873b8a7ae63cc1686087daf',
+//     name: 'THE CORE SET: Gurus',
+//     creator: 'MysticGurus',
+//     tokenNumber: 6000,
+//     description: 'The Great Guru of Yonder - Like all Spectral Gurus of Yesteryear - is a shape-shifting entity, and he chooses his form after a Seeker has read the Golden Words from the Mystic Vessel. Your guru is one of the Great Guru’s countless forms. He has chosen to appear to you in this way to teach you something about… You. Tell me, Seeker. What do YOU see? ',
+//     imgUrl:'https://open-theta.de/api/images/launches/MysticGurus-CoreSet.jpg',
+//     hasMetadata: true,
+// }
+
+// const SmokedFish = {
+//     contract: '0x313ca37a19327c1df7b24bf95103e28f2dede466',
+//     name: 'Smoked Fish',
+//     creator: 'Max Theta',
+//     tokenNumber: 69,
+//     description: 'FISH YOUR WISH!  This first series of hand drawn Smoked Fish integrates fully into the Camp Theta project. One lucky mint will win a Metapass NFT ticket to Camp Theta \'22, valued at $1000 USD. Five rare Skully fish will be dropped redeemables for signed prints of their fish. All holders will receive a 1 of 6 badge enabled with DRM access to exclusive footage of Camp Theta \'22. Collect all 6 badges and win a ticket to Camp Theta \'23.',
+//     imgUrl:'https://open-theta.de/api/images/launches/SmokedFish.jpg',
+//     hasMetadata: true,
+// }
+
+// const VoxZilla = {
+//     contract: '0x8e40f2556f6e24a30f88b4b796677fed485bec00',
+//     name: 'VoxZilla',
+//     creator: 'ThetaZillaClub',
+//     tokenNumber: 21,
+//     description: 'ThetaZilla May 2022 Collection.',
+//     imgUrl:'https://open-theta.de/api/images/launches/VoxZilla.jpg',
+//     hasMetadata: true,
+// }
+
+// const ThetaWisdomWeek1 = {
+//     contract: '0x17268ec0a43bbbc66a1d1e8e2acad58e69ef1e2e',
+//     name: 'Theta Wisdom May 29-June 4',
+//     creator: 'NanaimoTrader',
+//     tokenNumber: 0,
+//     description: 'Ever wish you had more knowledge of the crypto markets and what the heck was happening?? Holders of each week’s NFT will have access to that week’s video of @NanaimoTrader using Technical Analysis and Volume Profile to explain REAL TIME how the price auction is unfolding in Theta and TFuel. If you have been following his postings over the last year in the official Theta trading discord room you already know the value. Each Sunday morning a video no longer than 15 mins will be uploaded to the Theta API and key levels discussed along with future scenarios of which direction Theta and TFuel prices could move to. Whether you are a minnow, whale, or somewhere in between, having access to robust information is helpful to ALL when making investment decisions. Each episode will finish with wisdom on markets, life, or wealth. Week #1 of the Pilot Project - We will discuss the NanaimoTrader Pilot Project, how it got started and why (along with a really good trading story!), followed by FRESH technical analysis of Theta and TFuel. Featured art by ThetaZilla and that Zilla is for sure holding some Theta! Visit: https://www.tradehealthy.com/vitamints',
+//     imgUrl:'https://arweave.net/8tmzpFFJyeZvdFXwH5tGA5PcfzLdLcXsLtFJ5u9uQsE',
+//     hasMetadata: true,
+// }
+
+// const ThetaWisdomWeek2 = {
+//     contract: '0xdf41d8e965ad8f5dfb553e86e0d1298fab92a7d0',
+//     name: 'Theta Wisdom June 5-June 11',
+//     creator: 'NanaimoTrader',
+//     tokenNumber: 0,
+//     description: 'Week #2 of the Pilot Project offers FRESH technical analysis of Theta and TFuel. Some thoughts at the end of the pros and cons of holding crypto with “Diamond Hands”. To focus on the concept, the diamond hands art of ThetaDiamond will be featured! Visit: https://www.tradehealthy.com/vitamints',
+//     imgUrl:'https://arweave.net/T0VGrw3ealYB-ZpCFKgrLhnncq4PiaCRRBVsgRCc8t8',
+//     hasMetadata: true,
+// }
+//
+//
+// const PCG = {
+//     contract: '0x3f52598d03c55a10394ce0bf5facf9c714eeadb2',
+//     name: 'The Mystic Gurus: #PCG',
+//     creator: 'MysticGurus',
+//     tokenNumber: 0,
+//     description: 'In the Great Guru’s Primordial Essence of Ego (aka P.E.E.) exists the potential to become anything the mind can design. As such, the Great Guru remains formless prior to the Conception of Creation, awaiting You, Seeker… Awaiting your design. Go and find your Headmaster. Share with him your dreams. The Great Guru awaits in bubbles.',
+//     imgUrl:'https://arweave.net/Ba0EO0Uq1qjA7d1zck-BdAVPJ_V-D6dvlA-7qJloGS4',
+//     hasMetadata: true,
+// }
+
+// const ThetaWisdomWeek3 = {
+//     contract: '0xa4689893a0719a367fa2dc36a3aebd0f0bcc8707',
+//     name: 'Theta Wisdom June 12-June 18',
+//     creator: 'NanaimoTrader',
+//     tokenNumber: 0,
+//     description: 'Ever wish you had more knowledge of the crypto markets and what the heck was happening?? Holders of each week’s NFT will have access to that week’s video of @NanaimoTrader using Technical Analysis and Volume Profile to explain REAL TIME how the price auction is unfolding in Theta and TFuel. If you have been following his postings over the last year in the official Theta trading discord room you already know the value. Each Sunday morning a video no longer than 15 mins will be uploaded to the Theta API and key levels discussed along with future scenarios of which direction Theta and TFuel prices could move to. Whether you are a minnow, whale, or somewhere in between, having access to robust information is helpful to ALL when making investment decisions. Each episode will finish with wisdom on markets, life, or wealth. Week #3 of the Pilot Project provides more timely and FRESH technical analysis of Theta and TFuel. I’ll also share one of my favorite indications to “BUY BUY BUY!” This week\'s featured art leaps at us from ThetaFrogs. Visit: https://www.tradehealthy.com/vitamints',
+//     imgUrl:'https://arweave.net/qnJxPzTTuQV9DiPImyR9dmQ-j_ECuSyHRHLKXjP8tz4',
+//     hasMetadata: true,
+// }
+
+// const ArenaBulls = {
+//     contract: '0x4ec2d9161f98ab2b44106495baacd236dfa1b67a',
+//     name: 'ArenaBulls',
+//     creator: 'ThetaBulls',
+//     tokenNumber: 293,
+//     description: 'After risking it all in the Arena, these Bulls have been claimed by those victorious! Forever Bullish, forever Theta!!!',
+//     imgUrl:'https://arweave.net/wnJ3EhGPVWeqfA-abVWDoVi5nnUHW06ashaS_y6MPv0',
+//     hasMetadata: true,
+// }
+//
+// const King = {
+//     contract: '0xf11e25ec1114bf61a360cf744fb7353b09aaba27',
+//     name: 'King / All Inclusive Event Ticket',
+//     creator: 'ThetaCon',
+//     tokenNumber: 25,
+//     description: 'One guest room with a King bed for the evenings of December 2 & 3, one ticket for the full weekend event, $250 food and beverage credit to utilize at any onsite dining/bar option. For more info visit https://thetacon.org',
+//     imgUrl:'https://arweave.net/m8ggXje-gK-uT6pkVthKz2qq_DCjqYh7lkbCSr6ymBc',
+//     hasMetadata: true,
+// }
+//
+// const Queen = {
+//     contract: '0x5bdc70774fa1bb0e076ee6c0720316ace75671d4',
+//     name: 'Queen / All Inclusive Event Ticket',
+//     creator: 'ThetaCon',
+//     tokenNumber: 25,
+//     description: 'One guest room with two Queen beds for the evenings of December 2 & 3, one ticket for the full weekend event, $250 food and beverage credit to utilize at any onsite dining/bar option. For more info visit https://thetacon.org',
+//     imgUrl:'https://arweave.net/G-anO4TWzKJDHS0GKCH8dXZE1vo_5v2dO7Ap_dAB014',
+//     hasMetadata: true,
+// }
+//
+// const Person = {
+//     contract: '0x5d814ddbafbbb0dad45f2b8f8aac98d3c82bda57',
+//     name: 'In Person Event Ticket',
+//     creator: 'ThetaCon',
+//     tokenNumber: 50,
+//     description: 'One In Person ticket for the full weekend event. For more info visit https://thetacon.org',
+//     imgUrl:'https://arweave.net/Be0UeDuzwm4tf0XNeUAl4YVOtI_eqs-QDw-5i0wMTZU',
+//     hasMetadata: true,
+// }
+//
+// const MysticalMushrooms = {
+//     contract: '0x1c27f9c425040592b4d39988f097e51c8e4bd587',
+//     name: 'Mythical Mushrooms',
+//     creator: 'Barrizan',
+//     tokenNumber: 1111,
+//     description: 'Mushrooms have long been an unsung hero which have significantly impacted humans throughout our history. Whether the mushroom\'s purpose has been to poison enemies, heal loved ones, enhance intimate experiences, bring us closer to the spiritual world, or elevate our taste buds, mushroom\'s deserve a folk-lore reputation in the modern era and we are ready to give it to them! Each Mythical Mushroom is created with elaborate artwork, passion and a unique narrative in which the scientific and mythical elements of art and story-telling collide.',
+//     imgUrl:'https://arweave.net/vf9Ay703a4466DC_Aw3X8wfMvPKt324XN3Rh7iLWE6w',
+//     hasMetadata: true,
+// }
+//
+// const ThetaWisdomWeek4 = {
+//     contract: '0x3028938de361ec872c1e59d406a4916ff7b403c3',
+//     name: 'Theta Wisdom June 19-June 25',
+//     creator: 'NanaimoTrader',
+//     tokenNumber: 0,
+//     description: 'Ever wish you had more knowledge of the crypto markets and what the heck was happening?? Holders of each week’s NFT will have access to that week’s video of @NanaimoTrader using Technical Analysis and Volume Profile to explain REAL TIME how the price auction is unfolding in Theta and TFuel. If you have been following his postings over the last year in the official Theta trading discord room you already know the value. Each Sunday morning a video no longer than 15 mins will be uploaded to the Theta API and key levels discussed along with future scenarios of which direction Theta and TFuel prices could move to. Whether you are a minnow, whale, or somewhere in between, having access to robust information is helpful to ALL when making investment decisions. Each episode will finish with wisdom on markets, life, or wealth. Week #4 of the Pilot Project continues with up to date and FRESH technical analysis of Theta and TFuel. A chat at the end of the session will be about “Whales” and how they “swim”. The featured art this week is from emerging artist Charlie Lawless. Visit: https://www.tradehealthy.com/vitamints',
+//     imgUrl:'https://arweave.net/bVGLr2CtRUtBmyMOmmvrngeF063p5fOwc9I2rClVSz8',
+//     hasMetadata: true,
+// }
+
+// const HexoDisko = {
+//     contract: '0x05f5c820f274c2510d03d0ddd6a4e2564adedfa5',
+//     name: 'Hexo Disko',
+//     creator: 'CykoKO',
+//     tokenNumber: 60,
+//     description: 'Watch out Meepies! Blorto just unleashed his evil spawn on Headz Jungle Island: Hexo Disko!',
+//     imgUrl:'https://arweave.net/LhnbYMUHb3dwYkT3YLaI1zJU8tESoBV9A60PDUKZsDc',
+//     hasMetadata: true,
+// }
+
+// const ZillaChain = {
+//     contract: '0xe499b9d3c2483798d303082fa5bd2272c31bea28',
+//     name: 'ZillaChain',
+//     creator: 'ThetaZillaClub',
+//     tokenNumber: 21,
+//     description: 'ThetaZilla June 2022 Collection.',
+//     imgUrl:'https://arweave.net/uwQ0n0GdNLjy1rfSD77sZtIl8c__YV9POdujPVTzfvs',
+//     hasMetadata: true,
+// }
+
+// const ThetaWisdomWeek5 = {
+//     contract: '0x1f8f9f3a85ca3295ee7d45723d5f5acfb8827424',
+//     name: 'Theta Wisdom June 26-July 2',
+//     creator: 'NanaimoTrader',
+//     tokenNumber: 0,
+//     description: 'Ever wish you had more knowledge of the crypto markets and what the heck was happening?? Holders of each week’s NFT will have access to that week’s video of @NanaimoTrader using Technical Analysis and Volume Profile to explain REAL TIME how the price auction is unfolding in Theta and TFuel. If you have been following his postings over the last year in the official Theta trading discord room you already know the value. Each Sunday morning a video no longer than 15 mins will be uploaded to the Theta API and key levels discussed along with future scenarios of which direction Theta and TFuel prices could move to. Whether you are a minnow, whale, or somewhere in between, having access to robust information is helpful to ALL when making investment decisions. Each episode will finish with wisdom on markets, life, or wealth. Week #5 of the Pilot Project provides FRESH technical analysis of Theta and TFuel and a chat about why it PAYS to be a little CRAZY sometimes. Don\'t miss this week\'s featured art by Cyko KO! Visit: https://www.tradehealthy.com/vitamints',
+//     imgUrl:'https://arweave.net/8bLJwZKNcN7kuQAHeNBI6XvZ0_ZZLoaoH7wQOixZPrU',
+//     hasMetadata: true,
+// }
+
+// const Ribbitz = {
+//     contract: '0x2aa686cb74d593b68c3a198e5485e0e1aa3ff13d',
+//     name: 'Ribbitz',
+//     creator: 'Aliengirk & Theta Frogs',
+//     tokenNumber: 555,
+//     description: 'An interdimensional portal has been opened, and 555 unique and original 1 of 1 amphibians came spilling forth through the gate, across time and space!',
+//     imgUrl:'https://arweave.net/iGfEltur1JvE0UT9_UJSxRnLhfs-TB7Id-mVmHf4DFs',
+//     hasMetadata: true,
+// }
+
+// const Commemorative = {
+//     contract: '0x58bf25d2be8b366c5dfa5995f33d6f164db2d611',
+//     name: 'Commemorative ThetaCon22 NFT',
+//     creator: 'ThetaCon',
+//     tokenNumber: 300,
+//     description: 'Theta community creators aboard the Theta Wagon en route to the first-ever Thetacon in Fort Lauderdale, Florida! This commemorative Thetacon22 NFT was created by Theta community artist “Visioneer” and airdropped in July 2022 to the owners of four ThetaCon22 Fundraiser NFTs. Thank you to the 24 creators for your active role in supporting the community! Only 300 of these NFTs exist.',
+//     imgUrl:'https://arweave.net/YTdUfqSih-Uc1AxwIJGZ4OTS9dYEe905-fq0rmidaIk',
+//     hasMetadata: true,
+// }
+
+// const DeBurn = {
+//     contract: '0x43d9c938561fa739d2a44f082101a39e91d468dd',
+//     name: 'DeBURN Commemorative',
+//     creator: 'Gworld',
+//     tokenNumber: 0,
+//     description: 'Randomly issued Common, Rare and Ultra Rare NFTs to commemorate the July 4th, 2022 NFT Multiplier Burn Event',
+//     imgUrl:'https://arweave.net/Ja6Ys1L_IXmbRloMySIqbjoJin_MXcVOycJSFGFnFiY',
+//     hasMetadata: true,
+// }
+
+// const SkullyFish = {
+//     contract: '0xc2fa3e13a6f755cac73492c19a68bc5b816f50ad',
+//     name: 'Skully Fish Print',
+//     creator: 'Max Theta',
+//     tokenNumber: 5,
+//     description: 'This token entitles the holder to an 8x8 inch signed metal print of a Skully fish. Redeem this token by sending it to wallet: 0x36011EB9c1C932f5616d91251a606b8889aA3AD5 and emailing your shipping details to etchasketchgenius@gmail.com',
+//     imgUrl:'https://arweave.net/QyyXriowm60XWGYIc4D23LqspOKTaMTcxaKRON_yn70',
+//     hasMetadata: true,
+// }
+//
+// const Badge1 = {
+//     contract: '0x4adda01241eb20eae7dcec686458333909465ad1',
+//     name: 'Badge 1',
+//     creator: 'Max Theta',
+//     tokenNumber: 69,
+//     description: 'Badge 1 of 6. Collect all 6 badges and you will be airdropped a ticket to CampTheta \'23! This badge will be enabled to unlock exclusive footage of CampTheta \'22. Stay tuned!',
+//     imgUrl:'https://arweave.net/QiGKAPew5d0zu-YiJZCZybzrJJh9XKhRa6nJn5S-kNY',
+//     hasMetadata: true,
+// }
+
+// const ThetaWisdomWeek6 = {
+//     contract: '0x36ee3d58369e46ff51f7c7fbfe81d78f399aceb0',
+//     name: 'Theta Wisdom July 3-July 9',
+//     creator: 'NanaimoTrader',
+//     tokenNumber: 0,
+//     description: 'Ever wish you had more knowledge of the crypto markets and what the heck was happening?? Holders of each week’s NFT will have access to that week’s video of @NanaimoTrader using Technical Analysis and Volume Profile to explain REAL TIME how the price auction is unfolding in Theta and TFuel. If you have been following his postings over the last year in the official Theta trading discord room you already know the value. Each Sunday morning a video no longer than 15 mins will be uploaded to the Theta API and key levels discussed along with future scenarios of which direction Theta and TFuel prices could move to. Whether you are a minnow, whale, or somewhere in between, having access to robust information is helpful to ALL when making investment decisions. Each episode will finish with wisdom on markets, life, or wealth. Week #6 of the Pilot Project finishes strong with, you got it, more FRESH technical analysis of Theta and TFuel! In addition, I’ll talk about why I am bullish on the Theta project in the long term and will discuss a personal goal I\'ve established related to TradeHealthy. ThetaBulls art closes out the pilot project series with one tough bull! Visit: https://www.tradehealthy.com/vitamints',
+//     imgUrl:'https://arweave.net/1wJok6Nqk-MX3Qx6a0No2cIljdAPrJOxq693IPjTjwU',
+//     hasMetadata: true,
+// }
+
+// const ThetaDragons = {
+//     contract: '0xc6a368bcdc89e0a9b776efc70f841995455c5a69',
+//     name: 'Theta Dragons',
+//     creator: 'Theta Dragons',
+//     tokenNumber: 3333,
+//     description: 'There are 8 distinct locations on Theta Island awaiting those brave enough to seek out the lost Relics. Do you dare embark on this adventure and attempt to tame a Dragon of your own? With 3,333 Dragons unleashed, The Lair is busier than ever... and the hunt to locate the Relics and activate the Gateway of the Dragons has just begun.',
+//     imgUrl:'https://arweave.net/7PdSXUMN0_Uy576Fj61pqye542xvWLSHKOG_mQalzAE',
+//     hasMetadata: true,
+// }
+
+// const Cyborg = {
+//     contract: '0x75d5de34dad61b9f8d3e148d1b90530bc25b4088',
+//     name: 'Theta Cyborg',
+//     creator: 'The Koan Circle',
+//     tokenNumber: 33,
+//     description: 'Bust of a base-model cyborg use by Theta to extract materials from the exo-colonies and asteroids. They are resistant to oxide, high temperatures, gamma rays and toxic fumes as sulphur, present in some of the exo-colonies\' atmospheres.',
+//     imgUrl:'https://arweave.net/gqNoPa7Ydmk-CMk2WOR0TS3j08E0GCfD_dsAg0E0ABA',
+//     hasMetadata: true,
+// }
+//
+// const Connection = {
+//     contract: '0xd9384c41ddb39efb4f5c9f5d5ed8e46e7a8363cb',
+//     name: 'Connection',
+//     creator: 'The Koan Circle',
+//     tokenNumber: 10,
+//     description: 'This picture, shown at the great hall of Historic Theta Modules, represents the birth of Node technology that preceded The Dyson Sphere. It symbolises the union between the human race and the mysterious alien force that communicated with us centuries ago.',
+//     imgUrl:'https://arweave.net/4RkyDjaa6dxnsypAhYzXZQwtuJZdMKSrILNbC_lRewo',
+//     hasMetadata: true,
+// }
+
+// const ThetaConPunkCity = {
+//     contract: '0x97ca4d44418eab268bb54cff1cac83ca3d3f20af',
+//     name: 'ThetaCon Punk City',
+//     creator: 'ThetaPunks',
+//     tokenNumber: 36,
+//     description: 'Tommy, Thance, and Ken were airdropped to a few lucky owners of the ThetaCon Punk City NFT from the ThetaCon22 Fundraiser collection on OpenTheta.',
+//     imgUrl:'https://arweave.net/LjK_KeeepHXe0WYyMOl_APhXXe0mjcfVuXO55FBTeKc',
+//     hasMetadata: true,
+// }
+
+// const Badge2 = {
+//     contract: '0x0a5bbad7dcf2b7015edc9c28483713a7b3d74766',
+//     name: 'Badge 2',
+//     creator: 'Max Theta',
+//     tokenNumber: 16,
+//     description: 'Badge 2 of 6. Collect all 6 badges and you will be airdropped a ticket to CampTheta \'23!',
+//     imgUrl:'https://arweave.net/8fgyIFLMd_Ukwf5oNcIdhipAKNNalo5J4AVuvJqbsM4',
+//     hasMetadata: true,
+// }
+//
+// const Badge3 = {
+//     contract: '0xdce395baa164f5dd2110713f730910554bd65f17',
+//     name: 'Badge 3',
+//     creator: 'Max Theta',
+//     tokenNumber: 8,
+//     description: 'Badge 3 of 6. Collect all 6 badges and you will be airdropped a ticket to CampTheta \'23!',
+//     imgUrl:'https://arweave.net/HiRWfLM0WiYvCOPOMnlMjRF29z_47t5K6BO_2GkGijs',
+//     hasMetadata: true,
+// }
+
+
+// const ZillAI = {
+//     contract: '0xa4c919e9c07c4e54283747e67afdf0cd8302183d',
+//     name: 'Zill.A.I',
+//     creator: 'ThetaZillaClub',
+//     tokenNumber: 21,
+//     description: 'ThetaZilla July 2022 Collection.',
+//     imgUrl:'https://arweave.net/psoP0gKi5WYFiIIL7V5xya9sy4KrSn2MwfFBmiP0460',
+//     hasMetadata: true,
+// }
+
+// const Sheep = {
+//     contract: '0x9e30fb175abacc42b93225e208e809968c23029e',
+//     name: 'Computer Made Sheep: The Golden Sheep',
+//     creator: 'dadbean & okdollface',
+//     tokenNumber: 4242,
+//     description: 'Computer Made Sheep is a unique multi-contract Profile Pic based gameified NFT experience. The sheep come first, then the wolves. The wolves generate rewards but must also eat rewards to survive. A dead wolf can be revived by eating a sheep. The last wolf(s) alive can claim the final reward.',
+//     imgUrl:'https://arweave.net/ZBXtt8HbuGZtSGsayuUvTFvlBKOT2lL9TCjXAz7fzMo',
+//     hasMetadata: true,
+// }
+
+// const ThetaWisdom = {
+//     contract: '0x447839df51476fab87deb1a366cb095777ccabdc',
+//     name: 'ThetaWisdom PP - Live Event',
+//     creator: 'NanaimoTrader',
+//     tokenNumber: 72,
+//     description: 'Bonus drop for HODL’s of all six ThetaWisdom pilot project NFTs. This NFT gives exclusive access to a live event, and possibly future perks. Visit www.TradeHealthy.com/vitamints for more info',
+//     imgUrl:'https://arweave.net/mY730wUtpe13q_pi3mdtcWJC2ukJCk03LYL993O02EI',
+//     hasMetadata: true,
+// }
+
+// const ZillaRedeemable = {
+//     contract: '0x58e1c408c72587a96b93ade59a5cf0e29226b393',
+//     name: 'ZillaRedeemables',
+//     creator: 'ThetaZillaClub',
+//     tokenNumber: 0,
+//     description: 'Zilla Redeemables are physical NFTs received via an airdrop from The ThetaZillaClub. Redeem your items at https://thetazillaclub.com/ using the portal. NFTs are burnt upon redemption! For more information visit https://discord.gg/thetazillaclub',
+//     imgUrl:'https://arweave.net/8r8oYMUoIkcGoeaBn0kjbyFKj_p2-0YN4942HxkCPRw',
+//     hasMetadata: true,
+// }
+
+// const FightForCMC = {
+//     contract: '0x6449f9e18f3afb470be2038b271090412890f264',
+//     name: 'Fight for CMC',
+//     creator: 'ThetaLands',
+//     tokenNumber: 0,
+//     description: 'FIGHT for Coinmarketcap!\n' +
+//         'The crypto space, with its thousands of cryptocurrencies, projects, founders and brandings is a ready-made playground for all these different characters.\n' +
+//         'As such, it has become a battle for volume of interest in order to climb the ranks of Coinmarketcap.\n' +
+//         ' \n' +
+//         'This collection features a mixture of anime and comic characters, each with different skills, skins, power levels, super and ultimate attacks. \n' +
+//         'Of course, we keep Theta at heart and FIGHT for CMC has a strong focus on Theta Network, Theta Labs, and the community with a lot of powerful characters and ultimate attacks like „The Cutting Edge Technology“ just to mention one.\n' +
+//         'We place a strong focus on collaborations with other NFT projects in order to bring the NFT community together.\n' +
+//         'We have already been given the go ahead from most Theta NFT projects to create a suitable, unique and strong fighter for our collection and offer special ThetaLands NFT- rewards for holders of their own NFTs.\n' +
+//         'This will increase their value with additional utilities and push the adoption of Theta NFTs.\n' +
+//         'Over time, there will be consistent releases of additional characters to keep the scene fresh and exciting, as well as storyboard comics to progress the narrative.\n' +
+//         'The fighters are shown and minted on limited character sheets and 3D avatars in the type “OG NFTs". There will be more different NFT art later on. \n' +
+//         'OG NFTs offer a lot of different utilities like exclusive merch store access, making-off pics & videos via DRM and more special rewards through my.ThetaLands DApp. \n' +
+//         'You also will be able to particpate in the legendary "AVATARI" airdrop if you are holding the character sheet and will receive a starter- package of 5 AVATARI NFT- attributes for your character including a NFT- body, -skin,- skill,- super and- ultimate attack, usable in the upcoming FIGHT for CMC- fighting game and future game- and metaverse developments.\n' +
+//         'This is the beginning of ThetaLands\' FIGHT for CMC collection and game developments.\n' +
+//         'A crossover of technology and art!',
+//     imgUrl:'https://arweave.net/EfJen-CbAfsGaZetN3lKlmp_BRsqUS9SZTYZYgmWC-A',
+//     hasMetadata: true,
+// }
+
+// const ThetaPonsS1 = {
+//     contract: '0x7313341085efd1dcf197f233cff3253fa966f4c0',
+//     name: 'ThetaPons S1',
+//     creator: 'ThetaPons',
+//     tokenNumber: 0,
+//     description: 'Trading card game NFT project. Season 1 collection!',
+//     imgUrl:'https://arweave.net/O7srX0plF8Ol8xODN9NG-CN7Cw-NpNNUGRWXRGsYc-s',
+//     hasMetadata: true,
+// }
+
+// const BabyZilla = {
+//     contract: '0x05f52f8185d4b07a10ec4b871ed3cdb63d329b49',
+//     name: 'BabyZilla',
+//     creator: 'ThetaZillaClub',
+//     tokenNumber: 21,
+//     description: 'ThetaZilla August 2022 Collection.',
+//     imgUrl:'https://arweave.net/7_nLhWtdlgrvH9phyb_Spy1G0c2bW7teSRUFlb2QPBk/Cover.png',
+//     hasMetadata: true,
+// }
+
+const GoldenMeepy = {
+    contract: '0x04fe135f9aa102f8b17fe9c8f61d4cc8b26e4da7',
+    name: 'Golden Meepy',
+    creator: 'CykoKO',
+    tokenNumber: 0,
+    description: 'Behold the Golden Meepy! As a winner, the Golden Meepy will grant you powers never known!',
+    imgUrl:'https://arweave.net/A2ubJyVgRpuBCIOCYjqtIS_Agnno8rIGcmRqU2epSq8',
+    hasMetadata: true,
+}
+
 // addProject(SemtexSamurai)
 // addProject(MitchAlien)
 // addProject(JieyiApe)
@@ -1804,12 +2329,62 @@ function addProject (project) {
 // addProject(TeddyB)
 // addProject(ThomasOnTheta)
 // addProject(DailyDiamondPerks)
+// addProject(ThetaSkies)
+// addProject(VixensKittens)
+// addProject(C4C)
+// addProject(Bullit)
+// addProject(QA)
+// addProject(INFLUX)
+// addProject(INFLOW)
+// addProject(COMPOUND)
+// addProject(DISMANTLE)
+// addProject(PREBURNER)
+// addProject(REBASE)
+// addProject(GuruPass)
+// addProject(BangkokBuddhaBar)
+// addProject(MysticGurusCoreSet)
+// addProject(MysticGurusVessel)
+// addProject(SmokedFish)
+// addProject(VoxZilla)
+// addProject(ThetaWisdomWeek1)
+// addProject(ThetaWisdomWeek2)
+// addProject(PCG)
+// addProject(ThetaWisdomWeek3)
+// addProject(ArenaBulls)
+// addProject(King)
+// addProject(Queen)
+// addProject(Person)
+// addProject(MysticalMushrooms)
+// addProject(ThetaWisdomWeek4)
+// addProject(HexoDisko)
+// addProject(ZillaChain)
+// addProject(ThetaWisdomWeek5)
+// addProject(Ribbitz)
+// addProject(Commemorative)
+// addProject(DeBurn)
+// addProject(SkullyFish)
+// addProject(Badge1)
+// addProject(ThetaWisdomWeek6)
+// addProject(ThetaDragons)
+// addProject(Cyborg)
+// addProject(Connection)
+// addProject(ThetaConPunkCity)
+// addProject(Badge2)
+// addProject(Badge3)
+// addProject(ZillAI)
+// addProject(Sheep)
+// addProject(ThetaWisdom)
+// addProject(ZillaRedeemable)
+// addProject(FightForCMC)
+// addProject(ThetaPonsS1)
+// addProject(BabyZilla)
+addProject(GoldenMeepy)
 
 // const URA1 = {
-//     name: 'Theta Cargo Ship',
+//     name: 'Mythical Mushrooms',
 // }
 //
-// projects.updateProject('0x97f25c2ba702a93030fb64b31acd8a26c79d8c8f', URA1).then(res => {
+// projects.updateProject('0x1c27f9c425040592b4d39988f097e51c8e4bd587', URA1).then(res => {
 //     console.log("updateProject");
 //     console.log(res);
 // }).catch(error => {
@@ -1817,10 +2392,10 @@ function addProject (project) {
 // });
 
 // const URA2 = {
-//     description:  'The Brother Of Overgrown.',
+//     description: 'Ever wish you had more knowledge of the crypto markets and what the heck was happening?? Holders of each week’s NFT will have access to that week’s video of @NanaimoTrader using Technical Analysis and Volume Profile to explain REAL TIME how the price auction is unfolding in Theta and TFuel. If you have been following his postings over the last year in the official Theta trading discord room you already know the value. Each Sunday morning a video no longer than 15 mins will be uploaded to the Theta API and key levels discussed along with future scenarios of which direction Theta and TFuel prices could move to. Whether you are a minnow, whale, or somewhere in between, having access to robust information is helpful to ALL when making investment decisions. Each episode will finish with wisdom on markets, life, or wealth. Week #2 of the Pilot Project offers FRESH technical analysis of Theta and TFuel. Some thoughts at the end of the pros and cons of holding crypto with “Diamond Hands”. To focus on the concept, the diamond hands art of ThetaDiamond will be featured! Visit: https://www.tradehealthy.com/vitamints',
 // }
 //
-// projects.updateProject('0x78d06aadf688cdc15578bdbd37580743af5176ad', URA2).then(res => {
+// projects.updateProject('0xdf41d8e965ad8f5dfb553e86e0d1298fab92a7d0', URA2).then(res => {
 //     console.log("updateProject");
 //     console.log(res);
 // }).catch(error => {
@@ -1948,22 +2523,22 @@ function addProject (project) {
 //     hasMetadata: false,
 // }
 
-const nft1 = {
-    itemId: 12252,
-    nftContract: "0x172d0bd953566538f050aabfeef5e2e8143e09f4",
-    tokenId: 88813,
-    seller: "0xf58840eae89d2d1833bb767df027fea21e82e4dc",
-    owner: "0xe169470146979a8ba6b5eb1f80f28a7d35b016d3",
-    category: "Utility",
-    price: "2750000000000000000000000",
-    isSold: true,
-    createdTimestamp: 1651258800000,
-    soldTimestamp: 1651260720000,
-    name: 'De Great Merge - 2M TBILL - 2X Multiplier',
-    imgUrl:'https://ipfs.io/ipfs/QmVTgE2W4v1KZviVHJDX55NyQLQhracy2EzXQrdevoh14K/2x/2M/TB.gif',
-    description:"Thank you for participating in De Great Merge.",
-    marketAddress: "0xbb5f35d40132a0478f6aa91e79962e9f752167ea"
-}
+// const nft1 = {
+//     itemId: 12252,
+//     nftContract: "0x172d0bd953566538f050aabfeef5e2e8143e09f4",
+//     tokenId: 88813,
+//     seller: "0xf58840eae89d2d1833bb767df027fea21e82e4dc",
+//     owner: "0xe169470146979a8ba6b5eb1f80f28a7d35b016d3",
+//     category: "Utility",
+//     price: "2750000000000000000000000",
+//     isSold: true,
+//     createdTimestamp: 1651258800000,
+//     soldTimestamp: 1651260720000,
+//     name: 'De Great Merge - 2M TBILL - 2X Multiplier',
+//     imgUrl:'https://ipfs.io/ipfs/QmVTgE2W4v1KZviVHJDX55NyQLQhracy2EzXQrdevoh14K/2x/2M/TB.gif',
+//     description:"Thank you for participating in De Great Merge.",
+//     marketAddress: "0xbb5f35d40132a0478f6aa91e79962e9f752167ea"
+// }
 //
 // const nft2 = {
 //     itemId: 2.json,
@@ -2022,7 +2597,7 @@ const nft1 = {
 // addProject(p2);
 
 // console.log("addNFT");
-addNFT(nft1);
+// addNFT(nft1);
 // addNFT(nft2);
 // addNFT(nft3);
 // addNFT(nft4);
@@ -2070,7 +2645,7 @@ addNFT(nft1);
 // });
 //
 
-// projects.deleteNFT(1098).then(res => {
+// projects.deleteNFT(8490).then(res => {
 //     console.log(res);
 // }).catch(error => {
 //     console.log("deleteNFT");

@@ -1310,8 +1310,8 @@ async function getHighestId(startId) {
     return id - 1
 }
 // 768
-minItemId = 12172
-// maxItemId = 4147
+minItemId = 23000
+// maxItemId = 4147meta
 
 
 getHighestId(minItemId).then(res => {

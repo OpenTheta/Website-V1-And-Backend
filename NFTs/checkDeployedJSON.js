@@ -7,7 +7,7 @@ const axios = require('axios');
 const baseURL = 'https://arweave.net/vrAsN9wT0KQ95dp02Dqc9DRD3iQ-Z9MrQImpstpxTeg/'; // JSON
 
 
-    function sleep(ms) {
+function sleep(ms) {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);
     });

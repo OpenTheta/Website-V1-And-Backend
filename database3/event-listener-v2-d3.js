@@ -98,7 +98,7 @@ async function dataProcessing(eventData, event) {
                     console.log("Error with getting TNS name of Token from OpenTheta.de");
                 });
                 if(!tnsResponse) {
-                    tnsResponse = await axios.get("https://thetaboard.io/tns-token-ids/" + tokenId.toString()).catch(() => {
+                    tnsResponse = await axios.get("https://thetaboard.io/api/tns-token-ids/" + tokenId.toString()).catch(() => {
                         console.log("Error with getting TNS from Thetaboard")
                     });
                     if(tnsResponse) {

@@ -2,8 +2,8 @@ const axios = require('axios');
 const fs = require('fs');
 
 
-const baseURL = 'https://arweave.net/rBXOx5KX_suSDtnYaLWBV9o-eM6DLIMMH487F0z-wvM'; // JSON
-const hasNumbering = false
+const baseURL = 'https://arweave.net/Cnj4j0ZXCfRCt7d9Y5-UeaXNaulqfeZOp9Tz3Or5xoM/'; // JSON
+const hasNumbering = true
 
 async function check () {
     let finalReport = {
@@ -11,6 +11,7 @@ async function check () {
             checked: [],
             failed: []
         },
+        names: [],
         images: {
             checked: [],
             failed: []
@@ -25,7 +26,7 @@ async function check () {
         }
     }
     process.stdout.write("Checking:")
-    for (let i = 1; i <=1; i++) {
+    for (let i = 1; i <=33; i++) {
         if(i%10 === 0)process.stdout.write(" " + i)
         finalReport.metadata.checked.push(i)
         let count = 0
@@ -51,10 +52,13 @@ async function check () {
             });
         }
         if(metadata !== undefined) {
+            // console.log(JSON.parse(metadata.data))
             // let imageNumber = metadata.data.image.slice(-8,-4).replace( /^\D+/g, '')
             // finalReport.images.checked.push(parseInt(imageNumber))
-            let imageNumber = metadata.data.image.slice(-18,-1)
-            finalReport.images.checked.push(imageNumber)
+            // let imageNumber = metadata.data.image.slice(-10,-3)
+            // finalReport.images.checked.push(imageNumber)
+            finalReport.images.checked.push(metadata.data.image)
+            finalReport.names.push(metadata.data.name)
             count = 0
             timeout = true
             while(timeout){
@@ -113,9 +117,11 @@ async function check () {
     });
     const toFindDuplicates = tokenIds => tokenIds.filter((item, index) => tokenIds.indexOf(item) !== index)
     let duplicateElements = toFindDuplicates(finalReport.metadata.checked);
-    if(duplicateElements.length > 0) console.log(duplicateElements);
+    console.log("Duplicate URI",duplicateElements);
     duplicateElements = toFindDuplicates(finalReport.images.checked);
-    if(duplicateElements.length > 0) console.log(duplicateElements);
+    console.log("Duplicate Images",duplicateElements);
+    duplicateElements = toFindDuplicates(finalReport.names);
+    console.log("Duplicate Names",duplicateElements);
     console.log(duplicateElements.length)
 }
 

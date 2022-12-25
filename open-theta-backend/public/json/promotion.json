@@ -1,9 +1,10 @@
 {
-  "contract": "0x6b9ece0e02870098846b209bbe653ea1de00fc48",
-  "name": "Absolute Gosu",
-  "imgUrl": "https://open-theta.de/api/images/launches/AbsoluteGosu.jpg",
-  "creator": "Gworld",
-  "creatorUrl": "https://open-theta.de/api/images/creators/SatoshiSpeaks.jpg",
+  "contract": "0x141046b84c57d1219fd7778777effbf51da7bf99",
+  "name": "Bullit collection v1",
+  "imgUrl": "https://open-theta.de/api/images/launches/BullitCollectionV1.png",
+  "creator": "Bullit",
+  "creatorUrl": "https://open-theta.de/api/images/creators/Bullit.png",
   "mint": true,
-  "maxSupply": 520
+  "maxSupply": 1000,
+  "hasDiscount": true
 }

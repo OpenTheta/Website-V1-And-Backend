@@ -7,28 +7,39 @@ let provider = new ethers.providers.Web3Provider(currentProvider);
 let marketplaceAddress = ["0x059377c014cfc12DD2612EbfE9cFD1A6FC1A8883", "0xbb5f35d40132a0478f6aa91e79962e9f752167ea"];
 let projects = [
     {
-        name: "Healthy Meemop",
-        address: "0x06b656c87f98ec1aadb2c6ad2fb68a748befc71e",
-        tokenNumber: 73
+        name: "Wes",
+        address: "0xd32b3d836498c256f9011acfee644fc7cd137893",
+        tokenNumber: 20
     },
     {
-        name: "TFuel Tonic",
-        address: "0x358087474325ac1ffa13935c90f468e9fdc31044",
-        tokenNumber: 116
+        name: "Mitch",
+        address: "0x3626ea43a4ca7a4396d13af26ccd6e6657cabb7f",
+        tokenNumber: 40
     },
     {
-        name: "MeemopMania",
-        address: "0x38af6ddf4f3f3b044bd0ae1106d6726a011eefd1",
-        tokenNumber: 888,
+        name: "Jieyi",
+        address: "0x8ff39c1c650bbbb59f75d1e8ffca0f8f87a07571",
+        tokenNumber: 60
+    },
+    {
+        name: "Dyson",
+        address: "0x054f16e2fc75fd6e187f8728f140b0db2c0fecbb",
+        tokenNumber: 71,
+    },
+    {
+        name: "Cargo",
+        address: "0x97f25c2ba702a93030fb64b31acd8a26c79d8c8f",
+        tokenNumber: 94,
     }
 ];
 
 let baseConfig = {
     address: "",
-    "0x06b656c87f98ec1aadb2c6ad2fb68a748befc71e": 0,
-    "0x358087474325ac1ffa13935c90f468e9fdc31044": 0,
-    "0x38af6ddf4f3f3b044bd0ae1106d6726a011eefd1": 0,
-    // "0xcb58da80df801f000f59cebd9d51f4d50a9bb952": 0,
+    "0x3626ea43a4ca7a4396d13af26ccd6e6657cabb7f": 0,
+    "0xd32b3d836498c256f9011acfee644fc7cd137893": 0,
+    "0x8ff39c1c650bbbb59f75d1e8ffca0f8f87a07571": 0,
+    "0x054f16e2fc75fd6e187f8728f140b0db2c0fecbb": 0,
+    "0x97f25c2ba702a93030fb64b31acd8a26c79d8c8f": 0,
     // "0xb63a79d06ecbf137002832c7bb14266e25446982": 0,
 }
 
@@ -78,25 +89,25 @@ async function getAddress() {
 
     // Search on marketplace
 
-    let response = await axios.get(`https://open-theta.de/api/projects/${projects[0].address}/nft/on-market/`);
-    let marketplaceData = response.data;
-    for(let m=0; m<marketplaceData.length; m++) {
-        let inOwners = false;
-        if(marketplaceData[m].marketAddress && marketplaceData[m].marketAddress.toLowerCase() === marketplaceAddress[1].toLowerCase()) {
-            for(let o=0; o<owners.length; o++){
-                if(owners[o].address.toLowerCase() === marketplaceData[m].seller.toLowerCase()){
-                    owners[o][projects[0].address.toLowerCase()] += 1;
-                    inOwners = true
-                }
-            }
-            if(!inOwners) {
-                let owner = JSON.parse(JSON.stringify(baseConfig));
-                owner.address = marketplaceData[m].seller.toLowerCase();
-                owner[projects[0].address.toLowerCase()] += 1
-                owners.push(owner)
-            }
-        }
-    }
+    // let response = await axios.get(`https://open-theta.de/api/projects/${projects[0].address}/nft/on-market/`);
+    // let marketplaceData = response.data;
+    // for(let m=0; m<marketplaceData.length; m++) {
+    //     let inOwners = false;
+    //     if(marketplaceData[m].marketAddress && marketplaceData[m].marketAddress.toLowerCase() === marketplaceAddress[1].toLowerCase()) {
+    //         for(let o=0; o<owners.length; o++){
+    //             if(owners[o].address.toLowerCase() === marketplaceData[m].seller.toLowerCase()){
+    //                 owners[o][projects[0].address.toLowerCase()] += 1;
+    //                 inOwners = true
+    //             }
+    //         }
+    //         if(!inOwners) {
+    //             let owner = JSON.parse(JSON.stringify(baseConfig));
+    //             owner.address = marketplaceData[m].seller.toLowerCase();
+    //             owner[projects[0].address.toLowerCase()] += 1
+    //             owners.push(owner)
+    //         }
+    //     }
+    // }
 
     // Get of first NFT holders the amount of the other NFTs
 
@@ -114,20 +125,20 @@ async function getAddress() {
 
     // Search on marketplace
 
-    for(let p=1; p<projects.length;p++) {
-        response = await axios.get(`https://open-theta.de/api/projects/${projects[p].address}/nft/on-market/`);
-        marketplaceData = response.data;
-        for(let m=0; m<marketplaceData.length; m++) {
-            if (marketplaceData[m].marketAddress && marketplaceData[m].marketAddress.toLowerCase() === marketplaceAddress[1].toLowerCase()) {
-
-                for (let o = 0; o < owners.length; o++) {
-                    if (owners[o].address.toLowerCase() === marketplaceData[m].seller.toLowerCase()) {
-                        owners[o][projects[p].address.toLowerCase()] += 1;
-                    }
-                }
-            }
-        }
-    }
+    // for(let p=1; p<projects.length;p++) {
+    //     response = await axios.get(`https://open-theta.de/api/projects/${projects[p].address}/nft/on-market/`);
+    //     marketplaceData = response.data;
+    //     for(let m=0; m<marketplaceData.length; m++) {
+    //         if (marketplaceData[m].marketAddress && marketplaceData[m].marketAddress.toLowerCase() === marketplaceAddress[1].toLowerCase()) {
+    //
+    //             for (let o = 0; o < owners.length; o++) {
+    //                 if (owners[o].address.toLowerCase() === marketplaceData[m].seller.toLowerCase()) {
+    //                     owners[o][projects[p].address.toLowerCase()] += 1;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     // console.log(owners);
     console.log(owners.length);
