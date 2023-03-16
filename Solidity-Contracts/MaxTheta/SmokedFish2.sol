@@ -1365,33 +1365,142 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/access/Ownable.sol";
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
-// Token starting at 1
-contract DiamondHeadz_Phase_II is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract SmokedFish2 is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 999;
+    uint256 public MAX_NFT_SUPPLY = 420;
+    uint256 private Price = 888000000000000000000;
 
-    constructor(string memory uri) ERC721("DiamondHeadz Phase II", "DH-PII") {
+    bool public saleIsActive = false;
+
+    address public creatorAddress;
+
+    // randomize NFTs
+    uint16[420] private order;
+    uint private start;
+    uint private end;
+    uint private stepSize;
+    bool private orderIsCreated;
+    bool private orderIsShuffled;
+
+    constructor(address fee, string memory uri) ERC721("Smoked Fish 2", "SF2") {
+        creatorAddress = fee;
         baseURI = uri;
+
+        uint _stepSize = MAX_NFT_SUPPLY;
+        if(_stepSize < 1000) {
+            stepSize = _stepSize;
+        } else {
+            stepSize = 1000;
+        }
+        if(stepSize > MAX_NFT_SUPPLY) {
+            stepSize = MAX_NFT_SUPPLY;
+        }
+        end = stepSize;
+    }
+
+    function shuffle(uint seed) external onlyOwner {
+        require(orderIsCreated, "Order was not created");
+        require(!orderIsShuffled, "Not yet shuffled");
+        for (uint256 i = start; i < end; i++) {
+            uint256 n = i + uint256(keccak256(abi.encodePacked(block.timestamp + seed))) % (order.length - i);
+            uint16 temp = order[n];
+            order[n] = order[i];
+            order[i] = temp;
+        }
+        start = end;
+        end += stepSize;
+        if(end > MAX_NFT_SUPPLY) end = MAX_NFT_SUPPLY;
+        if(start == end) orderIsShuffled = true;
+    }
+
+    function createOrder() external onlyOwner {
+        require(!orderIsCreated, "Order was not created");
+        for (uint256 i = start; i < end; i++) {
+            order[i] = uint16(i+1);
+        }
+        start = end;
+        end += stepSize;
+        if(end > MAX_NFT_SUPPLY) end = MAX_NFT_SUPPLY;
+        if(start == end) {
+            orderIsCreated = true;
+            start = 0;
+            end = stepSize;
+            if(stepSize > 500) {
+                stepSize = 500;
+                end = stepSize;
+            }
+        }
+    }
+
+    /**
+    * @dev Gets current Price
+     */
+    function getNFTPrice() public view returns (uint256) {
+        require(totalSupply() < MAX_NFT_SUPPLY, "Sale has already ended");
+
+        return Price; // 1 - 420 888 TFUEL
     }
 
     /**
     * Set some NFTs aside
     */
     function reserveNFTS(uint256 numberOfNfts, address _senderAddress) public onlyOwner {
-
+        require(orderIsShuffled, "Not yet shuffled");
         for (uint i = 0; i < numberOfNfts; i++) {
             uint256 supply = totalSupply();
 
             if (supply < MAX_NFT_SUPPLY )
             {
-                uint256 tokenId = supply+1;
+                uint256 tokenId = order[supply];
                 _safeMint(_senderAddress, tokenId);
                 string memory id = Strings.toString(tokenId);
                 _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
             }
         }
+    }
+
+    /*
+    * Mint token if sale is active and total supply < max supply
+    */
+    function safeMint(address to) public payable {
+        require(saleIsActive, "Sale must be active to mint");
+        require(totalSupply() < MAX_NFT_SUPPLY, "Purchase would exceed max supply");
+        require(getNFTPrice() == msg.value, "TFuel value sent is not correct");
+
+        uint256 ownerPayout = (msg.value / 100) * 30;
+        uint256 creatorPayout = msg.value - ownerPayout;
+        payable(owner()).transfer(ownerPayout);
+        payable(creatorAddress).transfer(creatorPayout);
+
+        uint256 tokenId = order[totalSupply()];
+
+        _safeMint(to, tokenId);
+        string memory id = Strings.toString(tokenId);
+        _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
+    }
+
+    /*
+    * Pause sale if active, make active if paused
+    */
+    function flipSaleState() public onlyOwner {
+        require(orderIsShuffled, "Not yet shuffled");
+        saleIsActive = !saleIsActive;
+    }
+
+    /*
+    * Change fee address
+    */
+    function changeCreatorAddress(address newAddress) public onlyOwner {
+        creatorAddress = newAddress;
+    }
+
+    /*
+      * Change Price
+    */
+    function changePrice(uint256 price) public onlyOwner {
+        Price = price;
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -1429,6 +1538,3 @@ contract DiamondHeadz_Phase_II is ERC721, ERC721Enumerable, ERC721URIStorage, Ow
         return super.supportsInterface(interfaceId);
     }
 }
-
-
-

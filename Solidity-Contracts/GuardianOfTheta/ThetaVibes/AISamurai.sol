@@ -1365,14 +1365,14 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/access/Ownable.sol";
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
-// Token starting at 1
-contract DiamondHeadz_Phase_II is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract AI_Samurai is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 999;
+    uint256 public MAX_NFT_SUPPLY = 10;
 
-    constructor(string memory uri) ERC721("DiamondHeadz Phase II", "DH-PII") {
+
+    constructor(string memory uri) ERC721("AI Samurai", "`AIS`") {
         baseURI = uri;
     }
 
@@ -1380,7 +1380,7 @@ contract DiamondHeadz_Phase_II is ERC721, ERC721Enumerable, ERC721URIStorage, Ow
     * Set some NFTs aside
     */
     function reserveNFTS(uint256 numberOfNfts, address _senderAddress) public onlyOwner {
-
+        require(totalSupply() < MAX_NFT_SUPPLY, "Purchase would exceed max supply");
         for (uint i = 0; i < numberOfNfts; i++) {
             uint256 supply = totalSupply();
 
@@ -1429,6 +1429,3 @@ contract DiamondHeadz_Phase_II is ERC721, ERC721Enumerable, ERC721URIStorage, Ow
         return super.supportsInterface(interfaceId);
     }
 }
-
-
-

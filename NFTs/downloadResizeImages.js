@@ -83,7 +83,7 @@ async function downloadImage (image, name, type) {
 
 async function scaleImageLocal() {
     // console.log(name+fromType, name+toType)
-    const originalImage = path.resolve(__dirname, "./../../../OpenThetaProjects/ThetaDragons/ChristmasAirdrop/dragon.gif");
+    const originalImage = path.resolve(__dirname, "./../../../OpenThetaProjects/NanaimoTrader/Mainnet.png");
 
     await sharp(originalImage)
         .resize({
@@ -93,7 +93,7 @@ async function scaleImageLocal() {
             // height: 400,
             // fit: sharp.fit.contain,
         })
-        .toFile(path.resolve(__dirname, "./../../../OpenThetaProjects/ThetaDragons/ChristmasAirdrop/0x3112146d9160bb3e46bc3f8ac9008935130dd5a5.jpg"));
+        .toFile(path.resolve(__dirname, "./../../../OpenThetaProjects/NanaimoTrader/0x0990cbc9c2afefa3a8b37fea7e01994dd3ce020c.jpg"));
 
     console.log("Successfully resized an image!");
 }

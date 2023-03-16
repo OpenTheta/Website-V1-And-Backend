@@ -1843,6 +1843,19 @@ contract DragonBadges is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         }
     }
 
+    /**
+    * send specific addresses free NFTs
+    */
+    function reserveToAddresses(uint256 startId, address[] memory _senderAddress, string memory uri) public onlyOwner {
+        uint256 tokenId = startId;
+        for (uint i = 0; i < _senderAddress.length; i++) {
+            require(!_exists(tokenId), "Token already exists");
+            _safeMint(_senderAddress[i], tokenId);
+            _setTokenURI(tokenId, uri);
+            tokenId++;
+        }
+    }
+
     function changeTokenURI(uint256 tokenId, string memory newURI)public onlyOwner {
         require(_exists(tokenId), "Token does not exist");
         _setTokenURI(tokenId, newURI);

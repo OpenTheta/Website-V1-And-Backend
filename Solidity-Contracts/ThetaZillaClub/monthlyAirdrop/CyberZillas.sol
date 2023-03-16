@@ -1365,15 +1365,29 @@ pragma solidity ^0.8.2;
 //import "@openzeppelin/contracts/access/Ownable.sol";
 //import "@openzeppelin/contracts/utils/Counters.sol";
 
-// Token starting at 1
-contract DiamondHeadz_Phase_II is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract CyberZillas is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     string private baseURI;
 
-    uint256 public MAX_NFT_SUPPLY = 999;
+    uint256 public MAX_NFT_SUPPLY = 21;
 
-    constructor(string memory uri) ERC721("DiamondHeadz Phase II", "DH-PII") {
+    bool public saleIsActive = false;
+
+    address public feeAddress;
+
+    constructor(address fee, string memory uri) ERC721("CyberZillas", "CZ") {
+        feeAddress = fee;
         baseURI = uri;
+    }
+
+    /**
+    * @dev Gets current Price
+     */
+    function getNFTPrice() public view returns (uint256) {
+        uint currentSupply = totalSupply();
+        require(currentSupply < MAX_NFT_SUPPLY, "Sale has already ended");
+
+        return 100000000000000000000; // 1 - 21 100 TFUEL
     }
 
     /**
@@ -1392,6 +1406,57 @@ contract DiamondHeadz_Phase_II is ERC721, ERC721Enumerable, ERC721URIStorage, Ow
                 _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
             }
         }
+    }
+
+    /**
+    * send specific addresses free NFTs
+    */
+    function reserveToAddresses(uint256 numberOfNfts, address[] memory _senderAddress) public onlyOwner {
+
+        for (uint i = 0; i < numberOfNfts; i++) {
+            uint supply = totalSupply() + 1;
+            if (totalSupply() < MAX_NFT_SUPPLY)
+            {
+                _safeMint(_senderAddress[i], supply);
+                string memory id = Strings.toString(supply);
+                _setTokenURI(supply, string(abi.encodePacked(id, ".json")));
+            }
+        }
+    }
+
+    /*
+    * Mint token if sale is active and total supply < max supply
+    */
+    function safeMint(address to) public payable {
+        require(saleIsActive, "Sale must be active to mint");
+        require(totalSupply() < MAX_NFT_SUPPLY, "Purchase would exceed max supply");
+        require(getNFTPrice() == msg.value, "TFuel value sent is not correct");
+
+        uint256 ownerPayout = (msg.value / 100) * 2;
+        uint256 feePayout = msg.value - ownerPayout;
+        payable(owner()).transfer(ownerPayout);
+        payable(feeAddress).transfer(feePayout);
+
+        uint256 tokenId = totalSupply() + 1;
+
+        _safeMint(to, tokenId);
+        string memory id = Strings.toString(tokenId);
+        _setTokenURI(tokenId, string(abi.encodePacked(id, ".json")));
+    }
+
+    /*
+    * Pause sale if active, make active if paused
+    */
+    function flipSaleState() public onlyOwner {
+        saleIsActive = !saleIsActive;
+    }
+
+    /*
+    * Change fee address
+    */
+    function changeFeeAddress(address newAddress) public {
+        require(feeAddress == msg.sender, 'Only current feeAddress can change it');
+        feeAddress = newAddress;
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -1429,6 +1494,3 @@ contract DiamondHeadz_Phase_II is ERC721, ERC721Enumerable, ERC721URIStorage, Ow
         return super.supportsInterface(interfaceId);
     }
 }
-
-
-

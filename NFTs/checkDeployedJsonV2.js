@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 
-const baseURL = 'https://arweave.net/Cnj4j0ZXCfRCt7d9Y5-UeaXNaulqfeZOp9Tz3Or5xoM/'; // JSON
+const baseURL = 'https://arweave.net/UCd_sVQXItreKnFU96KoQz25P7m3dswaIV65C5sVA14/'; // JSON
 const hasNumbering = true
 
 async function check () {
@@ -26,7 +26,7 @@ async function check () {
         }
     }
     process.stdout.write("Checking:")
-    for (let i = 1; i <=33; i++) {
+    for (let i = 1; i <=420; i++) {
         if(i%10 === 0)process.stdout.write(" " + i)
         finalReport.metadata.checked.push(i)
         let count = 0
