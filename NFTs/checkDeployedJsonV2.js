@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 
-const baseURL = 'https://arweave.net/UCd_sVQXItreKnFU96KoQz25P7m3dswaIV65C5sVA14/'; // JSON
+const baseURL = 'https://arweave.net/e0xxhTN-eax1LNKb_Uw2sNcqtHqpOV_TcBQOTEfbeis/'; // JSON
 const hasNumbering = true
 
 async function check () {
@@ -26,7 +26,7 @@ async function check () {
         }
     }
     process.stdout.write("Checking:")
-    for (let i = 1; i <=420; i++) {
+    for (let i = 1; i <=54; i++) {
         if(i%10 === 0)process.stdout.write(" " + i)
         finalReport.metadata.checked.push(i)
         let count = 0
@@ -90,23 +90,23 @@ async function check () {
                     });
                 }
             }
-            if(metadata.data.theta_api) {
-                finalReport.videoApi.checked.push(i)
-                count = 0
-                timeout = true
-                while(timeout){
-                    timeout = false
-                    axios.get("https://player.thetavideoapi.com/video/"+metadata.data.theta_api.videoId, {timeout: 3000}).catch(error => {
-                        count += 1
-                        if(count < 20){
-                            timeout = true
-                        } else {
-                            finalReport.videoApi.failed.push(i)
-                            console.log("Error VideoAPI", metadata.data.theta_api.videoId, "Metadata", i);
-                        }
-                    });
-                }
-            }
+            // if(metadata.data.theta_api) {
+            //     finalReport.videoApi.checked.push(i)
+            //     count = 0
+            //     timeout = true
+            //     while(timeout){
+            //         timeout = false
+            //         axios.get("https://player.thetavideoapi.com/video/"+metadata.data.theta_api.videoId, {timeout: 3000}).catch(error => {
+            //             count += 1
+            //             if(count < 20){
+            //                 timeout = true
+            //             } else {
+            //                 finalReport.videoApi.failed.push(i)
+            //                 console.log("Error VideoAPI", metadata.data.theta_api.videoId, "Metadata", i);
+            //             }
+            //         });
+            //     }
+            // }
         }
     }
     console.log(finalReport)

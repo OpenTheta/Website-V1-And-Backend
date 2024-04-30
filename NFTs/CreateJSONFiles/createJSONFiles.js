@@ -1,93 +1,90 @@
 const fs = require('fs');
 
-// File specifics
-// {
-//     "name":"ThetaPug #1",
-//     "symbol":"PUG",
-//     "description":"A Collection of 10,000 Randomly Generated Pug NFTs, exclusive to the Theta Blockchain",
-//     "image":"https://arweave.net/<ID>/1.png",
-//     "external_url": "https://thetapugs.com/",
-// }
+let videoIds = [
+    "video_f07cuavwdrm7erxb8hasqnt9pr"
+    // "video_4vum7zgh7880fq808gzeypsnqg",
+    // "video_ckfabzv0f53mreqyv55j4fg4ve",
+    // "video_2xbiw9fum2jy2xxw8fitrj9ds8",
+    // "video_cgvzep91wv6qhv004hus611b7f",
+    // "video_gxac8y92zcnsq5z89yir10598h",
+    // "video_tbr2ev6gezcrmsicfx5zwxntsj",
+    // "video_yj64gpwcwpbzsgy5jahrs5xebv",
+    // "video_n221ttz8n9azw9vaq0f7wkbe39",
+    // "video_536b5qttnhkpkw8i7hmkfanh4x",
+    // "video_cr91jfhfvx44192wjvje2tmtiz",
 
-const baseImageURI = [
-    "https://arweave.net/ZLYjT_UcF4J0TKkepDJ8SvPla8KPqYVjiAR7xhDKbiU", // 55
+
 ]
 
-const baseName = "Mega Meemop! #";
-const description = 'This Theta-fueled little guy is ready for some blockchain action! Meep!!!!'
-const external_url = "https://www.meemopmania.com"
-const twitter = "https://twitter.com/itsfeldman";
-const tokenNumber = 73;
-// const attributes = [
-//     {
-//         "trait_type": "Tier",
-//         "value": "2"
-//     }
-// ]
+const name = "Edge Cloud Jelly"
+const imageUrl = "https://arweave.net/Qc7i5xrOax4iTNQbJ8gCwPkMSRmXVfA1FEbrM8uI9P8"
+const description = "Commemorating the launch of Edge Cloud"
+const animation_url = "https://arweave.net/L48pUyuyaMea04vir4gVSuTIFEsvalyh0rOAf3LYqQQ"
+const thetaVideo = {videoId: "video_u8re4tss09376r13qy6x5nw3g6"}
+// const external_url = "https://linktr.ee/iastrobeing"
+const creator = "Max Theta"
+const twitter = "https://twitter.com/opentheta";
+// const collection = ""
+const tokenNumber = 54
+// const attributes = [{"trait_type":"rarity","value":"None"},{"trait_type":"event","value":"ThetaCon23"},{"trait_type":"radius","value":"0%"},{"trait_type":"artist","value":"Theta Vibes"}]
+// const attributes = [{"trait_type":"event","value":"CampTheta"},{"trait_type":"rarity","value":"Custom"},{"trait_type":"artist","value":"Max Theta"}]
+// const attributes = [{"trait_type":"Artist","value":"TheRareRobot"},{"trait_type":"Type","value":"Early Bird"}]
+let attributes = [
+    {
+        "trait_type": "event",
+        "value": "Giveaway"
+    },
+    {
+        "trait_type": "artist",
+        "value": "Max Theta"
+    }
+]
+// const attributes = [{"trait_type":"collaborator","value":"@ReikiMatt"},{"trait_type":"chakra","value":"Muladhara"}]
+let jsonID = 1
 
+async function writeFile(jsonId) {
+    // let thetaVideo = {videoId: videoIds[jsonId-1]}
+    // jsonId = jsonId+350
 
-const creator = "Cyko KO"
-const collection = ""
-
-async function writeFile(jsonId, extension) {
-    // fs.readFile('./../../../OpenThetaProjects/ThetaTeeth/json/'+ (jsonId) + '.json', 'utf8' , (err, data) => {
-    //     if (err) {
-    //         console.error(err);
-    //         return;
-    //     }
-        // let image = baseImageURI[0]+(jsonId).toString()+".png";
-        // let image = baseImageURI
-
-        // data =  JSON.parse(data);
     let data = {
-        name: baseName + jsonId.toString(),
-        // name: baseName,
-        // image: baseImageURI[0] + jsonId + "." + extension,
-        image: baseImageURI[0],
+        name: name + ` #`+ jsonId.toString(),
+        // name: name,
+        // image: imageUrl + videoIds[jsonId-1] + ".png",
+        // image: imageUrl + jsonId + ".png",
+        image: imageUrl,
+        // image_hd: "https://arweave.net/_aNIuICZYQBThd60Jh5Zm-_gQI0uLLqgvXkG7duOALk",
+        // gif: "https://arweave.net/Q10bG-mJgk6pmNSCF-WOlLqSWw1ULc_h_N7Bk0T_M1g",
         description: description,
-        // attributes:attributes,
-        external_url: external_url,
+        // animation_url: animation_url + videoIds[jsonId-1] + ".mp4",
+        // animation_url: animation_url,
+        // theta_api: thetaVideo,
+        // external_url: external_url,
         creator: creator,
-        twitter: twitter,
+        // twitter: twitter,
+        // attributes: attributes
         // collection: collection
     }
-        // data.description = description;
-        // data["external_url"] = external_url;
-        // data.name = baseName + (jsonId).toString();
-        // data["twitter"] = twitter;
-        // data["image"] = image;
-        // data["creator"] = creator;
-        // delete data.compiler;
-        fs.writeFile("./../../../../OpenThetaProjects/CykoKo/Meemop/MegaMeemop/metadata/"+jsonId.toString()+".json", JSON.stringify(data), function(err) {
-            if (err) {
-                console.log(err);
-            }
-        });
+    fs.writeFileSync("./../../../../OpenTheta/Projects/MaxTheta/Panamals/Airdrop1/metadata/"+jsonId+".json", JSON.stringify(data), function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    // fs.writeFile("./../../../../OpenTheta/Projects/ThetaSeeds/Challenge5/metadata.json", JSON.stringify(data), function(err) {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    // });
+    // fs.writeFile("./../../../../OpenThetaProjects/ThetaCon/TC22/metadata/"+jsonId+".json", JSON.stringify(data), function(err) {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    // });
     // });
 }
-const baseID = 0;
+
 for(let i=1; i<=tokenNumber; i++) {
-    writeFile( baseID+i);
+    // if(![24, 46, 52, 75, 94, 100].includes(i)) {
+        writeFile(i)
+    // }
 }
 
-// Create a array with numbers from 0 to 9999
-// let a = [];
-// for (let i=1;i<=tokenNumber;++i){
-//     writeFile(i,)
-// }
-
-// let counter = 1
-// fs.readdirSync("./../../../../OpenThetaProjects/Zenba/indientz/FullDiscs/").forEach(file => {
-//     let arr = file.split(".")
-//     if(arr[1] === "jpg") {
-//         fs.copyFile(`./../../../../OpenThetaProjects/Zenba/indientz/FullDiscs/${file}`, `./../../../../OpenThetaProjects/Zenba/indientz/FullDiscs/test/${counter}.jpg`, (err) => {
-//             if (err) throw err;
-//             console.log('File was copied to destination');
-//         });
-//         counter ++
-//     }
-//     // let extension = arr.pop()
-//     // let newName = file.replace(/(^\d+)(.+$)/i,'$1') + "." + extension;
-//     // console.log(arr[0], arr[1])
-//     // writeFile(arr[0], arr[1])
-// });
